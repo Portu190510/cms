@@ -10,3 +10,22 @@
 .page-content {
     min-height: 900px;
 }
+
+.pageNotFoundBlock {
+    font-size: -webkit-xxx-large;
+    opacity: 0.3;
+    margin-top: 10%;
+    text-align: center;
+}
+
+.login-page{
+        font-size: 224px;
+    text-align: center;
+    opacity: 0.8;
+    background-color: aqua;
+}
+
+.login-form{
+        display: table;
+    margin: auto;
+}
