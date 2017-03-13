@@ -2,7 +2,7 @@ import alt from '../Alt';
 import AuthActions from '../Actions/AuthActions';
 import InterceptorUtil from '../Utils/InterceptorUtil';
 import Config from '../config';
-import history from '../history';
+import {browserHistory} from 'react-router';
 import axios from 'axios';
 import Uri from 'jsuri';
 
@@ -16,18 +16,57 @@ class AuthStore {
     this.user = null;
     this.error = null;
   }
+  // client_id=' + Config.clientId +
+  // '&redirect_uri=http://localhost:5002/signin-oidc'+ 'response_type=token'+
+  // 'scope=LMS';      '&client_secret=' + Config.clientSecret + '&grant_type=' +
+  // grantType;
 
-  /**
-   * Login handler
-   * @param credentials
-   */
+  /*
+{
+      client_id: Config.clientId,
+      grant_type: 'password',
+      scope: 'LMS',
+      client_secret: Config.clientSecret,
+      password: credentials.password,
+      username: credentials.username
+
+    }
+        var params = new URLSearchParams();
+    params.append('username', credentials.username);
+    params.append('client_id', Config.clientId);
+    params.append('password', credentials.password);
+    params.append('scope', 'LMS');
+    params.append('client_secret', Config.clientSecret);
+    params.append('grant_type', 'password');
+  */
   onLogin(credentials) {
-    axios
-      .get(this.getAuthEndpoint('password') + '&username=' + credentials.username + '&password=' + credentials.password)
+
+    var item = {
+      client_id: Config.clientId,
+      grant_type: 'password',
+      scope: 'LMS',
+      client_secret: Config.clientSecret,
+      password: credentials.password,
+      username: credentials.username
+
+    };
+    var form_data = new FormData();
+
+    for (var key in item) {
+      form_data.append(key, item[key]);
+    }
+
+    axios.post(Config.apiUrl+ '/connect/token', form_data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': 'application/json'
+      }
+    })
       .then(response => {
         this.saveTokens(response.data);
-
-        return axios.get(Config.apiUrl + '/me');
+      //   return axios.get(Config.apiUrl + '/user');
+      return {data:{user:null}};
+       
       })
       .then(response => {
         this.loginSuccess(response.data.user);
@@ -37,105 +76,88 @@ class AuthStore {
       });
   }
 
-  /**
-   * Process login success
-   * @param user
-   */
   loginSuccess(user) {
-    localStorage.setItem('user', JSON.stringify(user));
-
-    this.setState({ user: user });
-    history.replaceState(null, '/');
+ //   localStorage.setItem('user', JSON.stringify(user));
+//    this.setState({user: user});
+    browserHistory.push('/');
   }
 
-  /**
-   * Handle login error
-   * @param response
-   */
   loginError(response) {
-    this.setState({ accessToken: null, refreshToken: null, error: response.data.error_description, user: null});
+    this.setState({accessToken: null, refreshToken: null, error: response.data.error_description, user: null});
   }
 
-  /**
-   * Try to connect user from local storage
-   */
   onLocalLogin() {
     let accessToken = localStorage.getItem('access_token');
     let refreshToken = localStorage.getItem('refresh_token');
     let user = JSON.parse(localStorage.getItem('user'));
 
-    if (accessToken && refreshToken && user) {
+  //  if (accessToken && refreshToken && user) {
+     if (accessToken){
       this.saveTokens({access_token: accessToken, refresh_token: refreshToken});
       this.loginSuccess(user);
     }
   }
 
-  /**
-   * Try to refresh user access token
-   */
   onRefreshToken(params) {
     let refreshToken = localStorage.getItem('refresh_token');
 
     if (refreshToken) {
-      axios.interceptors.request.eject(InterceptorUtil.getInterceptor());
       axios
-        .get(this.getAuthEndpoint('refresh_token') + '&refresh_token=' + refreshToken)
-        .then(response => {
-          this.saveTokens(response.data);
+        .interceptors
+        .request
+        .eject(InterceptorUtil.getInterceptor());
+      axios.get(this.getAuthEndpoint('refresh_token') + '&refresh_token=' + refreshToken).then(response => {
+        this.saveTokens(response.data);
 
-          // Replay request
-          axios(params.initialRequest).then(response => {
-            params.resolve(response);
-          }).catch(response => {
-            params.reject(response);
-          });
-        })
-        .catch(() => {
-          this.onLogout();
+        // Replay request
+        axios(params.initialRequest).then(response => {
+          params.resolve(response);
+        }).catch(response => {
+          params.reject(response);
         });
+      }).catch(() => {
+        this.onLogout();
+      });
     }
   }
 
-  /**
-   * Logout user
-   */
   onLogout() {
     localStorage.clear();
 
-    this.setState({ accessToken: null, refreshToken: null, error: null});
+    this.setState({accessToken: null, refreshToken: null, error: null});
 
-    axios.interceptors.request.eject(InterceptorUtil.getInterceptor());
+    axios
+      .interceptors
+      .request
+      .eject(InterceptorUtil.getInterceptor());
 
-    history.replaceState(null, '/login');
+    browserHistory.push('/login');
   }
 
-  /**
-   * Save tokens in local storage and automatically add token within request
-   * @param params
-   */
   saveTokens(params) {
     const {access_token, refresh_token} = params;
 
     localStorage.setItem('access_token', access_token);
     localStorage.setItem('refresh_token', refresh_token);
-    this.setState({ accessToken: access_token, refreshToken: refresh_token, error: null});
+    this.setState({accessToken: access_token, refreshToken: refresh_token, error: null});
 
     // Automatically add access token
-    var interceptor = axios.interceptors.request.use((config) => {
-      config.url = new Uri(config.url).addQueryParam('access_token', access_token);
-      return config;
-    });
+    var interceptor = axios
+      .interceptors
+      .request
+      .use((config) => {
+     //   config.url = new Uri(config.url).addQueryParam('access_token', access_token);
+      config.headers.access_token =  access_token;
+        return config;
+      });
 
     InterceptorUtil.setInterceptor(interceptor)
   }
 
-  /**
-   * Return API endpoint with given grant type (default password)
-   * @param grantType
-   * @returns {string}
-   */
-  getAuthEndpoint(grantType='password') {
-    return Config.apiUrl + '/oauth/v2/token?client_id=' + Config.clientId + '&client_secret=' + Config.clientSecret + '&grant_type=' + grantType;
+  getAuthEndpoint(grantType = 'password') {
+    return Config.apiUrl + '/connect/authorize/login?client_id=' + Config.clientId +
+    //     '&redirect_uri=http://localhost:5002/signin-oidc'+ 'response_type=token'+
+    '&scope=LMS&client_secret=' + Config.clientSecret + '&grant_type=' + grantType;
   }
 }
 

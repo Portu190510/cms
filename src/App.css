@@ -18,14 +18,16 @@
     text-align: center;
 }
 
-.login-page{
-        font-size: 224px;
+.login-page {
+    font-size: 200px;
     text-align: center;
     opacity: 0.8;
-    background-color: aqua;
+    background-color: #2196F3;
+    padding-top: 150px;
+    height: 200px;
 }
 
-.login-form{
-        display: table;
+.login-form {
+    display: table;
     margin: auto;
 }

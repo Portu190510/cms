@@ -1,19 +1,18 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import UserGridComponent from "./UserGridComponent";
 
-const  testDataList = [{UserId:'123',FirstName:'Gomer',LastName:'Simpson'
-        ,Email:'mail@gmail.com',SignupSource:'Facebook',LastLoginDate:'Today',SignupDate:'Today',PublisherId:'234234',},
-        {UserId:'123',FirstName:'Lisa',LastName:'Simpson'
-        ,Email:'mail@gmail.com',SignupSource:'Facebook',LastLoginDate:'Today',SignupDate:'Today',PublisherId:'234234',}];
-
 class UserReportComponent extends Component {
-    constructor(props){
-        super(props);
-        this.state = { dataList: testDataList};
-    }
+
+  componentDidMount() {
+    window.componentHandler.upgradeDom();      // <==
+  }
+
+  componentWillUnmount() {
+    window.componentHandler.upgradeDom();   // <==
+  }
   render() {
     return (
-            <UserGridComponent dataList={this.state.dataList}></UserGridComponent>
+      <UserGridComponent></UserGridComponent>
     );
   }
 }
