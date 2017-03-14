@@ -29,9 +29,7 @@ class CoursesReportComponent extends Component {
       dataList: testDataList
     };
 
-    this.filterDataList = this
-      .filterDataList
-      .bind(this);
+    this.filterDataList = this.filterDataList.bind(this);
   }
 
   componentDidMount() {

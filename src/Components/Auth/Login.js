@@ -19,59 +19,29 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    window
-      .componentHandler
-      .upgradeDom();
+    window.componentHandler.upgradeDom();
   }
 
   componentWillUnmount() {
-    window
-      .componentHandler
-      .upgradeDom();
+    window.componentHandler.upgradeDom();
   }
 
   render() {
-    var divError = (AuthStore.getState().error)
-      ? (
-        <p>{AuthStore
-            .getState()
-            .error}</p>
-      )
-      : null;
+    var divError = (AuthStore.getState().error) ? (<p>{AuthStore.getState().error}</p>): null;
     return (
       <div>
-        <div className="login-page">
-          CyberU
-          <div
-            style={{
-            fontSize: '20px',
-            marginTop: '75px',
-            marginLeft: '320px'
-          }}>Content Management and then some</div>
+        <div className="login-page">CyberU
+          <div className="header-label">Content Management and then some</div>
         </div>
         <div className="login-form">
-          <form onSubmit={this
-            .onClickLogin
-            .bind(this)}>
+          <form onSubmit={this.onClickLogin.bind(this)}>
             <div className="mdl-textfield mdl-js-textfield">
-              <Textfield
-                ref="usernameInput"
-                label="Email"
-                style={{
-                width: '250px'
-              }}/>
+              <Textfield ref="usernameInput" label="Email" className="app-input"/>
             </div>
             <div className="mdl-textfield mdl-js-textfield">
-              <Textfield
-                ref="passwordInput"
-                label="Password"
-                style={{
-                width: '250px'
-              }}/>
+              <Textfield ref="passwordInput" label="Password" type="password" className="app-input"/>
             </div>
-            <Button ripple>
-              <i className="material-icons">input</i>
-              Login</Button>
+            <Button ripple> <i className="material-icons">input</i> Login</Button>
           </form>
           <div className="mdl-textfield__error">
             {divError}

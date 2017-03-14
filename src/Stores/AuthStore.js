@@ -16,69 +16,48 @@ class AuthStore {
     this.user = null;
     this.error = null;
   }
-  // client_id=' + Config.clientId +
-  // '&redirect_uri=http://localhost:5002/signin-oidc'+ 'response_type=token'+
-  // 'scope=LMS';      '&client_secret=' + Config.clientSecret + '&grant_type=' +
-  // grantType;
 
-  /*
-{
-      client_id: Config.clientId,
-      grant_type: 'password',
-      scope: 'LMS',
-      client_secret: Config.clientSecret,
-      password: credentials.password,
-      username: credentials.username
-
-    }
-        var params = new URLSearchParams();
-    params.append('username', credentials.username);
-    params.append('client_id', Config.clientId);
-    params.append('password', credentials.password);
-    params.append('scope', 'LMS');
-    params.append('client_secret', Config.clientSecret);
-    params.append('grant_type', 'password');
-  */
   onLogin(credentials) {
-
-    var item = {
+    var authData = {
       client_id: Config.clientId,
-      grant_type: 'password',
-      scope: 'LMS',
+      grant_type: Config.grant_type,
+      scope: Config.scope,
       client_secret: Config.clientSecret,
       password: credentials.password,
       username: credentials.username
-
     };
-    var form_data = new FormData();
 
-    for (var key in item) {
-      form_data.append(key, item[key]);
-    }
+  //  axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
+  //  axios.defaults.headers['Access-Control-Allow-Headers'] = '*';
+  //  axios.defaults.headers['Access-Control-Allow-Methods'] = 'PUT, GET, POST, DELETE, OPTIONS';
 
-    axios.post(Config.apiUrl+ '/connect/token', form_data, {
+    axios.post(this.getAuthEndpoint('password'), this.getFormData(authData), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Accept': 'application/json'
       }
-    })
-      .then(response => {
+    }).then(response => {
         this.saveTokens(response.data);
-      //   return axios.get(Config.apiUrl + '/user');
-      return {data:{user:null}};
-       
+        var userInfo =JSON.parse(window.atob(response.data.access_token.split('.')[1]) );
+        return userInfo;
       })
-      .then(response => {
-        this.loginSuccess(response.data.user);
+      .then(userInfo => {
+        this.loginSuccess(userInfo);
       })
       .catch(response => {
         this.loginError(response);
       });
   }
 
-  loginSuccess(user) {
- //   localStorage.setItem('user', JSON.stringify(user));
-//    this.setState({user: user});
+  loginSuccess(userInfo) {
+    var user = {
+      name: userInfo.name,
+      sub:userInfo.sub,
+      role:userInfo.role
+    };
+    
+    localStorage.setItem('user', JSON.stringify(user));
+    this.setState({user: user});
     browserHistory.push('/');
   }
 
@@ -147,6 +126,7 @@ class AuthStore {
       .request
       .use((config) => {
      //   config.url = new Uri(config.url).addQueryParam('access_token', access_token);
+      config.headers['Authorization'] = 'Bearer'; 
       config.headers.access_token =  access_token;
         return config;
       });
@@ -155,9 +135,17 @@ class AuthStore {
   }
 
   getAuthEndpoint(grantType = 'password') {
-    return Config.apiUrl + '/connect/authorize/login?client_id=' + Config.clientId +
-    //     '&redirect_uri=http://localhost:5002/signin-oidc'+ 'response_type=token'+
-    '&scope=LMS&client_secret=' + Config.clientSecret + '&grant_type=' + grantType;
+    return Config.apiUrl + '/connect/token';
+  }
+
+  getFormData(data){
+    var form_data = new FormData();
+
+    for (var key in data) {
+      form_data.append(key, data[key]);
+    }
+
+    return form_data;
   }
 }
 

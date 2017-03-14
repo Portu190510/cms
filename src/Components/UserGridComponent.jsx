@@ -18,15 +18,11 @@ class UserGridComponent extends Component {
   componentDidMount() {
     UserReportStore.listen(this.onChange);
     UserReportActions.fetchDataList();
-    window
-      .componentHandler
-      .upgradeDom();
+    window.componentHandler.upgradeDom();
   }
 
   componentWillUnmount() {
-    window
-      .componentHandler
-      .upgradeDom(); // <==
+    window.componentHandler.upgradeDom();
     UserReportStore.unlisten(this.onChange);
   }
 
@@ -37,12 +33,8 @@ class UserGridComponent extends Component {
   constructor(props) {
     super(props);
     this.state = UserReportStore.getState();
-    this.onChange = this
-      .onChange
-      .bind(this);
-    this.filterDataList = this
-      .filterDataList
-      .bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.filterDataList = this.filterDataList.bind(this);
   }
 
   nextPage() {}
@@ -53,11 +45,7 @@ class UserGridComponent extends Component {
 
   render() {
     return (
-      <div
-        className="mdl-card mdl-shadow--2dp"
-        style={{
-        width: '100%'
-      }}>
+      <div className="mdl-card mdl-shadow--2dp" style={{  width: '100%' }}>
         <div className="mdl-card__supporting-text">
           <UserSearchComponent filterCallBack={this.filterDataList}></UserSearchComponent>
         </div>
@@ -69,10 +57,10 @@ class UserGridComponent extends Component {
           sortable
           selectable
           shadow={0}
-          rowKeyColumn="UserId"
+          rowKeyColumn="userId"
           rows={this.state.dataList}>
           <TableHeader
-            name="UserId"
+            name="userId"
             sortFn={(a, b, isAsc) => (isAsc
             ? a
             : b).match(/\((.*)\)/)[1].localeCompare((isAsc
@@ -81,25 +69,25 @@ class UserGridComponent extends Component {
             tooltip="User Id">
             User ID
           </TableHeader>
-          <TableHeader name="FirstName" tooltip="FirstName">
+          <TableHeader name="firstName" tooltip="FirstName">
             FirstName
           </TableHeader>
-          <TableHeader name="LastName" tooltip="LastName">
+          <TableHeader name="lastName" tooltip="LastName">
             LastName
           </TableHeader>
-          <TableHeader name="Email" tooltip="Email">
+          <TableHeader name="email" tooltip="Email">
             Email
           </TableHeader>
-          <TableHeader name="SignupSource" tooltip="SignupSource">
+          <TableHeader name="signupSource" tooltip="SignupSource">
             SignupSource
           </TableHeader>
-          <TableHeader name="LastLoginDate" tooltip="LastLoginDate">
+          <TableHeader name="lastLoginDate" tooltip="LastLoginDate">
             LastLoginDate
           </TableHeader>
-          <TableHeader name="SignupDate" tooltip="SignupDate">
+          <TableHeader name="signupDate" tooltip="SignupDate">
             SignupDate
           </TableHeader>
-          <TableHeader numeric name="PublisherId" tooltip="Publisher Id">
+          <TableHeader numeric name="publisherId" tooltip="Publisher Id">
             PublisherId
           </TableHeader>
         </Table>

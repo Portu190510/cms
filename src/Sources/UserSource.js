@@ -1,6 +1,14 @@
+import Config from '../config';
+import axios from 'axios';
+
 var UserSource = {
     fetch: function() {
-        return new Promise(function(resolve, reject) {
+        return  axios.get(Config.apiUrl + '/user',).then(response => {
+        return response.data;
+      }).catch(response => {
+        console.log(response);
+      });
+     /*   new Promise(function(resolve, reject) {
             setTimeout(function() {
                 var mockup = [{
                     UserId: '123',
@@ -24,7 +32,8 @@ var UserSource = {
 
                 resolve(mockup);
             }, 250);
-        });
+           
+        }); */
     }
 };
 

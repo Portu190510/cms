@@ -4,11 +4,11 @@ import {Link} from 'react-router';
 class NavigationComponent extends Component {
 
 componentDidMount() {
-    window.componentHandler.upgradeDom();      // <==
+    window.componentHandler.upgradeDom();   
   }
 
   componentWillUnmount() {
-    window.componentHandler.upgradeDom();   // <==
+    window.componentHandler.upgradeDom();   
   }
   render() {
     return (
@@ -19,16 +19,12 @@ componentDidMount() {
             to="/courses-report"
             activeClassName="active"
             className="mdl-navigation__link"
-            activeStyle={{
-            fontWeight: "bold"
-          }}>Manage Courses</Link>
+            activeStyle={{ fontWeight: "bold" }}>Manage Courses</Link>
           <Link
             to="/user-report"
             activeClassName="active"
             className="mdl-navigation__link"
-            activeStyle={{
-            fontWeight: "bold"
-          }}>Users</Link>
+            activeStyle={{ fontWeight: "bold" }}>Users</Link>
         </nav>
       </div>
     );

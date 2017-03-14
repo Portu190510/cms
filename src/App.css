@@ -7,6 +7,25 @@
     color: white;
 }
 
+.header-user-name{
+    text-align: right;
+    padding-right: 10px;
+}
+
+.header-title{
+    margin-left: 5px;
+}
+
+.header-logout-button{
+    position: initial !important;
+}
+
+.header-label{
+font-size: 20px;
+    margin-top: 75px;
+    margin-left: 320px;
+}
+
 .page-content {
     min-height: 900px;
 }
@@ -30,4 +49,8 @@
 .login-form {
     display: table;
     margin: auto;
+}
+
+.app-input{
+    width: 250px;
 }
