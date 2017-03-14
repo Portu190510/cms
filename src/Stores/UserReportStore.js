@@ -20,9 +20,9 @@ class UserReportStore {
       firstName: item.firstName,
       lastName: item.lastName,
       email: item.email,
-      signupSource: item.signupSource,
-      lastLoginDate: item.signupSources[0].lastLoginDateTime,
-      signupDate: item.signupSources[0].signUpDateTime,
+      signupSource: item.signupSources[0].source,
+      lastLoginDate: (new Date(item.signupSources[0].lastLoginDateTime)).toDateString(),
+      signupDate: (new Date(item.signupSources[0].signUpDateTime)).toDateString(),
       publisherId: item.publisherId
     }
   });
