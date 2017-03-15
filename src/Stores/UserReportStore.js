@@ -28,13 +28,6 @@ class UserReportStore {
   });
     this.setState({dataList:data });
   }
-
-  onFilterDataList(model) {
-    var filteredList = this.dataList.filter(function(item){
-            return item.FirstName.toLowerCase().search(model.FirstName.toLowerCase())!== -1;
-        }); 
-        this.setState({dataList: filteredList});
-  }
 }
 
 export default alt.createStore(UserReportStore, 'UserReportStore');

@@ -1,39 +1,33 @@
 import Config from '../config';
 import axios from 'axios';
-
+//import AuthStore from './../Stores/AuthStore';
 var UserSource = {
-    fetch: function() {
-        return  axios.get(Config.apiUrl + '/user',).then(response => {
+    fetch: function(model) {
+
+     //   var instance = axios.create({ 
+    //        headers: {'Authorization': 'Bearer '+ AuthStore.getState().accessToken}
+    //    });
+      //  axios.defaults.headers['access_token'] = AuthStore.getState().accessToken;
+     // console.log(AuthStore.getState().accessToken);
+
+      //console.log(axios);
+
+     //   axios.defaults.headers['Authorization'] = 'Bearer '+ AuthStore.getState().accessToken;
+        return  axios.get(Config.apiUrl + '/user'
+     // ,  {
+    //        headers: {
+    //    'Authorization': 'Bearer '+ AuthStore.getState().accessToken
+ //     }
+  //      }
+    //    , {headers:{
+    //       'Authorization':'Bearer '+ AuthStore.getState().accessToken
+   //   }}
+
+        ).then(response => {
         return response.data;
       }).catch(response => {
-        console.log(response);
+console.log(response);
       });
-     /*   new Promise(function(resolve, reject) {
-            setTimeout(function() {
-                var mockup = [{
-                    UserId: '123',
-                    FirstName: 'Gomer',
-                    LastName: 'Simpson',
-                    Email: 'mail@gmail.com',
-                    SignupSource: 'Facebook',
-                    LastLoginDate: 'Today',
-                    SignupDate: 'Today',
-                    PublisherId: '234234'
-                }, {
-                    UserId: '124',
-                    FirstName: 'Lisa',
-                    LastName: 'Simpson',
-                    Email: 'mail@gmail.com',
-                    SignupSource: 'Facebook',
-                    LastLoginDate: 'Today',
-                    SignupDate: 'Today',
-                    PublisherId: '234234'
-                }]
-
-                resolve(mockup);
-            }, 250);
-           
-        }); */
     }
 };
 

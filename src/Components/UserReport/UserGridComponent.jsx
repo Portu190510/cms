@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {Table, TableHeader} from 'react-mdl';
 import UserSearchComponent from "./UserSearchComponent";
+import UserFilterModel from '../../Models/UserFilterModel';
 
-import UserReportStore from '../Stores/UserReportStore';
-import UserReportActions from '../Actions/UserReportActions';
+import UserReportStore from '../../Stores/UserReportStore';
+import UserReportActions from '../../Actions/UserReportActions';
 import connectToStores from 'alt/utils/connectToStores';
 
 class UserGridComponent extends Component {
@@ -17,7 +18,7 @@ class UserGridComponent extends Component {
 
   componentDidMount() {
     UserReportStore.listen(this.onChange);
-    UserReportActions.fetchDataList();
+    UserReportActions.fetchDataList(new UserFilterModel({}));
     window.componentHandler.upgradeDom();
   }
 
@@ -40,7 +41,7 @@ class UserGridComponent extends Component {
   nextPage() {}
 
   filterDataList(model) {
-    UserReportActions.filterDataList(model);
+    UserReportActions.fetchDataList(model);
   }
 
   render() {

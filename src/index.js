@@ -4,8 +4,8 @@ import {Router, Route, IndexRoute, browserHistory} from 'react-router';
 import './index.css';
 
 import App from './App';
-import UserReportComponent from "./Components/UserReportComponent";
-import CoursesReportComponent from "./Components/CoursesReportComponent";
+import UserReportComponent from "./Components/UserReport/UserReportComponent";
+import CoursesReportComponent from "./Components/Courses/CoursesReportComponent";
 import Login from './Components/Auth/Login';
 import NotFoundComponent from "./Components/Common/NotFoundComponent";
 

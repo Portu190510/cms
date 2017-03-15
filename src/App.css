@@ -54,3 +54,11 @@
 .app-input{
     width: 250px;
 }
+
+.mdl-textfield{
+        width: 260px;
+}
+
+.mdl-textfield__input{
+    width: 250px;
+}

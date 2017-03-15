@@ -1,23 +1,22 @@
 import React, {Component} from 'react';
 import {Textfield, Button} from 'react-mdl';
+import _ from 'lodash';
+import UserFilterModel from '../../Models/UserFilterModel';
 
 class UserSearchComponent extends Component {
   constructor(props) {
     super(props);
     this.filterCallBack = this.props.filterCallBack;
-    this.filterModel = {
-      FirstName: '',
-      LastName: '',
-      UserId: '',
-      Email: ''
-    };
+    this.filterModel = new UserFilterModel({});
     this.onSearchSubmit = this
       .onSearchSubmit
       .bind(this);
   }
 
   componentDidMount() {
-    window.componentHandler.upgradeDom();
+    window
+      .componentHandler
+      .upgradeDom();
   }
 
   componentWillUnmount() {
@@ -36,46 +35,27 @@ class UserSearchComponent extends Component {
   onSearchSubmit(e) {
     e.preventDefault();
     var model = {};
-    for (var key in this.refs) {
-      model[key] = this.refs[key].value;
-    }
-
-    this.filterCallBack(model);
+    
+    _.forIn(this.refs, function(value, key) {
+          model[key] = value.inputRef.value
+    });
+    this.filterCallBack(new UserFilterModel(model));
   }
 
   render() {
     return (
-      <form onSubmit={this.onSearchSubmit}><div className="mdl-textfield mdl-js-textfield">
-          <Textfield
-            ref="FirstName"
-            label="FirstName"
-            style={{
-            width: '250px'
-          }}/>
+      <form onSubmit={this.onSearchSubmit}>
+        <div className="mdl-textfield mdl-js-textfield">
+          <Textfield ref="firstName" label="FirstName"/>
         </div>
         <div className="mdl-textfield mdl-js-textfield">
-          <Textfield
-            ref="LastName"
-            label="LastName"
-            style={{
-            width: '250px'
-          }}/>
+          <Textfield ref="lastName" label="LastName"/>
         </div>
         <div className="mdl-textfield mdl-js-textfield">
-          <Textfield
-            ref="UserId"
-            label="UserId"
-            style={{
-            width: '250px'
-          }}/>
+          <Textfield ref="userId" label="UserId"/>
         </div>
         <div className="mdl-textfield mdl-js-textfield">
-          <Textfield
-            ref="Email"
-            label="Email"
-            style={{
-            width: '250px'
-          }}/>
+          <Textfield ref="email" label="Email"/>
         </div>
         <Button ripple>
           <i className="material-icons">search</i>Search</Button>

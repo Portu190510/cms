@@ -4,7 +4,6 @@ import InterceptorUtil from '../Utils/InterceptorUtil';
 import Config from '../config';
 import {browserHistory} from 'react-router';
 import axios from 'axios';
-import Uri from 'jsuri';
 
 class AuthStore {
   constructor() {
@@ -27,9 +26,9 @@ class AuthStore {
       username: credentials.username
     };
 
-  //  axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
+   // axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
   //  axios.defaults.headers['Access-Control-Allow-Headers'] = '*';
-  //  axios.defaults.headers['Access-Control-Allow-Methods'] = 'PUT, GET, POST, DELETE, OPTIONS';
+   // axios.defaults.headers['Access-Control-Allow-Methods'] = 'PUT, GET, POST, DELETE, OPTIONS';
 
     axios.post(this.getAuthEndpoint('password'), this.getFormData(authData), {
       headers: {
@@ -120,14 +119,17 @@ class AuthStore {
     localStorage.setItem('refresh_token', refresh_token);
     this.setState({accessToken: access_token, refreshToken: refresh_token, error: null});
 
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+access_token;
+
     // Automatically add access token
     var interceptor = axios
       .interceptors
       .request
       .use((config) => {
      //   config.url = new Uri(config.url).addQueryParam('access_token', access_token);
-      config.headers['Authorization'] = 'Bearer'; 
-      config.headers.access_token =  access_token;
+     
+      config.headers['Authorization'] = 'Bearer '+ access_token; 
+  //    config.headers.access_token =  access_token;
         return config;
       });
 

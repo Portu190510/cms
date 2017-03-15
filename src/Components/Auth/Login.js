@@ -31,7 +31,7 @@ class Login extends Component {
     return (
       <div>
         <div className="login-page">CyberU
-          <div className="header-label">Content Management and then some</div>
+          <div className="header-label"></div>
         </div>
         <div className="login-form">
           <form onSubmit={this.onClickLogin.bind(this)}>

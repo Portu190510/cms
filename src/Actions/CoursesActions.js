@@ -1,7 +1,7 @@
 import alt from '../Alt';
-import UserSource from '../Sources/UserSource';
+import CourseSource from '../Sources/CourseSource';
 
-class UserReportActions {
+class CoursesReportActions {
   constructor() {
     this.generateActions('updateDataList');
   }
@@ -10,7 +10,7 @@ class UserReportActions {
     var self = this;
     return (dispatch) => {
       dispatch();
-      UserSource
+      CourseSource
         .fetch(model)
         .then((dataList) => {
           self
@@ -21,4 +21,4 @@ class UserReportActions {
   }
 }
 
-export default alt.createActions(UserReportActions);
+export default alt.createActions(CoursesReportActions);
