@@ -78,11 +78,11 @@ class DomainManagementComponent extends Component {
                     <form onSubmit={this.onAddDomainSubmit.bind(this)}>
                         <Textfield floatingLabel ref="domain" required label="Domain name" />
                         <Textfield floatingLabel ref="purpose" required label="Purpose" />
-                        <Button ripple>
+                        <Button className="filter-button" ripple>
                             <i className="material-icons">create</i>Add
                             </Button>
                     </form>
-                    <Button ripple onClick={this.onDeleteDomain.bind(this)}>
+                    <Button ripple className="filter-button" onClick={this.onDeleteDomain.bind(this)}>
                         <i className="material-icons">delete</i>Delete Selected
                             </Button>
                 </div>

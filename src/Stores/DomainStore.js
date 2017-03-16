@@ -1,6 +1,6 @@
 import alt from '../Alt';
 import _ from 'lodash';
-import DomainActions from '../Actions/CoursesActions';
+import DomainActions from '../Actions/DomainActions';
 import DomainFilterModel from '../Models/DomainFilterModel';
 
 class DomainStore {
@@ -16,7 +16,7 @@ class DomainStore {
     }
 
     onDelete(domainId){
-        
+
     }
 
     onFetchDataList(filterModel) {

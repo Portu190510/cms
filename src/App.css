@@ -37,6 +37,10 @@
     text-align: center;
 }
 
+.filter-button{
+    opacity: 0.6;
+}
+
 .login-page {
     font-size: 200px;
     text-align: center;

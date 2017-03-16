@@ -43,9 +43,9 @@ class UserSearchComponent extends Component {
         <Textfield floatingLabel ref="lastName" label="LastName" />
         <Textfield floatingLabel ref="userId" label="UserId" />
         <Textfield floatingLabel ref="email" label="Email" />
-        <Button ripple>
+        <Button ripple className="filter-button">
           <i className="material-icons">search</i>Search</Button>
-        <Button ripple>
+        <Button ripple className="filter-button">
           <i className="material-icons">file_download</i>
           Export</Button>
       </form>

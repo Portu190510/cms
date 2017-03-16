@@ -43,9 +43,9 @@ class CourseSearchComponent extends Component {
         <Textfield floatingLabel ref="childCategory" label="Child Category" />
         <Textfield floatingLabel ref="courseStatus" label="Course Status" />
         <Textfield floatingLabel ref="skills" label="Skills" />
-        <Button ripple>
+        <Button ripple className="filter-button">
           <i className="material-icons">search</i>Search</Button>
-        <Button ripple>
+        <Button ripple className="filter-button">
           <i className="material-icons">file_download</i>
           Export</Button>
       </form>
