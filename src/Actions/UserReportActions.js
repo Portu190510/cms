@@ -8,8 +8,7 @@ class UserReportActions {
 
   fetchDataList(model) {
     var self = this;
-    return (dispatch) => {
-      dispatch();
+ 
       UserSource
         .fetch(model)
         .then((dataList) => {
@@ -17,7 +16,9 @@ class UserReportActions {
             .actions
             .updateDataList(dataList);
         });
-    }
+    
+
+    return model;
   }
 }
 

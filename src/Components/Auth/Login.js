@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Textfield, Button} from 'react-mdl';
+import React, { Component } from 'react';
+import { Textfield, Button } from 'react-mdl';
 import AuthStore from './../../Stores/AuthStore';
 import AuthActions from './../../Actions/AuthActions';
 import connectToStores from 'alt/utils/connectToStores';
@@ -15,7 +15,7 @@ class Login extends Component {
 
   onClickLogin(e) {
     e.preventDefault();
-    AuthActions.login({username: this.refs.usernameInput.inputRef.value, password: this.refs.passwordInput.inputRef.value});
+    AuthActions.login({ username: this.refs.usernameInput.inputRef.value, password: this.refs.passwordInput.inputRef.value });
   }
 
   componentDidMount() {
@@ -27,7 +27,7 @@ class Login extends Component {
   }
 
   render() {
-    var divError = (AuthStore.getState().error) ? (<p>{AuthStore.getState().error}</p>): null;
+    var divError = (AuthStore.getState().error) ? (<p>{AuthStore.getState().error}</p>) : null;
     return (
       <div>
         <div className="login-page">CyberU
@@ -35,12 +35,8 @@ class Login extends Component {
         </div>
         <div className="login-form">
           <form onSubmit={this.onClickLogin.bind(this)}>
-            <div className="mdl-textfield mdl-js-textfield">
-              <Textfield ref="usernameInput" label="Email" className="app-input"/>
-            </div>
-            <div className="mdl-textfield mdl-js-textfield">
-              <Textfield ref="passwordInput" label="Password" type="password" className="app-input"/>
-            </div>
+            <Textfield floatingLabel ref="usernameInput" required label="Email" className="app-input" />
+            <Textfield floatingLabel ref="passwordInput" required label="Password" type="password" className="app-input" />
             <Button ripple> <i className="material-icons">input</i> Login</Button>
           </form>
           <div className="mdl-textfield__error">

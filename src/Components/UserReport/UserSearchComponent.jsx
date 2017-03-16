@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Textfield, Button} from 'react-mdl';
+import React, { Component } from 'react';
+import { Textfield, Button } from 'react-mdl';
 import _ from 'lodash';
 import UserFilterModel from '../../Models/UserFilterModel';
 
@@ -8,21 +8,15 @@ class UserSearchComponent extends Component {
     super(props);
     this.filterCallBack = this.props.filterCallBack;
     this.filterModel = new UserFilterModel({});
-    this.onSearchSubmit = this
-      .onSearchSubmit
-      .bind(this);
+    this.onSearchSubmit = this.onSearchSubmit.bind(this);
   }
 
   componentDidMount() {
-    window
-      .componentHandler
-      .upgradeDom();
+    window.componentHandler.upgradeDom();
   }
 
   componentWillUnmount() {
-    window
-      .componentHandler
-      .upgradeDom();
+    window.componentHandler.upgradeDom();
   }
 
   validateField(fieldValue) {
@@ -35,9 +29,9 @@ class UserSearchComponent extends Component {
   onSearchSubmit(e) {
     e.preventDefault();
     var model = {};
-    
-    _.forIn(this.refs, function(value, key) {
-          model[key] = value.inputRef.value
+
+    _.forIn(this.refs, function (value, key) {
+      model[key] = value.inputRef.value
     });
     this.filterCallBack(new UserFilterModel(model));
   }
@@ -45,23 +39,15 @@ class UserSearchComponent extends Component {
   render() {
     return (
       <form onSubmit={this.onSearchSubmit}>
-        <div className="mdl-textfield mdl-js-textfield">
-          <Textfield ref="firstName" label="FirstName"/>
-        </div>
-        <div className="mdl-textfield mdl-js-textfield">
-          <Textfield ref="lastName" label="LastName"/>
-        </div>
-        <div className="mdl-textfield mdl-js-textfield">
-          <Textfield ref="userId" label="UserId"/>
-        </div>
-        <div className="mdl-textfield mdl-js-textfield">
-          <Textfield ref="email" label="Email"/>
-        </div>
+        <Textfield floatingLabel ref="firstName" label="FirstName" />
+        <Textfield floatingLabel ref="lastName" label="LastName" />
+        <Textfield floatingLabel ref="userId" label="UserId" />
+        <Textfield floatingLabel ref="email" label="Email" />
         <Button ripple>
           <i className="material-icons">search</i>Search</Button>
         <Button ripple>
           <i className="material-icons">file_download</i>
-          Export to CSV</Button>
+          Export</Button>
       </form>
     );
   }

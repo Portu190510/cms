@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import CourseFilterModel from '../../Models/CourseFilterModel';
-import {Textfield, Button} from 'react-mdl';
+import { Textfield, Button } from 'react-mdl';
 import _ from 'lodash';
 
 class CourseSearchComponent extends Component {
@@ -24,9 +24,9 @@ class CourseSearchComponent extends Component {
   onSearchSubmit(e) {
     e.preventDefault();
     var model = {};
-    
-    _.forIn(this.refs, function(value, key) {
-          model[key] = value.inputRef.value
+
+    _.forIn(this.refs, function (value, key) {
+      model[key] = value.inputRef.value
     });
 
     this.filterCallBack(new CourseFilterModel(model));
@@ -35,35 +35,19 @@ class CourseSearchComponent extends Component {
   render() {
     return (
       <form onSubmit={this.onSearchSubmit}>
-        <div className="mdl-textfield mdl-js-textfield">
-          <Textfield ref="courseTitle" label="Course Title"/>
-        </div>
-        <div className="mdl-textfield mdl-js-textfield">
-          <Textfield ref="instructor" label="Instructor"/>
-        </div>
-        <div className="mdl-textfield mdl-js-textfield">
-          <Textfield ref="userIdOfInstructor" label="User Id Of Instructor"/>
-        </div>
-        <div className="mdl-textfield mdl-js-textfield">
-          <Textfield ref="courseId" label="Course ID"/>
-        </div>
-        <div className="mdl-textfield mdl-js-textfield">
-          <Textfield ref="parentCategory" label="Parent Category"/>
-        </div>
-        <div className="mdl-textfield mdl-js-textfield">
-          <Textfield ref="childCategory" label="Child Category"/>
-        </div>
-        <div className="mdl-textfield mdl-js-textfield">
-          <Textfield ref="courseStatus" label="Course Status"/>
-        </div>
-        <div className="mdl-textfield mdl-js-textfield">
-          <Textfield ref="skills" label="Skills"/>
-        </div>
+        <Textfield floatingLabel ref="courseTitle" label="Course Title" />
+        <Textfield floatingLabel ref="instructor" label="Instructor" />
+        <Textfield floatingLabel ref="userIdOfInstructor" label="User Id Of Instructor" />
+        <Textfield floatingLabel ref="courseId" label="Course ID" />
+        <Textfield floatingLabel ref="parentCategory" label="Parent Category" />
+        <Textfield floatingLabel ref="childCategory" label="Child Category" />
+        <Textfield floatingLabel ref="courseStatus" label="Course Status" />
+        <Textfield floatingLabel ref="skills" label="Skills" />
         <Button ripple>
           <i className="material-icons">search</i>Search</Button>
         <Button ripple>
           <i className="material-icons">file_download</i>
-          Export to CSV</Button>
+          Export</Button>
       </form>
     );
   }

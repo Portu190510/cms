@@ -2,7 +2,7 @@ import alt from '../Alt';
 import AuthActions from '../Actions/AuthActions';
 import InterceptorUtil from '../Utils/InterceptorUtil';
 import Config from '../config';
-import {browserHistory} from 'react-router';
+import { browserHistory } from 'react-router';
 import axios from 'axios';
 
 class AuthStore {
@@ -26,9 +26,10 @@ class AuthStore {
       username: credentials.username
     };
 
-   // axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
-  //  axios.defaults.headers['Access-Control-Allow-Headers'] = '*';
-   // axios.defaults.headers['Access-Control-Allow-Methods'] = 'PUT, GET, POST, DELETE, OPTIONS';
+    // axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
+    // axios.defaults.headers['Access-Control-Allow-Headers'] = '*';
+    // axios.defaults.headers['Access-Control-Allow-Methods'] = 'PUT, GET, POST,
+    // DELETE, OPTIONS';
 
     axios.post(this.getAuthEndpoint('password'), this.getFormData(authData), {
       headers: {
@@ -36,32 +37,30 @@ class AuthStore {
         'Accept': 'application/json'
       }
     }).then(response => {
-        this.saveTokens(response.data);
-        var userInfo =JSON.parse(window.atob(response.data.access_token.split('.')[1]) );
-        return userInfo;
-      })
-      .then(userInfo => {
-        this.loginSuccess(userInfo);
-      })
-      .catch(response => {
-        this.loginError(response);
-      });
+      this.saveTokens(response.data);
+      var userInfo = JSON.parse(window.atob(response.data.access_token.split('.')[1]));
+      return userInfo;
+    }).then(userInfo => {
+      this.loginSuccess(userInfo);
+    }).catch(response => {
+      this.loginError(response);
+    });
   }
 
   loginSuccess(userInfo) {
     var user = {
       name: userInfo.name,
-      sub:userInfo.sub,
-      role:userInfo.role
+      sub: userInfo.sub,
+      role: userInfo.role
     };
-    
+
     localStorage.setItem('user', JSON.stringify(user));
-    this.setState({user: user});
+    this.setState({ user: user });
     browserHistory.push('/');
   }
 
   loginError(response) {
-    this.setState({accessToken: null, refreshToken: null, error: response.data.error_description, user: null});
+    this.setState({ accessToken: null, refreshToken: null, error: response.data.error_description, user: null });
   }
 
   onLocalLogin() {
@@ -69,9 +68,8 @@ class AuthStore {
     let refreshToken = localStorage.getItem('refresh_token');
     let user = JSON.parse(localStorage.getItem('user'));
 
-  //  if (accessToken && refreshToken && user) {
-     if (accessToken){
-      this.saveTokens({access_token: accessToken, refresh_token: refreshToken});
+    if (accessToken) {
+      this.saveTokens({ access_token: accessToken, refresh_token: refreshToken });
       this.loginSuccess(user);
     }
   }
@@ -80,10 +78,7 @@ class AuthStore {
     let refreshToken = localStorage.getItem('refresh_token');
 
     if (refreshToken) {
-      axios
-        .interceptors
-        .request
-        .eject(InterceptorUtil.getInterceptor());
+      axios.interceptors.request.eject(InterceptorUtil.getInterceptor());
       axios.get(this.getAuthEndpoint('refresh_token') + '&refresh_token=' + refreshToken).then(response => {
         this.saveTokens(response.data);
 
@@ -101,37 +96,25 @@ class AuthStore {
 
   onLogout() {
     localStorage.clear();
-
-    this.setState({accessToken: null, refreshToken: null, error: null});
-
-    axios
-      .interceptors
-      .request
-      .eject(InterceptorUtil.getInterceptor());
-
+    this.setState({ accessToken: null, refreshToken: null, error: null });
+    axios.interceptors.request.eject(InterceptorUtil.getInterceptor());
     browserHistory.push('/login');
   }
 
   saveTokens(params) {
-    const {access_token, refresh_token} = params;
+    const { access_token, refresh_token } = params;
 
     localStorage.setItem('access_token', access_token);
     localStorage.setItem('refresh_token', refresh_token);
-    this.setState({accessToken: access_token, refreshToken: refresh_token, error: null});
+    this.setState({ accessToken: access_token, refreshToken: refresh_token, error: null });
 
-    axios.defaults.headers.common['Authorization'] = 'Bearer '+access_token;
+    //  axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
 
     // Automatically add access token
-    var interceptor = axios
-      .interceptors
-      .request
-      .use((config) => {
-     //   config.url = new Uri(config.url).addQueryParam('access_token', access_token);
-     
-      config.headers['Authorization'] = 'Bearer '+ access_token; 
-  //    config.headers.access_token =  access_token;
-        return config;
-      });
+    var interceptor = axios.interceptors.request.use((config) => {
+      config.headers['Authorization'] = 'Bearer ' + access_token;
+      return config;
+    });
 
     InterceptorUtil.setInterceptor(interceptor)
   }
@@ -140,7 +123,7 @@ class AuthStore {
     return Config.apiUrl + '/connect/token';
   }
 
-  getFormData(data){
+  getFormData(data) {
     var form_data = new FormData();
 
     for (var key in data) {

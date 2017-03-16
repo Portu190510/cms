@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router';
+import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 class NavigationComponent extends Component {
 
-componentDidMount() {
-    window.componentHandler.upgradeDom();   
+  componentDidMount() {
+    window.componentHandler.upgradeDom();
   }
 
   componentWillUnmount() {
-    window.componentHandler.upgradeDom();   
+    window.componentHandler.upgradeDom();
   }
   render() {
     return (
@@ -17,6 +17,7 @@ componentDidMount() {
         <nav className="mdl-navigation">
           <Link to="/courses-report" activeClassName="active" className="mdl-navigation__link" activeStyle={{ fontWeight: "bold" }}>Manage Courses</Link>
           <Link to="/user-report" activeClassName="active" className="mdl-navigation__link" activeStyle={{ fontWeight: "bold" }}>Users</Link>
+        <Link to="/domain-management" activeClassName="active" className="mdl-navigation__link" activeStyle={{ fontWeight: "bold" }}>Domain Management</Link>
         </nav>
       </div>
     );

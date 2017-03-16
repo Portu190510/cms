@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import UserGridComponent from "./UserGridComponent";
 
 class UserReportComponent extends Component {
 
   componentDidMount() {
-    window.componentHandler.upgradeDom();      // <==
+    window.componentHandler.upgradeDom();
   }
 
   componentWillUnmount() {
-    window.componentHandler.upgradeDom();   // <==
+    window.componentHandler.upgradeDom();
   }
   render() {
     return (

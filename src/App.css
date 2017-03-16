@@ -62,3 +62,71 @@
 .mdl-textfield__input{
     width: 250px;
 }
+
+.main-box{
+    overflow-x: visible;
+}
+
+.big-table{
+    overflow-x: auto;
+}
+
+.full-size{
+    width: 100%;
+}
+
+.pagination-box {
+    width: 100%;
+    height: 55px;
+  
+}
+
+ul.pagination {
+    margin: auto;
+    padding-top: 10px;
+    width:35%;
+}
+
+ul.pagination li {
+    list-style-type: none;
+    font-size: 1.2em;
+    display: inline;
+}
+
+ul.pagination li a {
+    display: block;
+    float: left;
+    margin-right: 3px;
+    color: #777;
+    font-size: 14px;
+    line-height: 32px;
+}
+
+ul.pagination li span {
+    float: left; 
+    margin-right: 4px;
+}
+
+.ellipsis{
+    padding: 8px 8px;
+    line-height: 10px;
+}
+
+ul.pagination li a:hover {
+    text-decoration: none;
+    color: blue;
+}
+
+ul.pagination li.selected a {
+    background-color: #2196F3;
+    color: #fff;
+}
+
+ul.pagination li.disabled a {
+    color: #ddd;
+    cursor: default;
+}
+
+.mdl-card__supporting-text{
+    width: 100%;
+}
