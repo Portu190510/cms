@@ -134,3 +134,7 @@ ul.pagination li.disabled a {
 .mdl-card__supporting-text{
     width: 100%;
 }
+
+.date-array-field {
+    white-space: pre-line;
+}

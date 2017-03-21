@@ -10,10 +10,10 @@ var UserSource = {
     //  axios.defaults.headers['access_token'] = AuthStore.getState().accessToken;
     // console.log(AuthStore.getState().accessToken);
 
-    //console.log(axios);
+    console.log(model);
 
     //   axios.defaults.headers['Authorization'] = 'Bearer '+ AuthStore.getState().accessToken;
-    return axios.get(Config.apiUrl + '/user'
+    return axios.get(Config.apiUrl + '/user?' + 'start=' + model.start + '&limit=' + model.limit
       // ,  {
       //        headers: {
       //    'Authorization': 'Bearer '+ AuthStore.getState().accessToken

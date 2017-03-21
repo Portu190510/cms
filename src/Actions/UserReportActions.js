@@ -10,7 +10,7 @@ class UserReportActions {
     var self = this;
  
       UserSource
-        .fetch(model)
+        .fetch(model.getParams())
         .then((dataList) => {
           self
             .actions

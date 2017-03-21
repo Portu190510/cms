@@ -19,6 +19,10 @@ class CoursesStore {
 
   onUpdateDataList(dataList) {
     var data = dataList.map(function (item) {
+      var lastUpdatedDates = item.signupSources.map(function (source) {
+        return (new Date(source.lastUpdatedDate)).toLocaleDateString('en-US');
+      });
+
       return {
         courseId: item.courseId,
         courseTitle: item.courseTitle,
@@ -31,7 +35,7 @@ class CoursesStore {
         secondaryParentCategory: item.secondaryParentCategory,
         secondaryChildCategory: item.secondaryChildCategory,
         courseStatus: item.courseStatus,
-        lastUpdatedDate: (new Date(item.signupSources[0].lastUpdatedDate)).toDateString(),
+        lastUpdatedDate: _.join(lastUpdatedDates, '\n  '),
         skills: _.join(item.skills, ', ')
       }
     });

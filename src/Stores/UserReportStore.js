@@ -25,11 +25,11 @@ class UserReportStore {
       })
 
       var lastLoginDates = item.signupSources.map(function (source) {
-        return (new Date(source.lastLoginDateTime)).toDateString();
+        return (new Date(source.lastLoginDateTime)).toLocaleDateString('en-US');
       });
 
       var signUpDateTimes = item.signupSources.map(function (source) {
-        return (new Date(source.signUpDateTime)).toDateString();
+        return (new Date(source.signUpDateTime)).toLocaleDateString('en-US');
       });
 
       return {
@@ -37,9 +37,9 @@ class UserReportStore {
         firstName: item.firstName,
         lastName: item.lastName,
         email: item.email,
-        signupSource: _.join(signupSources, ', '),
-        lastLoginDate: _.join(lastLoginDates, ', '),
-        signupDate: _.join(signUpDateTimes, ', '),
+        signupSource: _.join(signupSources, '\n '),
+        lastLoginDate: _.join(lastLoginDates, '\n  '),
+        signupDate: _.join(signUpDateTimes, '\n '),
         publisherId: item.publisherId
       }
     });

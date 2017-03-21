@@ -1,7 +1,7 @@
+var configSource = require('./configSource.json');
+
 var config = () => {
-  return {
-    //секретная инфа
-  }
+  return configSource
 };
 
 export default new config();

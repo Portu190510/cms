@@ -102,7 +102,7 @@ class CoursesReportComponent extends Component {
             <TableHeader numeric name="courseStatus" tooltip="Course Status">
               Course Status
           </TableHeader>
-            <TableHeader numeric name="lastUpdatedDate" tooltip="Last Updated Date">
+            <TableHeader numeric name="lastUpdatedDate" className="date-array-field" tooltip="Last Updated Date">
               Last Updated Date
           </TableHeader>
             <TableHeader numeric name="skills" tooltip="Skills">

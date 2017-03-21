@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, TableHeader, IconButton, Textfield, Button } from 'react-mdl';
+import { Table, TableHeader, IconButton, Textfield, Button, Checkbox } from 'react-mdl';
 import DomainFilterModel from '../../Models/DomainFilterModel';
 import _ from 'lodash';
 
@@ -61,10 +61,14 @@ class DomainManagementComponent extends Component {
         this.selectedDomains = data;
     }
 
-    onDeleteDomain() {
-        this.selectedDomains.forEach(function (domainId) {
+    onDeleteDomain(domainId) {
+        if (domainId) {
             DomainActions.deleteDomain(domainId);
-        });
+        } else {
+            this.selectedDomains.forEach(function (domainId) {
+                DomainActions.deleteDomain(domainId);
+            });
+        }
 
     }
 
@@ -78,6 +82,9 @@ class DomainManagementComponent extends Component {
                     <form onSubmit={this.onAddDomainSubmit.bind(this)}>
                         <Textfield floatingLabel ref="domain" required label="Domain name" />
                         <Textfield floatingLabel ref="purpose" required label="Purpose" />
+                        <div className="mdl-textfield mdl-textfield--floating-label">
+                            <Checkbox label="Is Enable" ref="isEnable" ripple defaultChecked />
+                        </div>
                         <Button className="filter-button" ripple>
                             <i className="material-icons">create</i>Add
                             </Button>
@@ -97,17 +104,21 @@ class DomainManagementComponent extends Component {
                         rows={this.state.dataList}>
                         <TableHeader name="domain" tooltip="Domain name">
                             Domain
-          </TableHeader>
+                        </TableHeader>
                         <TableHeader name="stgOrPrd" tooltip="STG or PRD">
                             STG or PRD
-          </TableHeader>
+                        </TableHeader>
                         <TableHeader name="purpose" tooltip="Purpose">
                             Purpose
-          </TableHeader>
+                        </TableHeader>
                         <TableHeader name="isEnabled" tooltip="Is Enabled">
                             IsEnabled
-          </TableHeader>
-
+                        </TableHeader>
+                        <TableHeader name="action" cellFormatter={(price) =>
+                            <Button ripple onClick={this.onDeleteDomain.bind(this)} className="filter-button">
+                                <i className="material-icons">delete</i>Delete</Button>} tooltip="Action">
+                            Action
+                         </TableHeader>
                     </Table>
                     <div className="pagination-box">
                         <ReactPaginate containerClassName="pagination" total={this.state.totalPages}

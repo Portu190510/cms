@@ -53,6 +53,12 @@ class UserGridComponent extends Component {
     UserReportActions.fetchDataList(filter);
   }
 
+  sortDataList(isAsc, orderBy){
+    var filter = this.state.filter;
+    filter.sortOrder = isAsc ? 'asc':'desc';
+    UserReportActions.fetchDataList(filter);
+  }
+
   render() {
     return (
       <div className="mdl-card mdl-shadow--2dp full-size">
@@ -60,13 +66,13 @@ class UserGridComponent extends Component {
           <UserSearchComponent filterCallBack={this.filterDataList}></UserSearchComponent>
         </div>
         <div className="mdl-card__actions mdl-card--border"></div>
-        <Table className="full-size"
+        <Table className="full-size date-array-field"
           sortable
           selectable
           shadow={0}
           rowKeyColumn="userId"
           rows={this.state.dataList}>
-          <TableHeader name="userId" sortFn={(a, b, isAsc) => (isAsc ? a : b).match(/\((.*)\)/)[1].localeCompare((isAsc ? b : a).match(/\((.*)\)/)[1])} tooltip="User Id">
+          <TableHeader name="userId" tooltip="User Id">
             User ID
           </TableHeader>
           <TableHeader name="firstName" tooltip="FirstName">
@@ -81,10 +87,10 @@ class UserGridComponent extends Component {
           <TableHeader name="signupSource" tooltip="SignupSource">
             SignupSource
           </TableHeader>
-          <TableHeader name="lastLoginDate" tooltip="LastLoginDate">
+          <TableHeader name="lastLoginDate" className="date-array-field" tooltip="LastLoginDate">
             LastLoginDate
           </TableHeader>
-          <TableHeader name="signupDate" tooltip="SignupDate">
+          <TableHeader name="signupDate" className="date-array-field" tooltip="SignupDate">
             SignupDate
           </TableHeader>
           <TableHeader numeric name="publisherId" tooltip="Publisher Id">
