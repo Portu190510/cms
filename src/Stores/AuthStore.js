@@ -17,6 +17,7 @@ class AuthStore {
   }
 
   onLogin(credentials) {
+    debugger;
     var authData = {
       client_id: Config.clientId,
       grant_type: Config.grant_type,
@@ -25,11 +26,6 @@ class AuthStore {
       password: credentials.password,
       username: credentials.username
     };
-
-    // axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
-    // axios.defaults.headers['Access-Control-Allow-Headers'] = '*';
-    // axios.defaults.headers['Access-Control-Allow-Methods'] = 'PUT, GET, POST,
-    // DELETE, OPTIONS';
 
     axios.post(this.getAuthEndpoint('password'), this.getFormData(authData), {
       headers: {
@@ -42,6 +38,7 @@ class AuthStore {
       return userInfo;
     }).then(userInfo => {
       this.loginSuccess(userInfo);
+      credentials.router.push('/');
     }).catch(response => {
       this.loginError(response);
     });
@@ -56,7 +53,6 @@ class AuthStore {
 
     localStorage.setItem('user', JSON.stringify(user));
     this.setState({ user: user });
-    browserHistory.push('/');
   }
 
   loginError(response) {
@@ -98,7 +94,7 @@ class AuthStore {
     localStorage.clear();
     this.setState({ accessToken: null, refreshToken: null, error: null });
     axios.interceptors.request.eject(InterceptorUtil.getInterceptor());
-    browserHistory.push('/login');
+    browserHistory.replace('/login');
   }
 
   saveTokens(params) {

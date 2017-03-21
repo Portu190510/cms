@@ -15,7 +15,7 @@ class Login extends Component {
 
   onClickLogin(e) {
     e.preventDefault();
-    AuthActions.login({ username: this.refs.usernameInput.inputRef.value, password: this.refs.passwordInput.inputRef.value });
+    AuthActions.login({ username: this.refs.usernameInput.inputRef.value, password: this.refs.passwordInput.inputRef.value, router:this.props.router });
   }
 
   componentDidMount() {

@@ -1,29 +1,17 @@
 import Config from '../config';
 import axios from 'axios';
-//import AuthStore from './../Stores/AuthStore';
+
 var UserSource = {
   fetch: function (model) {
-
-    //   var instance = axios.create({ 
-    //        headers: {'Authorization': 'Bearer '+ AuthStore.getState().accessToken}
-    //    });
-    //  axios.defaults.headers['access_token'] = AuthStore.getState().accessToken;
-    // console.log(AuthStore.getState().accessToken);
-
-    console.log(model);
-
-    //   axios.defaults.headers['Authorization'] = 'Bearer '+ AuthStore.getState().accessToken;
-    return axios.get(Config.apiUrl + '/user?' + 'start=' + model.start + '&limit=' + model.limit
-      // ,  {
-      //        headers: {
-      //    'Authorization': 'Bearer '+ AuthStore.getState().accessToken
-      //     }
-      //      }
-      //    , {headers:{
-      //       'Authorization':'Bearer '+ AuthStore.getState().accessToken
-      //   }}
-
-    ).then(response => {
+    return axios.get(Config.apiUrl + 
+    '/user?firstName='+ model.firstName +
+    '&lastName='+ model.lastName +
+    '&userId='+ model.userId +
+    '&email='+ model.email +
+    '&orderBy='+ model.orderBy +
+    '&sortOrder='+ model.sortOrder +
+    '&start=' + model.start + 
+    '&limit=' + model.limit).then(response => {
       return response.data;
     }).catch(response => {
       console.log(response);

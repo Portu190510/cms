@@ -53,9 +53,10 @@ class UserGridComponent extends Component {
     UserReportActions.fetchDataList(filter);
   }
 
-  sortDataList(isAsc, orderBy){
+  sortDataList(e, orderBy){
     var filter = this.state.filter;
-    filter.sortOrder = isAsc ? 'asc':'desc';
+    filter.orderBy = orderBy;
+    filter.sortOrder = filter.sortOrder == 'asc' ? 'desc': 'asc';
     UserReportActions.fetchDataList(filter);
   }
 
@@ -66,34 +67,34 @@ class UserGridComponent extends Component {
           <UserSearchComponent filterCallBack={this.filterDataList}></UserSearchComponent>
         </div>
         <div className="mdl-card__actions mdl-card--border"></div>
+        <div className="big-table">
         <Table className="full-size date-array-field"
-          sortable
           selectable
           shadow={0}
           rowKeyColumn="userId"
           rows={this.state.dataList}>
-          <TableHeader name="userId" tooltip="User Id">
+          <TableHeader name="userId" numeric tooltip="User Id" onClick={this.sortDataList.bind(this)}>
             User ID
           </TableHeader>
-          <TableHeader name="firstName" tooltip="FirstName">
+          <TableHeader name="firstName" tooltip="FirstName" onClick={this.sortDataList.bind(this)}>
             FirstName
           </TableHeader>
-          <TableHeader name="lastName" tooltip="LastName">
+          <TableHeader name="lastName" tooltip="LastName" onClick={this.sortDataList.bind(this)}>
             LastName
           </TableHeader>
-          <TableHeader name="email" tooltip="Email">
+          <TableHeader name="email" tooltip="Email" onClick={this.sortDataList.bind(this)}>
             Email
           </TableHeader>
-          <TableHeader name="signupSource" tooltip="SignupSource">
+          <TableHeader name="signupSource" tooltip="SignupSource" onClick={this.sortDataList.bind(this)}>
             SignupSource
           </TableHeader>
-          <TableHeader name="lastLoginDate" className="date-array-field" tooltip="LastLoginDate">
+          <TableHeader name="lastLoginDate" className="date-array-field" tooltip="LastLoginDate" onClick={this.sortDataList.bind(this)}>
             LastLoginDate
           </TableHeader>
-          <TableHeader name="signupDate" className="date-array-field" tooltip="SignupDate">
+          <TableHeader name="signupDate" className="date-array-field" tooltip="SignupDate" onClick={this.sortDataList.bind(this)}>
             SignupDate
           </TableHeader>
-          <TableHeader numeric name="publisherId" tooltip="Publisher Id">
+          <TableHeader numeric name="publisherId" tooltip="Publisher Id" onClick={this.sortDataList.bind(this)}>
             PublisherId
           </TableHeader>
         </Table>
@@ -109,6 +110,7 @@ class UserGridComponent extends Component {
             perPage={this.state.displayPerPage}
             onPageChange={this.onPageChange.bind(this)}>
           </ReactPaginate >
+        </div>
         </div>
       </div>
     );

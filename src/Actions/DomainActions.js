@@ -7,7 +7,7 @@ class DomainActions {
     }
 
     createDomain(model) {
-        var self = this;
+     //   var self = this;
         DomainSource.create(model).then((dataList) => {
 
         });
@@ -16,7 +16,7 @@ class DomainActions {
     }
 
     deleteDomain(domainId) {
-        var self = this;
+    //    var self = this;
         DomainSource.delete(domainId).then((dataList) => {
 
         });

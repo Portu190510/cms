@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+
 import './index.css';
 
 import App from './App';
@@ -41,10 +42,10 @@ axios.interceptors.response.use(response => {
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route path="/" component={App} onEnter={requireAuth}>
+      <IndexRoute component={UserReportComponent} onEnter={requireAuth} />
       <Route path="user-report" component={UserReportComponent} onEnter={requireAuth} />
       <Route path="courses-report" component={CoursesReportComponent} onEnter={requireAuth} />
       <Route path="domain-management" component={DomainManagementComponent} onEnter={requireAuth} />
-      <IndexRoute component={UserReportComponent} onEnter={requireAuth} />
     </Route>
     <Route path="login" component={Login} />
     <Route path="*" component={NotFoundComponent} />

@@ -3,7 +3,8 @@ class BaseGridFilterModel {
     this.totalPages = 1;
     this.currentPage = 1;
     this.displayPerPage = 50;
-    this.sortOrder = 'desc';
+    this.orderBy = '';
+    this.sortOrder = 'asc';
   }
 }
 

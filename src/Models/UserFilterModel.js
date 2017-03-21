@@ -15,7 +15,16 @@ class UserFilterModel extends BaseGridFilterModel {
     this.start = (this.currentPage - 1) * this.displayPerPage;
     this.limit = this.displayPerPage;
 
-    return { start: this.start, limit: this.limit };
+    return {
+      start: this.start, 
+      limit: this.limit,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      userId: this.userId,
+      email: this.email,
+      orderBy:this.orderBy,
+      sortOrder: this.sortOrder
+    };
   }
 }
 

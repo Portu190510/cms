@@ -3,7 +3,7 @@ import axios from 'axios';
 
 var DomainSource = {
     fetch: function (model) {
-        return axios.get(Config.apiUrl + '/domain?' + 'start=' + model.start + '&limit=' + model.limit).then(response => {
+        return axios.get(Config.apiUrl + '/domain?start=' + model.start + '&limit=' + model.limit).then(response => {
             return response.data;
         }).catch(response => {
             console.log(response);

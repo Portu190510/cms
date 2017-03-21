@@ -138,3 +138,9 @@ ul.pagination li.disabled a {
 .date-array-field {
     white-space: pre-line;
 }
+
+.static-filter{
+        position: fixed;
+    z-index: 1000;
+    background-color: white;
+}
