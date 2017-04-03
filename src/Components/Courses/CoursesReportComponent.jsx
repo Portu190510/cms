@@ -35,6 +35,7 @@ class CoursesReportComponent extends Component {
   constructor(props) {
     super(props);
     this.state = CoursesStore.getState();
+    this.selectedDomains = [];
     this.onChange = this.onChange.bind(this);
     this.filterDataList = this.filterDataList.bind(this);
   }
@@ -44,6 +45,17 @@ class CoursesReportComponent extends Component {
     filter.currentPage = data.selected + 1;
     CoursesActions.fetchDataList(filter);
   }
+
+  onSelectionChanged(data) {
+        this.selectedDomains = data;
+    }
+
+  sortDataList(e, orderBy, t) {
+        var filter = this.state.filter;
+        filter.sortOrder = filter.sortOrder === 'asc' ? 'desc':'asc';
+        filter.orderBy = filter.sortOrder === 'asc' ? orderBy : '-'+ orderBy;
+        CoursesActions.fetchDataList(filter);
+    }
 
   filterDataList(model) {
     CoursesActions.fetchDataList(model);
@@ -57,68 +69,63 @@ class CoursesReportComponent extends Component {
         <div className="mdl-card__actions mdl-card--border"></div>
         <div className="big-table">
           <Table className="full-size"
-            sortable
             selectable
+            onSelectionChanged={this.onSelectionChanged.bind(this)}
             shadow={0}
             rowKeyColumn="courseId"
             rows={this.state.dataList}>
-            <TableHeader name="courseTitle" tooltip="Course Title">
+            <TableHeader name="courseTitle" tooltip="Course Title" onClick={this.sortDataList.bind(this, 't_t')}>
               Title
           </TableHeader>
-            <TableHeader name="instructor" tooltip="Instructor">
+            <TableHeader name="instructor" tooltip="Instructor" onClick={this.sortDataList.bind(this)}>
               Instructor
           </TableHeader>
-            <TableHeader name="userIdOfInstructor" tooltip="User ID of Instructor">
+            <TableHeader name="userIdOfInstructor" tooltip="User ID of Instructor" onClick={this.sortDataList.bind(this)}>
               UserID of Instructor
           </TableHeader>
             <TableHeader
               name="courseId"
-              sortFn={(a, b, isAsc) => (isAsc
-                ? a
-                : b).match(/\((.*)\)/)[1].localeCompare((isAsc
-                  ? b
-                  : a).match(/\((.*)\)/)[1])}
-              tooltip="User Id">
+              tooltip="User Id" onClick={this.sortDataList.bind(this)}>
               CourseID
           </TableHeader>
-            <TableHeader name="headline" tooltip="Headline">
+            <TableHeader name="headline" tooltip="Headline" onClick={this.sortDataList.bind(this)}>
               Headline
           </TableHeader>
-            <TableHeader name="duration" tooltip="Duration (in minutes) ">
+            <TableHeader name="duration" tooltip="Duration (in minutes) " onClick={this.sortDataList.bind(this)}>
               Duration
           </TableHeader>
-            <TableHeader name="primaryParentCategory" tooltip="Primary Parent Category">
+            <TableHeader name="primaryParentCategory" tooltip="Primary Parent Category" onClick={this.sortDataList.bind(this)}>
               Prim. Parent Category
           </TableHeader>
-            <TableHeader name="primaryChildCategory" tooltip="Primary Child Category">
+            <TableHeader name="primaryChildCategory" tooltip="Primary Child Category" onClick={this.sortDataList.bind(this)}>
               Prim. Child Category
           </TableHeader>
-            <TableHeader name="secondaryParentCategory" tooltip="Secondary Parent Category">
+            <TableHeader name="secondaryParentCategory" tooltip="Secondary Parent Category" onClick={this.sortDataList.bind(this)}>
               Sec. Parent Category
           </TableHeader>
-            <TableHeader name="secondaryChildCategory" tooltip="Secondary Child Category">
+            <TableHeader name="secondaryChildCategory" tooltip="Secondary Child Category" onClick={this.sortDataList.bind(this)}>
               Sec. Child Category
           </TableHeader>
-            <TableHeader numeric name="courseStatus" tooltip="Course Status">
+            <TableHeader numeric name="courseStatus" tooltip="Course Status" onClick={this.sortDataList.bind(this)}>
               Course Status
           </TableHeader>
-            <TableHeader numeric name="lastUpdatedDate" className="date-array-field" tooltip="Last Updated Date">
+            <TableHeader numeric name="lastUpdatedDate" className="date-array-field" tooltip="Last Updated Date" onClick={this.sortDataList.bind(this)}>
               Last Updated Date
           </TableHeader>
-            <TableHeader numeric name="skills" tooltip="Skills">
+            <TableHeader numeric name="skills" tooltip="Skills" onClick={this.sortDataList.bind(this)}>
               Skills
           </TableHeader>
           </Table>
           <div className="pagination-box">
-            <ReactPaginate containerClassName="pagination" total={this.state.totalPages}
+            <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
               previousLabel={<IconButton name="keyboard_arrow_left" />}
               nextLabel={<IconButton name="keyboard_arrow_right" />}
               breakLabel={<span className="ellipsis">...</span>}
-              pageNum={this.state.current}
+              pageNum={this.state.filter.currentPage}
               marginPagesDisplayed={2}
-              pageRangeDisplayed={3}
+              pageRangeDisplayed={5}
               pageLinkClassName="mdl-button mdl-js-button mdl-button--icon"
-              perPage={this.state.displayPerPage}
+              perPage={this.state.filter.displayPerPage}
               onPageChange={this.onPageChange.bind(this)}>
             </ReactPaginate >
           </div>

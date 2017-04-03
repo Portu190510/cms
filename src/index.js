@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import './index.css';
+import './Styles/BusyLoaderStyleSheet.css';
 
 import App from './App';
 import UserReportComponent from "./Components/UserReport/UserReportComponent";
 import CoursesReportComponent from "./Components/Courses/CoursesReportComponent";
 import DomainManagementComponent from "./Components/DomainManagement/DomainManagementComponent";
+import CategoryManagementComponent from "./Components/CategoryManagement/CategoryManagementComponent";
 import Login from './Components/Auth/Login';
 import NotFoundComponent from "./Components/Common/NotFoundComponent";
 
@@ -23,11 +25,20 @@ function requireAuth(nextState, replaceState) {
   }
 }
 
+axios.interceptors.request.use(function (config) {
+  document.getElementById("loading").style.display = "block";
+  return config;
+}, function (error) {
+  // Do something with request error
+  return Promise.reject(error);
+});
+
 // Handle API request errors
 axios.interceptors.response.use(response => {
-  // intercept OPTIONS method
+  document.getElementById("loading").style.display = "none";
   return response;
 }, error => {
+  document.getElementById("loading").style.display = "none";
   return new Promise((resolve, reject) => {
     if (error.status === 401 && error.data.error_description === 'The access token provided has expired.') {
       AuthActions.refreshToken({ initialRequest: error.config, resolve: resolve, reject: reject });
@@ -40,12 +51,16 @@ axios.interceptors.response.use(response => {
 });
 
 ReactDOM.render(
-  <Router history={browserHistory}>
+  <Router history={browserHistory} >
     <Route path="/" component={App} onEnter={requireAuth}>
-      <IndexRoute component={UserReportComponent} onEnter={requireAuth} />
-      <Route path="user-report" component={UserReportComponent} onEnter={requireAuth} />
-      <Route path="courses-report" component={CoursesReportComponent} onEnter={requireAuth} />
-      <Route path="domain-management" component={DomainManagementComponent} onEnter={requireAuth} />
+        <IndexRoute component={DomainManagementComponent} onEnter={requireAuth} /> 
+        <Route path="domain-management" component={DomainManagementComponent} onEnter={requireAuth} />
+        <Route path="category-management" component={CategoryManagementComponent} onEnter={requireAuth} />
+        <Route path="reports" onEnter={requireAuth}>
+          <Route path="user-report" component={UserReportComponent} onEnter={requireAuth} />
+          <Route path="courses-report" component={CoursesReportComponent} onEnter={requireAuth} />
+          <IndexRoute component={CoursesReportComponent} onEnter={requireAuth} /> 
+        </Route>
     </Route>
     <Route path="login" component={Login} />
     <Route path="*" component={NotFoundComponent} />

@@ -3,7 +3,8 @@ import axios from 'axios';
 
 var DomainSource = {
     fetch: function (model) {
-        return axios.get(Config.apiUrl + '/domain?start=' + model.start + '&limit=' + model.limit).then(response => {
+        return axios.get(`${Config.apiUrl}${Config.endpointUrl.domain.fetch}?start=${model.start}&limit=${model.limit}&orderBy=${model.orderBy}&sortOrder=${model.sortOrder}`)
+        .then(response => {
             return response.data;
         }).catch(response => {
             console.log(response);
@@ -11,7 +12,7 @@ var DomainSource = {
     },
 
     create: function (model) {
-        return axios.post(Config.apiUrl + '/domain', model).then(response => {
+        return axios.post(`${Config.apiUrl}${Config.endpointUrl.domain.create}`, model).then(response => {
             return response.data;
         }).catch(response => {
             console.log(response);
@@ -19,7 +20,7 @@ var DomainSource = {
     },
 
     delete: function (domainId) {
-        return axios.delete(Config.apiUrl + '/domain?id=' + domainId).then(response => {
+        return axios.delete(`${Config.apiUrl}${Config.endpointUrl.domain.delete}?id=${domainId}`).then(response => {
             return response.data;
         }).catch(response => {
             console.log(response);

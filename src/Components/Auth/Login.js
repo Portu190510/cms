@@ -20,6 +20,7 @@ class Login extends Component {
 
   componentDidMount() {
     window.componentHandler.upgradeDom();
+    document.getElementById("loading").style.display = "none";
   }
 
   componentWillUnmount() {
@@ -27,7 +28,6 @@ class Login extends Component {
   }
 
   render() {
-    var divError = (AuthStore.getState().error) ? (<p>{AuthStore.getState().error}</p>) : null;
     return (
       <div>
         <div className="login-page">CyberU
@@ -38,11 +38,12 @@ class Login extends Component {
             <Textfield floatingLabel ref="usernameInput" required label="Email" className="app-input" />
             <Textfield floatingLabel ref="passwordInput" required label="Password" type="password" className="app-input" />
             <Button ripple> <i className="material-icons">input</i> Login</Button>
-          </form>
-          <div className="mdl-textfield__error">
-            {divError}
+            <div className="mdl-textfield__error" style={{visibility: AuthStore.getState().isError}}>
+            You don't have permissions to access CMS using these credentials. Please check Email and Password.
           </div>
+          </form>
         </div>
+        <div className="shadowBox" id="loading"><div className="loaderBox"><div className="ball"></div><div className="ball1"></div></div></div>
       </div>
     );
   }

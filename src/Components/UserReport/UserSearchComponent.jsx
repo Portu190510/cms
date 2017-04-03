@@ -26,6 +26,7 @@ class UserSearchComponent extends Component {
 
     return false;
   }
+
   onSearchSubmit(e) {
     e.preventDefault();
     var model = {};
@@ -38,6 +39,7 @@ class UserSearchComponent extends Component {
 
   render() {
     return (
+      <div>
       <form onSubmit={this.onSearchSubmit}>
         <Textfield floatingLabel ref="firstName" label="FirstName" />
         <Textfield floatingLabel ref="lastName" label="LastName" />
@@ -45,10 +47,11 @@ class UserSearchComponent extends Component {
         <Textfield floatingLabel ref="email" label="Email" />
         <Button ripple className="filter-button">
           <i className="material-icons">search</i>Search</Button>
-        <Button ripple className="filter-button">
+      </form>
+      <Button ripple onClick={this.props.onExportCallBack} className="filter-button">
           <i className="material-icons">file_download</i>
           Export</Button>
-      </form>
+          </div>
     );
   }
 }

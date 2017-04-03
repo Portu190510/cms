@@ -15,9 +15,11 @@ class NavigationComponent extends Component {
       <div className="mdl-layout__drawer">
         <span className="mdl-layout-title">CyberU</span>
         <nav className="mdl-navigation">
-          <Link to="/courses-report" activeClassName="active" className="mdl-navigation__link" activeStyle={{ fontWeight: "bold" }}>Manage Courses</Link>
-          <Link to="/user-report" activeClassName="active" className="mdl-navigation__link" activeStyle={{ fontWeight: "bold" }}>Users</Link>
-        <Link to="/domain-management" activeClassName="active" className="mdl-navigation__link" activeStyle={{ fontWeight: "bold" }}>Domain Management</Link>
+          <Link to="/domain-management" activeClassName="active" className="mdl-navigation__link" activeStyle={{ fontWeight: "bold" }}>Domain Management</Link>
+          <Link to="/category-management" activeClassName="active" className="mdl-navigation__link" activeStyle={{ fontWeight: "bold" }}>Category Management</Link>
+          <div className="naviagation-separator"> Reports</div>
+          <Link to="/reports/courses-report" activeClassName="active" className="mdl-navigation__link" activeStyle={{ fontWeight: "bold" }}>Manage Courses</Link>
+          <Link to="/reports/user-report" activeClassName="active" className="mdl-navigation__link" activeStyle={{ fontWeight: "bold" }}>Users</Link>
         </nav>
       </div>
     );

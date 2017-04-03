@@ -7,8 +7,6 @@ class UserFilterModel extends BaseGridFilterModel {
     this.lastName = config.lastName || '';
     this.userId = config.userId || null;
     this.email = config.email || '';
-    this.start = 0;
-    this.limit = 50;
   }
 
   getParams() {

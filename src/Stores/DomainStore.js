@@ -12,10 +12,10 @@ class DomainStore {
         this.filter = new DomainFilterModel({});
     }
 
-    onCreate(domainModel){
+    onCreate(domainModel) {
     }
 
-    onDelete(domainId){
+    onDelete(domainId) {
 
     }
 
@@ -24,16 +24,21 @@ class DomainStore {
         this.setState({ dataList: [] });
     }
 
-    onUpdateDataList(dataList) {
-        var data = dataList.map(function (item) {
+    onUpdateDataList(response) {
+        var data = response.listModels.map(function (item) {
             return {
                 id: item.id,
                 domain: item.domain,
                 stgOrPrd: item.stgOrPrd,
-                isEnabled: item.isEnabled,
+                isEnabled: item.isEnabled ? 'Enabled': 'Disabled',
                 purpose: item.purpose
             }
         });
+
+        var filterModel = this.filter;
+        filterModel.totalPages = response.totalPage;
+
+        this.setState({ filter: filterModel });
         this.setState({ dataList: data });
     }
 }

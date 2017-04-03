@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Table, TableHeader, IconButton, Textfield, Button, Checkbox } from 'react-mdl';
 import DomainFilterModel from '../../Models/DomainFilterModel';
 import _ from 'lodash';
+import '../../Styles/DomainTable.css';
 
 import DomainStore from '../../Stores/DomainStore';
 import DomainActions from '../../Actions/DomainActions';
@@ -32,6 +33,7 @@ class DomainManagementComponent extends Component {
         this.setState(state);
     }
 
+
     constructor(props) {
         super(props);
         this.state = DomainStore.getState();
@@ -42,12 +44,21 @@ class DomainManagementComponent extends Component {
 
     onAddDomainSubmit(e) {
         e.preventDefault();
-        var domainModel = {};
-
+        var domainModel = {
+            id:0,
+            created:null,
+            updated: null
+        };
+        var self = this;
         _.forIn(this.refs, function (value, key) {
-            domainModel[key] = value.inputRef.value
+            domainModel[key] = value.inputRef ? value.inputRef.value : self.refs[key].state;
+            if(value.inputRef)
+            {
+                value.inputRef.value = '';
+            }
         });
-
+   
+        domainModel.isEnabled = domainModel.isEnabled == null? true:domainModel.isEnabled;
         DomainActions.createDomain(domainModel);
     }
 
@@ -62,28 +73,39 @@ class DomainManagementComponent extends Component {
     }
 
     onDeleteDomain(domainId) {
-        if (domainId) {
+        if (Number.isInteger(domainId)) {
             DomainActions.deleteDomain(domainId);
         } else {
             this.selectedDomains.forEach(function (domainId) {
                 DomainActions.deleteDomain(domainId);
             });
         }
-
     }
 
     filterDataList(model) {
         DomainActions.fetchDataList(model);
     }
+
+    sortDataList(e, orderBy) {
+        var filter = this.state.filter;
+        filter.orderBy = orderBy;
+        filter.sortOrder = filter.sortOrder === 'asc' ? 'desc' : 'asc';
+        DomainActions.fetchDataList(filter);
+    }
+
+    handleIsEnableClick(e) {
+        this.refs['isEnabled'].state = e.target.checked;
+    }
+
     render() {
         return (
             <div className="mdl-card mdl-shadow--2dp full-size">
                 <div className="mdl-card__supporting-text">
                     <form onSubmit={this.onAddDomainSubmit.bind(this)}>
-                        <Textfield floatingLabel ref="domain" required label="Domain name" />
+                        <Textfield floatingLabel ref="domain" required label="Domain name (pattern : *@csod.com)" pattern=".*csod\.com$" />
                         <Textfield floatingLabel ref="purpose" required label="Purpose" />
                         <div className="mdl-textfield mdl-textfield--floating-label">
-                            <Checkbox label="Is Enable" ref="isEnable" ripple defaultChecked />
+                            <Checkbox label="Is Enable" ref="isEnabled" onChange={this.handleIsEnableClick.bind(this)} ripple defaultChecked />
                         </div>
                         <Button className="filter-button" ripple>
                             <i className="material-icons">create</i>Add
@@ -96,40 +118,38 @@ class DomainManagementComponent extends Component {
                 <div className="mdl-card__actions mdl-card--border"></div>
                 <div className="big-table">
                     <Table className="full-size"
-                        sortable
                         selectable
                         onSelectionChanged={this.onSelectionChanged.bind(this)}
                         shadow={0}
                         rowKeyColumn="id"
                         rows={this.state.dataList}>
-                        <TableHeader name="domain" tooltip="Domain name">
+                        <TableHeader name="domain" tooltip="Domain name" onClick={this.sortDataList.bind(this)}>
                             Domain
                         </TableHeader>
-                        <TableHeader name="stgOrPrd" tooltip="STG or PRD">
-                            STG or PRD
-                        </TableHeader>
-                        <TableHeader name="purpose" tooltip="Purpose">
+                   
+                        <TableHeader name="purpose" tooltip="Purpose" onClick={this.sortDataList.bind(this)}>
                             Purpose
                         </TableHeader>
-                        <TableHeader name="isEnabled" tooltip="Is Enabled">
+                        <TableHeader name="isEnabled" tooltip="Is Enabled" onClick={this.sortDataList.bind(this)} className="is-enable-column">
                             IsEnabled
                         </TableHeader>
-                        <TableHeader name="action" cellFormatter={(price) =>
-                            <Button ripple onClick={this.onDeleteDomain.bind(this)} className="filter-button">
+                        <TableHeader name="id" cellFormatter={(id) =>
+                            <Button ripple onClick={this.onDeleteDomain.bind(this, id)} className="filter-button">
                                 <i className="material-icons">delete</i>Delete</Button>} tooltip="Action">
                             Action
                          </TableHeader>
                     </Table>
                     <div className="pagination-box">
-                        <ReactPaginate containerClassName="pagination" total={this.state.totalPages}
+                        <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
                             previousLabel={<IconButton name="keyboard_arrow_left" />}
                             nextLabel={<IconButton name="keyboard_arrow_right" />}
                             breakLabel={<span className="ellipsis">...</span>}
-                            pageNum={this.state.current}
+                            pageNum={this.state.filter.currentPage}
+                            initialPage={1}
                             marginPagesDisplayed={2}
-                            pageRangeDisplayed={3}
+                            pageRangeDisplayed={5}
                             pageLinkClassName="mdl-button mdl-js-button mdl-button--icon"
-                            perPage={this.state.displayPerPage}
+                            perPage={this.state.filter.displayPerPage}
                             onPageChange={this.onPageChange.bind(this)}>
                         </ReactPaginate >
                     </div>

@@ -1,0 +1,29 @@
+.mdl-data-table td {
+    max-width: 200px;
+    overflow: auto;
+}
+
+.mdl-data-table td:last-of-type, .mdl-data-table th:last-of-type {
+    padding-right: 24px;
+    width: 155px;
+}
+
+.mdl-data-table td:first-of-type, .mdl-data-table th:first-of-type {
+    padding-left: 24px;
+    width: 50px;
+}
+
+.is-enable-column{
+    width: 60px;
+}
+
+.domain-cell{
+ max-width: 100px;
+}
+
+.naviagation-separator{
+        border-top: 1px solid rgba(0,0,0,.1);
+    font-family: "Helvetica","Arial",sans-serif;
+    color: #757575;
+    padding: 16px 20px;
+}

@@ -1,9 +1,10 @@
 import Config from '../config';
 import axios from 'axios';
 
-var UserSource = {
+var CourseSource = {
     fetch: function (model) {
-        return axios.get(Config.apiUrl + '/courses').then(response => {
+        return axios.get(`${Config.endpointUrl.course.apiUrl}${Config.endpointUrl.course.fetch}?${model.getParamsString()}`)
+        .then(response => {
             return response.data;
         }).catch(response => {
             console.log(response);
@@ -11,4 +12,4 @@ var UserSource = {
     }
 };
 
-export default UserSource;
+export default CourseSource;

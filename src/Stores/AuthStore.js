@@ -14,10 +14,10 @@ class AuthStore {
     this.refreshToken = null;
     this.user = null;
     this.error = null;
+    this.isError = 'hidden';
   }
 
   onLogin(credentials) {
-    debugger;
     var authData = {
       client_id: Config.clientId,
       grant_type: Config.grant_type,
@@ -26,6 +26,8 @@ class AuthStore {
       password: credentials.password,
       username: credentials.username
     };
+    
+    this.isError = 'hidden';
 
     axios.post(this.getAuthEndpoint('password'), this.getFormData(authData), {
       headers: {
@@ -56,7 +58,7 @@ class AuthStore {
   }
 
   loginError(response) {
-    this.setState({ accessToken: null, refreshToken: null, error: response.data.error_description, user: null });
+    this.setState({ accessToken: null, refreshToken: null, error: response.data.error_description, user: null,  isError:'visible' });
   }
 
   onLocalLogin() {

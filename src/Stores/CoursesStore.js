@@ -17,29 +17,40 @@ class CoursesStore {
     this.setState({ dataList: [] });
   }
 
-  onUpdateDataList(dataList) {
-    var data = dataList.map(function (item) {
-      var lastUpdatedDates = item.signupSources.map(function (source) {
-        return (new Date(source.lastUpdatedDate)).toLocaleDateString('en-US');
-      });
+  onUpdateDataList(response) {
+    if(response && response.data){
+    var data = response.data.map(function (item) {
+      var attributes = item.attributes;
+      var lastUpdatedDates = (new Date(attributes.updated)).toLocaleDateString('en-US');
 
       return {
-        courseId: item.courseId,
-        courseTitle: item.courseTitle,
-        instructor: item.instructor,
-        userIdOfInstructor: item.userIdOfInstructor,
-        duration: item.duration,
-        headline: item.headline,
-        primaryParentCategory: item.primaryParentCategory,
-        primaryChildCategory: item.primaryChildCategory,
-        secondaryParentCategory: item.secondaryParentCategory,
-        secondaryChildCategory: item.secondaryChildCategory,
-        courseStatus: item.courseStatus,
+        courseId: item.id,
+        courseTitle: attributes.title,
+        instructor: 'TODO',
+        userIdOfInstructor: _.join(attributes['instructor-ids'], '\n  '),
+        duration: (attributes['duration-sec']/ 60) + 'min.',
+        headline: attributes.headline,
+        primaryParentCategory: attributes['primary-category-id'],
+        primaryChildCategory: attributes['primary-subcategory-id'],
+        secondaryParentCategory: attributes['secondary-category-id'],
+        secondaryChildCategory: attributes['secondary-subcategory-id'],
+        courseStatus: attributes.status,
         lastUpdatedDate: _.join(lastUpdatedDates, '\n  '),
-        skills: _.join(item.skills, ', ')
+        skills: _.join(attributes['skill-ids'], ', ')
       }
     });
+
+    var filterModel = this.filter;
+    //TODO
+    if(response.links.last)
+    {
+      filterModel.totalPages = +(response.links.last.substring(response.links.last.indexOf("page%5Bnumber%5D=") + 17, response.links.last.indexOf("&page%5Bsize%5D")));
+    }
+    this.setState({ filter: filterModel });
+
     this.setState({ dataList: data });
+  }
+  console.log("NO RESPONSE");
   }
 }
 

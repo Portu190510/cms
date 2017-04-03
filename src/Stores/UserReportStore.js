@@ -8,8 +8,15 @@ class UserReportStore {
     this.bindActions(UserReportActions);
 
     // State
+    this.isSnackbarActive = false;
     this.dataList = [];
     this.filter = new UserFilterModel({});
+  }
+
+  onExportSuccess(isSuccess) {
+    if (!isSuccess) {
+      this.isSnackbarActive = true;
+    }
   }
 
   onFetchDataList(filterModel) {
@@ -17,9 +24,12 @@ class UserReportStore {
     this.setState({ dataList: [] });
   }
 
-  onUpdateDataList(dataList) {
+  onUpdateDataList(response) {
+    var filterModel = this.filter;
+    filterModel.totalPages = response.totalPage;
+    this.setState({ filter: filterModel });
 
-    var data = dataList.map(function (item) {
+    var data = response.listModels.map(function (item) {
       var signupSources = item.signupSources.map(function (source) {
         return source.source;
       })
@@ -33,7 +43,7 @@ class UserReportStore {
       });
 
       return {
-        userId: item.id,
+        userId: item.userId,
         firstName: item.firstName,
         lastName: item.lastName,
         email: item.email,
