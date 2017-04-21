@@ -146,7 +146,6 @@ class DomainManagementComponent extends Component {
                             nextLabel={<IconButton name="keyboard_arrow_right" />}
                             breakLabel={<span className="ellipsis">...</span>}
                             pageNum={this.state.filter.currentPage}
-                            initialPage={1}
                             marginPagesDisplayed={2}
                             pageRangeDisplayed={5}
                             pageLinkClassName="mdl-button mdl-js-button mdl-button--icon"
