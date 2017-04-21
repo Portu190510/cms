@@ -9,7 +9,7 @@ class DomainActions {
 
     createDomain(model) {
         var self = this;
-        DomainSource.create(model.getParams()).then((dataList) => {
+        DomainSource.create(model).then((dataList) => {
            self.actions.fetchDataList(new DomainFilterModel({}));
         });
 
