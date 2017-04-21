@@ -25,7 +25,7 @@ class DomainStore {
     }
 
     onUpdateDataList(response) {
-        var data = response.map(function (item) {
+        var data = response.listModels.map(function (item) {
             return {
                 id: item.id,
                 domain: item.domain,
