@@ -29,7 +29,7 @@ class UserReportStore {
     filterModel.totalPages = response.totalPage;
     this.setState({ filter: filterModel });
 
-    var data = response.listModels.map(function (item) {
+    var data = response.map(function (item) {
       var signupSources = item.signupSources.map(function (source) {
         return source.source;
       })
