@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import CourseFilterModel from '../../Models/CourseFilterModel';
 import { Textfield, Button } from 'react-mdl';
 import _ from 'lodash';
+
+import CourseFilterModel from '../../Models/CourseFilterModel';
 
 class CourseSearchComponent extends Component {
   constructor(props) {
     super(props);
     this.filterCallBack = this.props.filterCallBack;
     this.filterModel = new CourseFilterModel({});
-    this.onSearchSubmit = this
-      .onSearchSubmit
-      .bind(this);
+    this.onSearchSubmit = this.onSearchSubmit.bind(this);
   }
 
   validateField(fieldValue) {

@@ -1,11 +1,14 @@
-import React, {Component} from 'react';
-import { Table, TableHeader, IconButton, Button } from 'react-mdl';
-import FilterModel from '../../Models/SubcategoryFilterModel';
+import React, { Component } from 'react';
+import { Table, TableHeader, IconButton, Chip } from 'react-mdl';
+import ReactPaginate from 'react-paginate';
 import _ from 'lodash';
 
+import FileUpoadComponent from '../Common/FileUpoadComponent';
+import AddSubCategoryDialogComponent from './AddSubCategoryDialogComponent';
+import AddFeaturedCoursesDialogComponent from './AddFeaturedCoursesDialogComponent';
+import FilterModel from '../../Models/SubcategoryFilterModel';
 import Store from '../../Stores/SubcategoryStore';
 import Actions from '../../Actions/SubcategoryActions';
-import ReactPaginate from 'react-paginate';
 import connectToStores from 'alt/utils/connectToStores';
 
 class SubcategoryComponent extends Component {
@@ -32,6 +35,13 @@ class SubcategoryComponent extends Component {
         this.setState(state);
     }
 
+    constructor(props) {
+        super(props);
+        this.state = Store.getState();
+        this.onChange = this.onChange.bind(this);
+        this.filterDataList = this.filterDataList.bind(this);
+    }
+
     onPageChange(data) {
         var filter = this.state.filter;
         filter.currentPage = data.selected + 1;
@@ -49,20 +59,25 @@ class SubcategoryComponent extends Component {
         Actions.fetchDataList(filter);
     }
 
-    constructor(props) {
-        super(props);
-        this.state = Store.getState();
-        this.onChange = this.onChange.bind(this);
-        this.filterDataList = this.filterDataList.bind(this);
+    onAddCategory(model) {
+        Actions.createCategory(model);
+    }
+
+    loadCoverImage(id) {
+        //TODO
+    }
+
+    deleteFeature() {
+
     }
 
     render() {
+        var self = this;
         return (
             <div className="mdl-card mdl-shadow--2dp full-size">
                 <div className="mdl-card__actions mdl-card--border">
-                        <Button className="filter-button" ripple>
-                            <i className="material-icons">add</i> Add subcategory
-                            </Button>
+                    <AddSubCategoryDialogComponent onAddCategory={this.onAddCategory.bind(this)}>
+                    </AddSubCategoryDialogComponent>
                 </div>
                 <div className="big-table">
                     <Table className="full-size"
@@ -78,17 +93,26 @@ class SubcategoryComponent extends Component {
                         <TableHeader name="parentCategory" tooltip="Parent Category" onClick={this.sortDataList.bind(this)}>
                             Status
                         </TableHeader>
-                        <TableHeader name="descriptions" tooltip="Descriptions" onClick={this.sortDataList.bind(this)} className="is-enable-column">
+                        <TableHeader name="descriptions" tooltip="Descriptions" onClick={this.sortDataList.bind(this)}>
                             Descriptions
                         </TableHeader>
-                        <TableHeader name="coverlink" cellFormatter={(coverlink) =>
-                            <Button ripple className="filter-button">
-                                <i className="material-icons">delete</i>Delete</Button>} tooltip="Action">
+                        <TableHeader name="coverlink" cellFormatter={(coverlink, id) =>
+                            <div>{coverlink}
+                                <FileUpoadComponent ripple className="filter-button" onLoadStart={this.loadCoverImage.bind(this, id)} label="Upload a picture" />
+                            </div>
+                        } tooltip="Action">
                             Cover Image
                          </TableHeader>
-                         <TableHeader name="coverlink" cellFormatter={(coverlink) =>
-                            <Button ripple className="filter-button">
-                                <i className="material-icons">delete</i>Delete</Button>} tooltip="Action">
+                        <TableHeader name="featuredCourses" cellFormatter={(featuredCourses, row) =>
+                            <div>
+                                {
+                                    featuredCourses.map(function (item) {
+                                        return <Chip key={item.id} onClose={self.deleteFeature.bind(self, item.id, row.id)}>{item.name}</Chip>
+                                    })
+                                }
+                                <AddFeaturedCoursesDialogComponent subcategoryId={row.id}></AddFeaturedCoursesDialogComponent>
+                            </div>
+                        } tooltip="Action">
                             Featured Courses
                          </TableHeader>
                     </Table>

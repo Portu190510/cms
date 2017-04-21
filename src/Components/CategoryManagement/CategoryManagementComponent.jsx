@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Tabs, Tab } from 'react-mdl';
+
 import ParentCategoryComponent from './ParentCategoryComponent';
 import SubcategoryComponent from './SubcategoryComponent';
 
@@ -18,16 +19,16 @@ class CategoryManagementComponent extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {activeTab:0}
+        this.state = { activeTab: 0 }
     }
 
     render() {
-        var activeTabComponent = this.state.activeTab === 0 ? <ParentCategoryComponent/> : <SubcategoryComponent/>;
+        var activeTabComponent = this.state.activeTab === 0 ? <ParentCategoryComponent /> : <SubcategoryComponent />;
         return (
-           <div className="">
+            <div className="">
                 <Tabs activeTab={this.state.activeTab} onChange={(tabId) => this.setState({ activeTab: tabId })} ripple>
-                    <Tab>Parent Categories</Tab>
-                    <Tab>Subcategories</Tab>
+                    <Tab href="#parent-category">Parent Categories</Tab>
+                    <Tab href="#subcategory">Subcategories</Tab>
                 </Tabs>
                 <section>
                     <div className="content">
@@ -36,7 +37,7 @@ class CategoryManagementComponent extends Component {
                         }
                     </div>
                 </section>
-            </div>    
+            </div>
         );
     }
 }

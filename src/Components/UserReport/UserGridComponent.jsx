@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { Table, TableHeader, IconButton, Snackbar } from 'react-mdl';
-import UserSearchComponent from "./UserSearchComponent";
-import UserFilterModel from '../../Models/UserFilterModel';
-
-import UserReportStore from '../../Stores/UserReportStore';
-import UserReportActions from '../../Actions/UserReportActions';
-import connectToStores from 'alt/utils/connectToStores';
 import ReactPaginate from 'react-paginate';
 
-
+import UserSearchComponent from "./UserSearchComponent";
+import UserFilterModel from '../../Models/UserFilterModel';
+import UserReportActions from '../../Actions/UserReportActions';
+import UserReportStore from '../../Stores/UserReportStore';
+import connectToStores from 'alt/utils/connectToStores';
 
 class UserGridComponent extends Component {
   static getStores() {

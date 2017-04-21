@@ -19,13 +19,6 @@ class ParentCategoryComponent extends Component {
         return Store.getState();
     }
 
-    constructor(props) {
-        super(props);
-        this.state = Store.getState();
-        this.onChange = this.onChange.bind(this);
-        this.filterDataList = this.filterDataList.bind(this);
-    }
-
     componentDidMount() {
         Store.listen(this.onChange);
         Actions.fetchDataList(new FilterModel({}));
@@ -39,6 +32,13 @@ class ParentCategoryComponent extends Component {
 
     onChange(state) {
         this.setState(state);
+    }
+
+    constructor(props) {
+        super(props);
+        this.state = Store.getState();
+        this.onChange = this.onChange.bind(this);
+        this.filterDataList = this.filterDataList.bind(this);
     }
 
     onPageChange(data) {
@@ -97,7 +97,7 @@ class ParentCategoryComponent extends Component {
                                 }}
                                 label="Upload a picture"
                             />
-                        } tooltip="Action">
+                        } tooltip="Cover Image">
                             Cover Image
                          </TableHeader>
                     </Table>

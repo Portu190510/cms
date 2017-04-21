@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Textfield, Button } from 'react-mdl';
 import _ from 'lodash';
+
 import UserFilterModel from '../../Models/UserFilterModel';
 
 class UserSearchComponent extends Component {
@@ -40,18 +41,18 @@ class UserSearchComponent extends Component {
   render() {
     return (
       <div>
-      <form onSubmit={this.onSearchSubmit}>
-        <Textfield floatingLabel ref="firstName" label="FirstName" />
-        <Textfield floatingLabel ref="lastName" label="LastName" />
-        <Textfield floatingLabel ref="userId" label="UserId" />
-        <Textfield floatingLabel ref="email" label="Email" />
-        <Button ripple className="filter-button">
-          <i className="material-icons">search</i>Search</Button>
-      </form>
-      <Button ripple onClick={this.props.onExportCallBack} className="filter-button">
+        <form onSubmit={this.onSearchSubmit}>
+          <Textfield floatingLabel ref="firstName" label="FirstName" />
+          <Textfield floatingLabel ref="lastName" label="LastName" />
+          <Textfield floatingLabel ref="userId" label="UserId" />
+          <Textfield floatingLabel ref="email" label="Email" />
+          <Button ripple className="filter-button">
+            <i className="material-icons">search</i>Search</Button>
+        </form>
+        <Button ripple onClick={this.props.onExportCallBack} className="filter-button">
           <i className="material-icons">file_download</i>
           Export</Button>
-          </div>
+      </div>
     );
   }
 }

@@ -9,6 +9,7 @@ class ParentCategoryStore {
 
     // State
     this.dataList = [];
+    this.parentCategoryList = [];
     this.filter = new FilterModel({});
   }
 
@@ -17,30 +18,46 @@ class ParentCategoryStore {
     this.setState({ dataList: [] });
   }
 
-  onUpdateDataList(response) {
-    if(response && response.data){
-    var data = response.data.map(function (item) {
-      var attributes = item.attributes;
-   
-      return {
-        id: item.id,
-        title: attributes.title,
-        status: attributes.status,
-        descriptions: attributes.descriptions,
-        coverlink: attributes.coverlink
-      }
-    });
-
-    var filterModel = this.filter;
-    //TODO
-    if(response.links.last)
-    {
-      filterModel.totalPages = +(response.links.last.substring(response.links.last.indexOf("page%5Bnumber%5D=") + 17, response.links.last.indexOf("&page%5Bsize%5D")));
-    }
-    this.setState({ filter: filterModel });
-    this.setState({ dataList: data });
+  onfetchCategoryList() {
+    this.setState({ parentCategoryList: [] });
   }
-  console.log("NO RESPONSE");
+
+  onUpdateCategoryList(response) {
+    if (response && response.data) {
+      var data = response.data.map(function (item) {
+        var attributes = item.attributes;
+        return {
+          id: item.id,
+          name: attributes.name
+        }
+      });
+      this.setState({ parentCategoryList: data });
+    }
+  }
+
+  onUpdateDataList(response) {
+    if (response && response.data) {
+      var data = response.data.map(function (item) {
+        var attributes = item.attributes;
+
+        return {
+          id: item.id,
+          title: attributes.label,
+          status: attributes.type,
+          descriptions: attributes.description,
+          coverlink: attributes.category_image_url
+        }
+      });
+
+      var filterModel = this.filter;
+      //TODO
+      if (response.links.last) {
+        filterModel.totalPages = +(response.links.last.substring(response.links.last.indexOf("page%5Bnumber%5D=") + 17, response.links.last.indexOf("&page%5Bsize%5D")));
+      }
+      this.setState({ filter: filterModel });
+      this.setState({ dataList: data });
+    }
+    console.log("NO RESPONSE");
   }
 }
 

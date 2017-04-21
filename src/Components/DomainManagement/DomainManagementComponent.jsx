@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Table, TableHeader, IconButton, Textfield, Button, Checkbox } from 'react-mdl';
-import DomainFilterModel from '../../Models/DomainFilterModel';
+import ReactPaginate from 'react-paginate';
 import _ from 'lodash';
+
 import '../../Styles/DomainTable.css';
 
+import DomainFilterModel from '../../Models/DomainFilterModel';
 import DomainStore from '../../Stores/DomainStore';
 import DomainActions from '../../Actions/DomainActions';
 import connectToStores from 'alt/utils/connectToStores';
-import ReactPaginate from 'react-paginate';
 
 class DomainManagementComponent extends Component {
     static getStores() {

@@ -29,7 +29,7 @@ class SubcategoryStore {
         parentCategory: attributes.parentCategory,
         descriptions: attributes.descriptions,
         coverlink: attributes.coverlink,
-        featuredCourses : _.join(attributes.featuredCourses, ', ')
+        featuredCourses : attributes.featuredCourses
       }
     });
 

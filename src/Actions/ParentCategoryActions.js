@@ -3,7 +3,7 @@ import Source from '../Sources/ParentCategorySource';
 
 class ParentCategoryActions {
     constructor() {
-        this.generateActions('updateDataList');
+        this.generateActions('updateDataList','updateCategoryList');
     }
 
     fetchDataList(model) {
@@ -13,6 +13,15 @@ class ParentCategoryActions {
         });
 
         return model;
+    }
+
+    fetchCategoryList(){
+        var self = this;
+        Source.fetchCategoryList().then((dataList) => {
+            self.actions.updateCategoryList(dataList);
+        });
+
+        return;
     }
 }
 

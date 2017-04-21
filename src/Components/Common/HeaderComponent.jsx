@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
+
 import AuthStore from '../../Stores/AuthStore';
 import AuthActions from '../../Actions/AuthActions';
 
 class HeaderComponent extends Component {
   constructor(props) {
     super(props);
-
-
     try {
       this.state = { userName: AuthStore.getState().user.name };
     } catch (e) {
