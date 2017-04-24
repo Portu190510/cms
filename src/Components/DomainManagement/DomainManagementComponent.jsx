@@ -103,7 +103,7 @@ class DomainManagementComponent extends Component {
             <div className="mdl-card mdl-shadow--2dp full-size">
                 <div className="mdl-card__supporting-text">
                     <form onSubmit={this.onAddDomainSubmit.bind(this)}>
-                        <Textfield floatingLabel ref="domain" required label="Domain name (pattern : *@csod.com)" pattern=".*csod\.com$" />
+                        <Textfield floatingLabel ref="domain" required label="Domain name (pattern : *.csod.com)" pattern=".*\.csod\.com$" />
                         <Textfield floatingLabel ref="purpose" required label="Purpose" />
                         <div className="mdl-textfield mdl-textfield--floating-label">
                             <Checkbox label="Is Enable" ref="isEnabled" onChange={this.handleIsEnableClick.bind(this)} ripple defaultChecked />
