@@ -1,0 +1,26 @@
+{
+  "apiUrl": "https://auth.local.cyberu.io",
+  "clientId": "CMS",
+  "clientSecret": "cms",
+  "grant_type": "password",
+  "scope": "auth",
+  "endpointUrl": {
+    "domain": {
+      "fetch": "/domain",
+      "create": "/domain",
+      "delete": "/domain"
+    },
+    "user": {
+      "fetch": "/user/search",
+      "export": "/user/csv"
+    },
+    "course": {
+      "apiUrl": "https://newlms.local.cyberu.io/api/v1",
+      "fetch": "/courses"
+    },
+    "parentCategory": {
+      "apiUrl": "https://newlms.local.cyberu.io/api/v1",
+      "fetch": "/categories"
+    }
+  }
+}
