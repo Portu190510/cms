@@ -9,7 +9,7 @@ class CoursesReportActions {
   fetchDataList(model) {
     var self = this;
       CourseSource
-        .fetch(model)
+        .fetch(model.getParams())
         .then((dataList) => {
           self
             .actions

@@ -5,40 +5,39 @@ import _ from 'lodash';
 
 import '../../Styles/DomainTable.css';
 
-import DomainFilterModel from '../../Models/DomainFilterModel';
-import DomainStore from '../../Stores/DomainStore';
-import DomainActions from '../../Actions/DomainActions';
+import FilterModel from '../../Models/DomainFilterModel';
+import Store from '../../Stores/DomainStore';
+import Actions from '../../Actions/DomainActions';
 import connectToStores from 'alt/utils/connectToStores';
 
 class DomainManagementComponent extends Component {
     static getStores() {
-        return [DomainStore];
+        return [Store];
     }
 
     static getPropsFromStores() {
-        return DomainStore.getState();
+        return Store.getState();
     }
 
     componentDidMount() {
-        DomainStore.listen(this.onChange);
-        DomainActions.fetchDataList(new DomainFilterModel({}));
+        Store.listen(this.onChange);
+        Actions.fetchDataList(new FilterModel({}));
         window.componentHandler.upgradeDom();
     }
 
     componentWillUnmount() {
         window.componentHandler.upgradeDom();
-        DomainStore.unlisten(this.onChange);
+        Store.unlisten(this.onChange);
     }
 
     onChange(state) {
         this.setState(state);
     }
 
-
     constructor(props) {
         super(props);
-        this.state = DomainStore.getState();
-        this.selectedDomains = [];
+        this.state = Store.getState();
+        this.selectedItems = [];
         this.onChange = this.onChange.bind(this);
         this.filterDataList = this.filterDataList.bind(this);
     }
@@ -60,38 +59,38 @@ class DomainManagementComponent extends Component {
         });
    
         domainModel.isEnabled = domainModel.isEnabled == null? true:domainModel.isEnabled;
-        DomainActions.createDomain(domainModel);
+        Actions.createDomain(domainModel);
     }
 
     onPageChange(data) {
         var filter = this.state.filter;
         filter.currentPage = data.selected + 1;
-        DomainActions.fetchDataList(filter);
+        Actions.fetchDataList(filter);
     }
 
     onSelectionChanged(data) {
-        this.selectedDomains = data;
+        this.selectedItems = data;
     }
 
     onDeleteDomain(domainId) {
         if (Number.isInteger(domainId)) {
-            DomainActions.deleteDomain(domainId);
+            Actions.deleteDomain(domainId);
         } else {
             this.selectedDomains.forEach(function (domainId) {
-                DomainActions.deleteDomain(domainId);
+                Actions.deleteDomain(domainId);
             });
         }
     }
 
     filterDataList(model) {
-        DomainActions.fetchDataList(model);
+        Actions.fetchDataList(model);
     }
 
     sortDataList(e, orderBy) {
         var filter = this.state.filter;
         filter.orderBy = orderBy;
         filter.sortOrder = filter.sortOrder === 'asc' ? 'desc' : 'asc';
-        DomainActions.fetchDataList(filter);
+        Actions.fetchDataList(filter);
     }
 
     handleIsEnableClick(e) {
