@@ -10,6 +10,10 @@ import UserReportComponent from "./Components/UserReport/UserReportComponent";
 import CoursesReportComponent from "./Components/Courses/CoursesReportComponent";
 import DomainManagementComponent from "./Components/DomainManagement/DomainManagementComponent";
 import CategoryManagementComponent from "./Components/CategoryManagement/CategoryManagementComponent";
+import CourseRegistrationsComponent from "./Components/CourseRegistrations/CourseRegistrationsComponent";
+import TransactionsReportComponent from "./Components/Transactions/TransactionsReportComponent";
+import CoursesOnReviewComponent from "./Components/CoursesOnReview/CoursesOnReviewComponent";
+import CoursesPerCategoryComponent  from "./Components/CoursesPerCategory/CoursesPerCategoryComponent";
 import Login from './Components/Auth/Login';
 import NotFoundComponent from "./Components/Common/NotFoundComponent";
 
@@ -53,14 +57,18 @@ axios.interceptors.response.use(response => {
 ReactDOM.render(
   <Router history={browserHistory} >
     <Route path="/" component={App} onEnter={requireAuth}>
-        <IndexRoute component={DomainManagementComponent} onEnter={requireAuth} /> 
-        <Route path="domain-management" component={DomainManagementComponent} onEnter={requireAuth} />
-        <Route path="category-management" component={CategoryManagementComponent} onEnter={requireAuth} />
-        <Route path="reports" onEnter={requireAuth}>
-          <Route path="user-report" component={UserReportComponent} onEnter={requireAuth} />
-          <Route path="courses-report" component={CoursesReportComponent} onEnter={requireAuth} />
-          <IndexRoute component={CoursesReportComponent} onEnter={requireAuth} /> 
-        </Route>
+      <IndexRoute component={DomainManagementComponent} onEnter={requireAuth} />
+      <Route path="domain-management" component={DomainManagementComponent} onEnter={requireAuth} />
+      <Route path="category-management" component={CategoryManagementComponent} onEnter={requireAuth} />
+      <Route path="in-review-courses" component={CoursesOnReviewComponent} onEnter={requireAuth} />
+      <Route path="reports" onEnter={requireAuth}>
+        <Route path="user-report" component={UserReportComponent} onEnter={requireAuth} />
+        <Route path="courses-report" component={CoursesReportComponent} onEnter={requireAuth} />
+        <Route path="course-registration-report" component={CourseRegistrationsComponent} onEnter={requireAuth} />
+        <Route path="registration-report" component={TransactionsReportComponent} onEnter={requireAuth} />
+        <Route path="courses-per-category-report" component={CoursesPerCategoryComponent} onEnter={requireAuth} />
+        <IndexRoute component={CoursesReportComponent} onEnter={requireAuth} />
+      </Route>
     </Route>
     <Route path="login" component={Login} />
     <Route path="*" component={NotFoundComponent} />

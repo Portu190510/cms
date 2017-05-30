@@ -1,6 +1,6 @@
 import alt from '../Alt';
-import DomainSource from '../Sources/DomainSource';
-import DomainFilterModel from '../Models/DomainFilterModel';
+import Source from '../Sources/DomainSource';
+import FilterModel from '../Models/DomainFilterModel';
 
 class DomainActions {
     constructor() {
@@ -9,8 +9,8 @@ class DomainActions {
 
     createDomain(model) {
         var self = this;
-        DomainSource.create(model).then((dataList) => {
-           self.actions.fetchDataList(new DomainFilterModel({}));
+        Source.create(model).then((dataList) => {
+           self.actions.fetchDataList(new FilterModel({}));
         });
 
         return model
@@ -18,8 +18,8 @@ class DomainActions {
 
     deleteDomain(domainId) {
         var self = this;
-        DomainSource.delete(domainId).then((dataList) => {
-           self.actions.fetchDataList(new DomainFilterModel({}));
+        Source.delete(domainId).then((dataList) => {
+           self.actions.fetchDataList(new FilterModel({}));
         });
 
         return domainId;
@@ -27,7 +27,7 @@ class DomainActions {
 
     fetchDataList(model) {
         var self = this;
-        DomainSource.fetch(model.getParams()).then((dataList) => {
+        Source.fetch(model.getParams()).then((dataList) => {
             self.actions.updateDataList(dataList);
         });
 

@@ -43,7 +43,7 @@ class ParentCategoryStore {
         return {
           id: item.id,
           title: attributes.label,
-          status: attributes.type,
+          status: attributes.status,
           descriptions: attributes.description,
           coverlink: attributes.category_image_url
         }
@@ -51,7 +51,7 @@ class ParentCategoryStore {
 
       var filterModel = this.filter;
       //TODO
-      if (response.links.last) {
+      if (response.links && response.links.last) {
         filterModel.totalPages = +(response.links.last.substring(response.links.last.indexOf("page%5Bnumber%5D=") + 17, response.links.last.indexOf("&page%5Bsize%5D")));
       }
       this.setState({ filter: filterModel });

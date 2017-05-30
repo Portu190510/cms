@@ -1,9 +1,10 @@
 import Config from '../config';
+import ObjectToQuery from '../Utils/ObjectToQueryStringUtil';
 import axios from 'axios';
 
 var DomainSource = {
     fetch: function (model) {
-        return axios.get(`${Config.apiUrl}${Config.endpointUrl.domain.fetch}?start=${model.start}&limit=${model.limit}&orderBy=${model.orderBy}&sortOrder=${model.sortOrder}`)
+        return axios.get(`${Config.apiUrl}${Config.endpointUrl.domain.fetch}?${ObjectToQuery.asQuery(model)}`)
         .then(response => {
             return response.data;
         }).catch(response => {

@@ -144,3 +144,70 @@ ul.pagination li.disabled a {
     z-index: 1000;
     background-color: white;
 }
+
+.DateInput{
+    font-size: 14px !important;
+    opacity: 0.8;
+    
+}
+.DateRangePickerInput{
+    border: none !important;
+}
+
+.DateRangePicker__picker{
+    position: fixed !important;
+    z-index: 999;
+    margin-left: 263px;
+    margin-top: 72px;
+}
+
+.DayPickerKeyboardShortcuts__show {
+    display: none !important;
+}
+
+.DayPicker__week-header{
+    top:50px !important;
+}
+
+.card-left-column{
+ float: left;
+}
+
+.card-right-column{
+ float: right;
+ max-width: 300px;
+}
+
+.card-left-column p{
+ margin-bottom: 5px;
+}
+
+.card-right-column p{
+ margin-bottom: 5px;
+}
+
+.card-custom{
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.card-custom-half{
+    width: 50%;
+    margin-bottom: 5px;
+    float: left;
+    height: 300px;
+    overflow-y: auto;
+}
+
+.card-title-custom{
+ font-size: 14px;
+}
+
+.card-text-custom{
+    padding: 0px 16px 0px 16px;
+}
+
+.card-body{
+    width: 98%;
+    min-height: 150px;
+}
