@@ -1,9 +1,9 @@
 {
-  "apiUrl": "https://auth.local.cyberu.io",
+  "apiUrl": "http://auth.dev.cyberu.io",
   "clientId": "CMS",
   "clientSecret": "cms",
   "grant_type": "password",
-  "scope": "auth",
+  "scope": "auth LMS",
   "endpointUrl": {
     "domain": {
       "fetch": "/domain",
@@ -15,12 +15,29 @@
       "export": "/user/csv"
     },
     "course": {
-      "apiUrl": "https://newlms.local.cyberu.io/api/v1",
+      "apiUrl": "http://10.10.42.44:3000/api/v1",
       "fetch": "/courses"
     },
     "parentCategory": {
-      "apiUrl": "https://newlms.local.cyberu.io/api/v1",
+      "apiUrl": "https://lms-api.dev.cyberu.io/api/v1/",
       "fetch": "/categories"
+    },
+    "transactions": {
+      "apiUrl": "https://gateway.dev.cyberu.io/api/v1/cms",
+      "fetch": "/transaction_report",
+      "export": "/transaction_report/csv"
+    },
+    "courseRegistration": {
+      "fetch": "/toDoCourseRegistrationUrl",
+      "courseDetail": "/toDoCourseDetailUrl"
+    },
+    "courseOnReview": {
+      "fetch": "/toDocourseOnReviewUrl",
+      "changeStatus": "/toDochangeStatusUrl"
+    },
+    "coursePerCategory": {
+      "apiUrl": "https://lms-api.dev.cyberu.io/api/v1/",
+      "fetch": "/categories/with_courses_report"
     }
   }
 }
