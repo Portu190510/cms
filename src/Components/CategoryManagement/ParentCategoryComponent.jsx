@@ -81,13 +81,13 @@ class ParentCategoryComponent extends Component {
                         <TableHeader name="title" tooltip="Title" onClick={this.sortDataList.bind(this)}>
                             Title
                         </TableHeader>
-                        <TableHeader name="status" tooltip="Status" onClick={this.sortDataList.bind(this)}>
+                        <TableHeader name="status" tooltip="Status" onClick={this.sortDataList.bind(this)} style={{width:"100px"}}>
                             Status
                         </TableHeader>
                         <TableHeader name="descriptions" tooltip="Descriptions" onClick={this.sortDataList.bind(this)} className="is-enable-column">
                             Description
                         </TableHeader>
-                        <TableHeader name="coverlink" cellFormatter={(coverlink, id) =>
+                        <TableHeader name="coverlink" style={{width:"100px"}} cellFormatter={(coverlink, id) =>
                             <FileUpoadComponent ripple className="filter-button"
                                 onLoadStart={this.loadCoverImage.bind(this, id)}
                                 onLoadEnd={(err) => {

@@ -64,6 +64,7 @@ class CoursesPerCategoryComponent extends Component {
                 <div className="mdl-card__supporting-text">
                     <div className="mdl-selectfield mdl-js-selectfield">
                         <SelectField label={'Status'} value={this.state.filter.status} onChange={this.filterDataList.bind(this)}>
+                            <Option value="">Empty</Option>
                             {
                                 this.state.statuses.map((st) => {
                                     return <Option value={st.name}>{st.name}</Option>
@@ -85,17 +86,17 @@ class CoursesPerCategoryComponent extends Component {
                                             <div>
                                                 {
                                                     item.subCategories.map((subcat) => {
-                                                        return (<p>
+                                                        return (<div style={{float:"left",width: "47%",marginRight: "40px"}}>
                                                             <table>
                                                                 <tbody>
                                                                     <tr>
-                                                                        <td style={{ minWidth: "200px" }}>{subcat.name}</td>
-                                                                        <td style={{ minWidth: "567px" }}><ProgressBar style={{ width: "560px" }} progress={subcat.progress} /></td>
+                                                                        <td style={{ minWidth: "200px" }}>{subcat.subcategoryName}</td>
+                                                                        <td style={{ minWidth: "510px" }}><ProgressBar style={{ width: "500px" }} progress={subcat.progress} /></td>
                                                                         <td style={{ minWidth: "50px" }}>{subcat.coursesCount}</td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
-                                                        </p>)
+                                                        </div>)
 
                                                     })
                                                 }
@@ -103,7 +104,7 @@ class CoursesPerCategoryComponent extends Component {
                                         </div>
                                     </CardText>
                                     <CardMenu>
-                                        Summary: {item.categorySummary}
+                                        Summary: {item.coursesCount}
                                     </CardMenu>
                                 </Card>
                                 )

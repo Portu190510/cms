@@ -10,8 +10,6 @@ class TransactionsStore {
         // State
         this.isSnackbarActive = false;
         this.focusedInput = null;
-        this.fromDate = null;
-        this.toDate = null;
         this.dataList = [];
         this.filter = new FilterModel({});
     }
@@ -34,10 +32,10 @@ class TransactionsStore {
                 date: (new Date(attributes.date)).toLocaleDateString('en-US'),
                 learner_id: attributes.learner_id,
                 learner_name: attributes.learner_name,
-                course_id: attributes.course_title + ' ('+attributes.course_id+ ')',
+                course_id: (attributes.course_title || '') + ' ('+attributes.course_id+ ')',
                 course_title: attributes.course_title,
-                publisher_id: attributes.publisher_name + ' ('+attributes.publisher_id+')',
-                price: attributes.price
+                publisher_id: (attributes.publisher_name || '') + ' (' + (attributes.publisher_id || 'no instructor id') +')',
+                price: '$'+ attributes.price
             }
         });
 
@@ -46,7 +44,6 @@ class TransactionsStore {
         filterModel.totalRevenue = response.meta.total_revenues;
         filterModel.totalPages = response.meta['total-pages'];
 
-console.log(filterModel);
         this.setState({ filter: filterModel });
         this.setState({ dataList: data });
     }

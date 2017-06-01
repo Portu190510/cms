@@ -104,9 +104,6 @@ class UserGridComponent extends Component {
             <TableHeader name="signupDate" className="date-array-field" tooltip="SignupDate" onClick={this.sortDataList.bind(this)}>
               SignupDate
           </TableHeader>
-            <TableHeader numeric name="publisherId" tooltip="Publisher Id" onClick={this.sortDataList.bind(this)}>
-              PublisherId
-          </TableHeader>
           </Table>
           <div className="pagination-box">
             <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}

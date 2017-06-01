@@ -9,7 +9,16 @@ class CoursesPerCategoryStore {
 
         // State
         this.isSnackbarActive = false;
-        this.statuses = [{id:1,name:'Active'},{id:2,name:'Deleted'}];
+        this.statuses = [
+            { id: 3, name: 'Draft' },
+            { id: 4, name: 'Active' },
+            { id: 6, name: 'Deleted' },
+            { id: 7, name: 'Pending' },
+            { id: 8, name: 'Archived' },
+            { id: 9, name: 'In_review' },
+            { id: 10, name: 'Published' },
+            { id: 11, name: 'Pending_Approval' },
+            { id: 12, name: 'Ready_To_Publish' }];
         this.dataList = [];
         this.filter = new FilterModel({});
     }
@@ -29,15 +38,24 @@ class CoursesPerCategoryStore {
         var data = response.data.map(function (item) {
             var attributes = item.attributes;
             return {
-                categoryId: attributes.categoryId,
-                categoryName: attributes.categoryName,
-                subCategories: attributes.subCategories,
-                categorySummary: attributes.categorySummary
+                categoryId: item.id,
+                categoryName: attributes.label,
+                status: attributes.status,
+                coursesCount: attributes.courses_count,
+                subCategories: attributes.children.map((subCat) => {
+                    return {
+                        subcategoryId: subCat.id,
+                        subcategoryName: subCat.attributes.label,
+                        status: subCat.attributes.status,
+                        coursesCount: subCat.attributes.courses_count,
+                        progress: subCat.attributes.progress
+                    }
+                })
             }
         });
 
         var filterModel = this.filter;
-        filterModel.totalPages = response.totalPage;
+        filterModel.totalPages = response.meta.total_pages;
 
         this.setState({ filter: filterModel });
         this.setState({ dataList: data });
