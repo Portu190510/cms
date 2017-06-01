@@ -6,8 +6,8 @@ class TransactionsFilterModel extends BaseGridFilterModel {
     this.learnerId = config.learnerId || '';
     this.courseId = config.courseId || '';
     this.instructorId = config.instructorId || '';
-    this.fromDate = config.fromDate || '';
-    this.toDate = config.toDate || '';
+    this.fromDate = config.fromDate || null;
+    this.toDate = config.toDate || null;
     this.totalResults = 0;
     this.totalRevenue = 0;
   }

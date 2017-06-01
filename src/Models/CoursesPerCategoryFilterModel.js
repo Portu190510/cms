@@ -11,9 +11,15 @@ class CoursesPerCategoryFilterModel extends BaseGridFilterModel {
     this.limit = this.displayPerPage;
 
     return {
-      start: this.start, 
-      limit: this.limit,
-      status: this.status
+      page: {
+        size: this.displayPerPage,
+        number: this.currentPage
+      },
+      filter: {
+        counted_courses_status: {
+          eq: this.status? this.status.toLowerCase():''
+        }
+      }
     };
   }
 }

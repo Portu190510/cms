@@ -82,7 +82,7 @@
 .pagination-box {
     width: 100%;
     height: 55px;
-  
+    display: inline-block;
 }
 
 ul.pagination {
@@ -192,7 +192,7 @@ ul.pagination li.disabled a {
 }
 
 .card-custom-half{
-    width: 50%;
+    width: 100%;
     margin-bottom: 5px;
     float: left;
     height: 300px;
