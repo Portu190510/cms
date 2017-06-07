@@ -10,6 +10,8 @@ class TransactionsStore {
         // State
         this.isSnackbarActive = false;
         this.focusedInput = null;
+        this.fromDate = null;
+        this.toDate = null;
         this.dataList = [];
         this.filter = new FilterModel({});
     }
@@ -21,6 +23,7 @@ class TransactionsStore {
   }
 
     onFetchDataList(filterModel) {
+        this.setState({ fromDate: filterModel.fromDate, toDate: filterModel.toDate });
         this.setState({ filter: filterModel });
         this.setState({ dataList: [] });
     }
