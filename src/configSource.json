@@ -1,43 +1,60 @@
 {
-  "apiUrl": "http://auth.dev.cyberu.io",
-  "clientId": "CMS",
-  "clientSecret": "cms",
-  "grant_type": "password",
-  "scope": "auth LMS",
-  "endpointUrl": {
-    "domain": {
-      "fetch": "/domain",
-      "create": "/domain",
-      "delete": "/domain"
-    },
-    "user": {
-      "fetch": "/user/search",
-      "export": "/user/csv"
-    },
-    "course": {
-      "apiUrl": "http://10.10.42.44:3000/api/v1",
-      "fetch": "/courses"
-    },
-    "parentCategory": {
-      "apiUrl": "https://lms-api.dev.cyberu.io/api/v1/",
-      "fetch": "/categories"
-    },
-    "transactions": {
-      "apiUrl": "https://gateway.dev.cyberu.io/api/v1/cms",
-      "fetch": "/transaction_report",
-      "export": "/transaction_report/csv"
-    },
-    "courseRegistration": {
-      "fetch": "/toDoCourseRegistrationUrl",
-      "courseDetail": "/toDoCourseDetailUrl"
-    },
-    "courseOnReview": {
-      "fetch": "/toDocourseOnReviewUrl",
-      "changeStatus": "/toDochangeStatusUrl"
-    },
-    "coursePerCategory": {
-      "apiUrl": "https://lms-api.dev.cyberu.io/api/v1/",
-      "fetch": "/categories/with_courses_report"
+    "clientId": "CMS",
+    "clientSecret": "cms",
+    "grant_type": "password",
+    "scope": "auth LMS",
+    "apiUrl": {
+        "auth": {
+            "baseUrl": "http://auth.dev.cyberu.io",
+            "endpointUrl": {
+                "domain": {
+                    "fetch": "/domain",
+                    "create": "/domain",
+                    "delete": "/domain"
+                },
+                "user": {
+                    "fetch": "/user/search",
+                    "export": "/user/csv"
+                }
+            }
+        },
+        "lms": {
+            "baseUrl": "https://lms-api.dev.cyberu.io/api/v1",
+            "endpointUrl": {
+                "parentCategory": {
+                    "fetch": "/categories",
+                    "fetchCategoryList":"/todofetchCategoryListUrl",
+                    "fetchSubcategory":"/categories/subcategories_with_featured_courses",
+                    "create":"/categories"
+                },
+                "coursePerCategory": {
+                    "fetch": "/categories/with_courses_report"
+                },
+                "feature":{
+                   "fetch": "/categories",
+                   "add": "/courses"
+                }
+            }
+        },
+        "gateway": {
+            "baseUrl": "https://gateway.dev.cyberu.io/api/v1/cms",
+            "endpointUrl": {
+                "transactions": {
+                    "fetch": "/transaction_report",
+                    "export": "/transaction_report/csv"
+                },
+                "courseRegistration": {
+                    "fetch": "/registrations",
+                    "courseDetail": "/registrations"
+                },
+                "courseOnReview": {
+                    "fetch": "/courses/in_review"
+                },
+                "course": {
+                    "fetch": "/courses",
+                    "export":"/courses/csv"
+                }
+            }
+        }
     }
-  }
 }

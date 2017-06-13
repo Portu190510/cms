@@ -5,7 +5,7 @@ var lmsConfig = Config.apiUrl.lms;
 
 var FeatureSource = {
     fetch: function (subcategoryId, searchFieldValue) {
-        return axios.get(`${lmsConfig.baseUrl}${lmsConfig.endpointUrl.feature.fetch}${subcategoryId}/non_featured_courses?filter[title][search]=${searchFieldValue}&page[size]=1000`)
+        return axios.get(`${lmsConfig.baseUrl}${lmsConfig.endpointUrl.feature.fetch}/${subcategoryId}/non_featured_courses?filter[title][search]=${searchFieldValue}&page[size]=1000`)
             .then(response => {
                 return response.data;
             }).catch(response => {
@@ -15,7 +15,7 @@ var FeatureSource = {
     },
     addFeatures: function (featuresIdArray) {
         featuresIdArray.forEach((courseId) => {
-            return axios.patch(`${lmsConfig.baseUrl}${lmsConfig.endpointUrl.feature.add}${courseId}`, {
+            return axios.patch(`${lmsConfig.baseUrl}${lmsConfig.endpointUrl.feature.add}/${courseId}`, {
                 data: {
                     attributes: {
                         featured: true
@@ -30,7 +30,7 @@ var FeatureSource = {
     },
 
     setToUnFeatured: function (courseId) {
-            return axios.patch(`${lmsConfig.baseUrl}${lmsConfig.endpointUrl.feature.add}${courseId}`, {
+            return axios.patch(`${lmsConfig.baseUrl}${lmsConfig.endpointUrl.feature.add}/${courseId}`, {
                 data: {
                     attributes: {
                         featured: false
