@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Dialog, DialogTitle, DialogContent, Textfield, DialogActions, Button } from 'react-mdl';
 import { MDLSelectField } from 'react-mdl-select';
+import _ from 'lodash';
 
+import FilterModel from '../../Models/ParentCategoryFilterModel';
 import Store from '../../Stores/ParentCategoryStore';
 import Actions from '../../Actions/ParentCategoryActions';
 import connectToStores from 'alt/utils/connectToStores';
 
 class AddSubCategoryDialogComponent extends Component {
-    static getStores() {
+  static getStores() {
     return [Store];
   }
 
@@ -32,7 +34,8 @@ class AddSubCategoryDialogComponent extends Component {
   constructor(props) {
     super(props);
     this.state = Store.getState();
-    this.onAddCategory = props.onAddCategory;
+    this.onChange = this.onChange.bind(this);
+    this.onAddCategory = props.onAddCategory.bind(this);
   }
 
   handleOpenDialog() {
@@ -44,11 +47,25 @@ class AddSubCategoryDialogComponent extends Component {
 
   handleCloseDialog(isAdd) {
     if (isAdd && this.isValidForm()) {
-      this.onAddCategory({
-        title: this.refs.title.inputRef.value,
-        parentCategory: this.refs.parentCategory.state.value,
-        secondaryParentCategory: this.refs.secondaryParentCategory.state.value
-      });
+      var self = this;
+      this.onAddCategory(
+        {
+          data: {
+            attributes: {
+              label: this.refs.title.inputRef.value,
+              level: 2,
+              description: "",
+              parent_ids: [
+                _.find(this.refs.parentCategory.state.items, function (item) {
+                  return item.name == self.refs.parentCategory.state.value;
+                }).id,
+                _.find(this.refs.parentCategory.state.items, function (item) {
+                  return item.name == self.refs.secondaryParentCategory.state.value;
+                }).id
+              ]
+            }
+          }
+        });
     }
 
     if ((isAdd && this.isValidForm()) || !isAdd) {

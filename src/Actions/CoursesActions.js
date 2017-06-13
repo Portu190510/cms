@@ -1,9 +1,10 @@
 import alt from '../Alt';
 import CourseSource from '../Sources/CourseSource';
+import fileDownload from 'react-file-download';
 
 class CoursesReportActions {
   constructor() {
-    this.generateActions('updateDataList');
+    this.generateActions('updateDataList', 'exportSuccess');
   }
 
   fetchDataList(model) {
@@ -17,6 +18,20 @@ class CoursesReportActions {
         });
     
     return model
+  }
+
+  exportToCsv(idArray) {
+    var self = this;
+    CourseSource.exportToCsv(idArray)
+      .then((csvByteArray) => {
+        if (csvByteArray) {
+          fileDownload(csvByteArray, 'courseReport.csv');
+          self.actions.exportSuccess(true);
+        } else {
+          console.log('csv is empty');
+          self.actions.exportSuccess(false);
+        }
+      });
   }
 }
 

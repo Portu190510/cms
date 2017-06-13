@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, TableHeader, IconButton, Chip } from 'react-mdl';
+import { Table, TableHeader, IconButton, Chip, ChipContact } from 'react-mdl';
 import ReactPaginate from 'react-paginate';
 import _ from 'lodash';
 
@@ -9,6 +9,7 @@ import AddFeaturedCoursesDialogComponent from './AddFeaturedCoursesDialogCompone
 import FilterModel from '../../Models/SubcategoryFilterModel';
 import Store from '../../Stores/SubcategoryStore';
 import Actions from '../../Actions/SubcategoryActions';
+import ParentActions from '../../Actions/ParentCategoryActions.js';
 import connectToStores from 'alt/utils/connectToStores';
 
 class SubcategoryComponent extends Component {
@@ -60,15 +61,15 @@ class SubcategoryComponent extends Component {
     }
 
     onAddCategory(model) {
-        Actions.createCategory(model);
+        Actions.addCategory(model);
     }
 
     loadCoverImage(id) {
         //TODO
     }
 
-    deleteFeature() {
-
+    deleteFeature(courseId) {
+        Actions.setToUnFeatured(courseId);
     }
 
     render() {
@@ -97,7 +98,15 @@ class SubcategoryComponent extends Component {
                             Descriptions
                         </TableHeader>
                         <TableHeader name="coverlink" cellFormatter={(coverlink, id) =>
-                            <div>{coverlink}
+                            <div>
+                                {coverlink ?
+                                    <Chip onClick={e => { window.open(coverlink); }}>
+                                        <ChipContact
+                                            style={{ background: 'url(' + coverlink + ') 0 0 / cover' }}
+                                        />
+                                        Click to open
+                                    </Chip>
+                                    : ""}
                                 <FileUpoadComponent ripple className="filter-button" onLoadStart={this.loadCoverImage.bind(this, id)} label="Upload a picture" />
                             </div>
                         } tooltip="Action">
@@ -107,7 +116,7 @@ class SubcategoryComponent extends Component {
                             <div>
                                 {
                                     featuredCourses.map(function (item) {
-                                        return <Chip key={item.id} onClose={self.deleteFeature.bind(self, item.id, row.id)}>{item.name}</Chip>
+                                        return <Chip style={{ display: "block !important" }} key={item.id} title={item.name} onClose={self.deleteFeature.bind(self, item.id, row.id)}>{item.name}</Chip>
                                     })
                                 }
                                 <AddFeaturedCoursesDialogComponent subcategoryId={row.id}></AddFeaturedCoursesDialogComponent>
@@ -122,7 +131,6 @@ class SubcategoryComponent extends Component {
                             nextLabel={<IconButton name="keyboard_arrow_right" />}
                             breakLabel={<span className="ellipsis">...</span>}
                             pageNum={this.state.filter.currentPage}
-                            initialPage={1}
                             marginPagesDisplayed={2}
                             pageRangeDisplayed={5}
                             pageLinkClassName="mdl-button mdl-js-button mdl-button--icon"

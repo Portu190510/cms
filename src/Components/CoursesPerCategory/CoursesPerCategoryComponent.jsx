@@ -86,12 +86,12 @@ class CoursesPerCategoryComponent extends Component {
                                             <div>
                                                 {
                                                     item.subCategories.map((subcat) => {
-                                                        return (<div style={{float:"left",width: "47%",marginRight: "40px"}}>
+                                                        return (<div style={{float:"left",width: "46%",marginRight: "40px"}}>
                                                             <table>
                                                                 <tbody>
                                                                     <tr>
                                                                         <td style={{ minWidth: "200px" }}>{subcat.subcategoryName}</td>
-                                                                        <td style={{ minWidth: "510px" }}><ProgressBar style={{ width: "500px" }} progress={subcat.progress} /></td>
+                                                                        <td style={{ minWidth: "150px", width:"100%" }}><ProgressBar style={{ width: "100%" }} progress={subcat.progress} /></td>
                                                                         <td style={{ minWidth: "50px" }}>{subcat.coursesCount}</td>
                                                                     </tr>
                                                                 </tbody>

@@ -5,8 +5,8 @@ class CourseFilterModel extends BaseGridFilterModel {
     super(config);
     this.courseTitle = config.courseTitle || '';
     this.instructor = config.instructor || '';
-    this.userIdOfInstructor = config.userIdOfInstructor || null;
-    this.courseId = config.courseId || null;
+    this.userIdOfInstructor = config.userIdOfInstructor || '';
+    this.courseId = config.courseId || '';
     this.parentCategory = config.parentCategory || '';
     this.childCategory = config.childCategory || '';
     this.courseStatus = config.courseStatus || '';
@@ -19,10 +19,24 @@ class CourseFilterModel extends BaseGridFilterModel {
 
     var model = {
       filter: {
-        status: { eq: this.courseStatus },
-        primary_category_id: { eq: this.parentCategory }
+        id: this.courseId,
+        title: this.courseTitle,
+        status: this.courseStatus,
+        instructors: {
+          id: this.userIdOfInstructor,
+          name: this.instructor
+        },
+        skills: {
+          label: this.skills
+        },
+        category: {
+          label: this.parentCategory
+        },
+        subcategory: {
+          label: this.childCategory
+        },
       },
-      sort: this.orderBy,
+      sort:  this.orderBy,
       page: {
         size: this.limit,
         number: this.start

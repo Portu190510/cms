@@ -1,5 +1,6 @@
 import alt from '../Alt';
 import Source from '../Sources/ParentCategorySource';
+import FilterModel from '../Models/ParentCategoryFilterModel';
 
 class ParentCategoryActions {
     constructor() {
