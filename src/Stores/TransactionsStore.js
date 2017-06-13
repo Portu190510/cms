@@ -37,14 +37,14 @@ class TransactionsStore {
                 learner_name: attributes.learner_name,
                 course_id: (attributes.course_title || '') + ' ('+attributes.course_id+ ')',
                 course_title: attributes.course_title,
-                publisher_id: (attributes.publisher_name || '') + ' (' + (attributes.publisher_id || 'no instructor id') +')',
-                price: '$'+ attributes.price
+                instructor_id: (attributes.instructor_name || '') + ' (' + (attributes.instructor_id || 'no instructor id') +')',
+                price: '$'+ (attributes.price / 100)
             }
         });
 
         var filterModel = this.filter;
         filterModel.totalResults = response.meta.total;
-        filterModel.totalRevenue = response.meta.total_revenues;
+        filterModel.totalRevenue = response.meta.total_revenues / 100;
         filterModel.totalPages = response.meta['total-pages'];
 
         this.setState({ filter: filterModel });

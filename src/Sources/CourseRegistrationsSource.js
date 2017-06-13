@@ -2,9 +2,11 @@ import Config from '../config';
 import ObjectToQuery from '../Utils/ObjectToQueryStringUtil';
 import axios from 'axios';
 
+var gatewayConfig = Config.apiUrl.gateway;
+
 var CourseRegistrationsSource = {
     fetch: function (model) {
-        return axios.get(`${Config.apiUrl}${Config.endpointUrl.courseRegistration.fetch}?${ObjectToQuery.asQuery(model)}`)
+        return axios.get(`${gatewayConfig.baseUrl}${gatewayConfig.endpointUrl.courseRegistration.fetch}?${ObjectToQuery.asQuery(model)}`)
             .then(response => {
                 return response.data;
             }).catch(response => {
@@ -33,7 +35,7 @@ var CourseRegistrationsSource = {
     },
 
     getCourseRegistrationDetails: function (courseId) {
-        return axios.get(`${Config.apiUrl}${Config.endpointUrl.courseRegistration.courseDetail}?courseId=${courseId}`)
+        return axios.get(`${gatewayConfig.baseUrl}${gatewayConfig.endpointUrl.courseRegistration.courseDetail}?courseId=${courseId}`)
             .then(response => {
                 return response.data;
             }).catch(response => {

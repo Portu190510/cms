@@ -29,11 +29,11 @@ class CourseRegistrationsStore {
         var data = response.data.map(function (item) {
             var attributes = item.attributes;
             return {
-                id: attributes.id,
-                firstName: attributes.firstName,
-                lastName: attributes.lastName,
-                userId: attributes.userId,
-                registrationDate: attributes.registrationDate,
+                id: item.id,
+                firstName: attributes.first_name,
+                lastName: attributes.last_name,
+                userId: attributes.user_id,
+                registrationDate: attributes.created_at,
                 lastActivityDate: attributes.lastActivityDate
             }
         });
@@ -50,8 +50,8 @@ class CourseRegistrationsStore {
         var data = response.data.map(function (item) {
             var attributes = item.attributes;
             return {
-                courseId: attributes.courseId,
-                courseTitle: attributes.courseTitle,
+                courseId: item.id,
+                courseTitle: item.type,
                 numberOfRegistrations: attributes.numberOfRegistrations
             }
         });

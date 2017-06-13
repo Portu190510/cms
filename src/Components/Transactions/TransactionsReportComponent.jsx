@@ -133,7 +133,7 @@ class TransactionsReportComponent extends Component {
                         <TableHeader name="course_id" tooltip="Course ID" onClick={this.sortDataList.bind(this)}>
                             Course ID
                         </TableHeader>
-                        <TableHeader name="publisher_id" tooltip="Instructor ID" onClick={this.sortDataList.bind(this)}>
+                        <TableHeader name="instructor_id" tooltip="Instructor ID">
                             Instructor ID
                         </TableHeader>
                         <TableHeader name="price" tooltip="Price" onClick={this.sortDataList.bind(this)}>

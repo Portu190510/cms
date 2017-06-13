@@ -9,7 +9,7 @@ class CoursesOnReviewStore {
 
         // State
         this.isSnackbarActive = false;
-        this.courseStates = ["DENY", "APPROVE"];
+        this.courseStates = ["draft", "ready_to_publish"];
         this.dataList = [];
         this.filter = new FilterModel({});
     }
@@ -28,21 +28,27 @@ class CoursesOnReviewStore {
     onUpdateDataList(response) {
         var data = response.data.map(function (item) {
             var attributes = item.attributes;
+            var instructors = attributes.instructors.map(function (instructor) {
+                return {
+                    name: instructor.first_name + ' ' + instructor.last_name,
+                    email: instructor.email
+                }
+            });
             return {
-                courseId: attributes.courseId,
+                courseId: item.id,
                 title: attributes.title,
-                dateSubmitted: attributes.dateSubmitted,
-                primaryCategoryName: attributes.primaryCategoryName,
-                primarySubCategoryName: attributes.primarySubCategoryName,
-                secondarySubCategoryName: attributes.secondarySubCategoryName,
-                secondaryCategoryName: attributes.secondaryCategoryName,
-                instructorIds: attributes.instructorIds
+                dateSubmitted: (new Date(attributes.updated)).toLocaleDateString('en-US'),
+                primaryCategoryName: attributes.primary_category ? attributes.primary_category.label : '',
+                primarySubCategoryName: attributes.primary_subcategory ? attributes.primary_subcategory.label : '',
+                secondarySubCategoryName: attributes.secondary_subcategory ? attributes.secondary_subcategory.label : '',
+                secondaryCategoryName: attributes.secondary_category ? attributes.secondary_category.label : '',
+                instructorIds: instructors
             }
         });
 
         var filterModel = this.filter;
-        filterModel.totalPages = response.totalPage;
-        filterModel.totalResults = response.totalResults;
+        filterModel.totalPages = response.meta.total_pages || 1;
+        filterModel.totalResults = response.meta.total;
 
         this.setState({ filter: filterModel });
         this.setState({ dataList: data });

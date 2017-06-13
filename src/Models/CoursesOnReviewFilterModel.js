@@ -13,10 +13,18 @@ class CoursesOnReviewFilterModel extends BaseGridFilterModel {
     this.limit = this.displayPerPage;
 
     return {
-      start: this.start, 
-      limit: this.limit,
-      title: this.title,
-      instructorIdOrName: this.instructorIdOrName
+      page: {
+        number: this.currentPage,
+        size: this.displayPerPage,
+        orderBy: this.orderBy,
+        sortOrder: this.sortOrder
+      },
+      filter: {
+        title: this.title,
+        instructors: {
+          name_or_id: this.instructorIdOrName
+        }
+      }
     };
   }
 }

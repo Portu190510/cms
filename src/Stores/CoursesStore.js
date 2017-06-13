@@ -8,8 +8,15 @@ class CoursesStore {
     this.bindActions(CoursesActions);
 
     // State
+    this.isSnackbarActive = false;
     this.dataList = [];
     this.filter = new CourseFilterModel({});
+  }
+
+  onExportSuccess(isSuccess) {
+    if (!isSuccess) {
+      this.isSnackbarActive = true;
+    }
   }
 
   onFetchDataList(filterModel) {
@@ -18,39 +25,46 @@ class CoursesStore {
   }
 
   onUpdateDataList(response) {
-    if(response && response.data){
-    var data = response.data.map(function (item) {
-      var attributes = item.attributes;
-      var lastUpdatedDates = (new Date(attributes.updated)).toLocaleDateString('en-US');
+    if (response && response.data) {
+      var data = response.data.map(function (item) {
+        var attributes = item.attributes;
+        var lastUpdatedDates = (new Date(attributes.updated)).toLocaleDateString('en-US');
+        var instructors = attributes.instructors.map(function (source) {
+          return source.first_name + ' ' + source.last_name;
+        });
+        var instructorIDs = attributes.instructors.map(function (source) {
+          return source.id;
+        });
+        var skills = attributes.skills.map(function (source) {
+          return source.label;
+        });
 
-      return {
-        courseId: item.id,
-        courseTitle: attributes.title,
-        instructor: 'TODO',
-        userIdOfInstructor: _.join(attributes['instructor-ids'], '\n  '),
-        duration: (attributes['duration-sec']/ 60) + 'min.',
-        headline: attributes.headline,
-        primaryParentCategory: attributes['primary-category-id'],
-        primaryChildCategory: attributes['primary-subcategory-id'],
-        secondaryParentCategory: attributes['secondary-category-id'],
-        secondaryChildCategory: attributes['secondary-subcategory-id'],
-        courseStatus: attributes.status,
-        lastUpdatedDate: _.join(lastUpdatedDates, '\n  '),
-        skills: _.join(attributes['skill-ids'], ', ')
-      }
-    });
+        return {
+          id: item.id,
+          title: attributes.title,
+          instructor: _.join(instructors, '\n  '),
+          userIdOfInstructor: _.join(instructorIDs, '\n  '),
+          duration_sec: (attributes.duration_sec / 60).toFixed(1) + 'min.',
+          headline: attributes.headline,
+          primary_category: attributes.primary_category ? attributes.primary_category.label : '',
+          primary_subcategory: attributes.primary_subcategory ? attributes.primary_subcategory.label : '',
+          secondary_category: attributes.secondary_category ? attributes.secondary_category.label : '',
+          secondary_subcategory: attributes.secondary_subcategory ? attributes.secondary_subcategory.label : '',
+          status: attributes.status,
+          updated: lastUpdatedDates,
+          skills: _.join(skills, '\n  ')
+        }
+      });
 
-    var filterModel = this.filter;
-    //TODO
-    if(response.links.last)
-    {
-      filterModel.totalPages = +(response.links.last.substring(response.links.last.indexOf("page%5Bnumber%5D=") + 17, response.links.last.indexOf("&page%5Bsize%5D")));
+      var filterModel = this.filter;
+      filterModel.totalPages = response.meta.total_pages || 1;
+      filterModel.totalResults = response.meta.total;
+
+      this.setState({ filter: filterModel });
+
+      this.setState({ dataList: data });
     }
-    this.setState({ filter: filterModel });
-
-    this.setState({ dataList: data });
-  }
-  console.log("NO RESPONSE");
+    console.log("NO RESPONSE");
   }
 }
 

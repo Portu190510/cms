@@ -118,7 +118,7 @@ class AuthStore {
   }
 
   getAuthEndpoint(grantType = 'password') {
-    return Config.apiUrl + '/connect/token';
+    return Config.apiUrl.auth.baseUrl + '/connect/token';
   }
 
   getFormData(data) {

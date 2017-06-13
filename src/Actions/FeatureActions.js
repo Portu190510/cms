@@ -6,18 +6,18 @@ class FeatureActions {
         this.generateActions('updateDataList');
     }
 
-    fetchDataList(searchFieldValue) {
+    fetchDataList(subcategoryId, searchFieldValue) {
         var self = this;
-        Source.fetch(searchFieldValue).then((dataList) => {
+        Source.fetch(subcategoryId, searchFieldValue).then((dataList) => {
             self.actions.updateDataList(dataList);
         });
 
         return;
     }
 
-    addFeatures(featuresIdArray,subcategoryId) {
+    addFeatures(featuresIdArray) {
         var self = this;
-        Source.addFeatures(featuresIdArray,subcategoryId).then((response) => {
+        Source.addFeatures(featuresIdArray).then((response) => {
             //TODO
         });
 
