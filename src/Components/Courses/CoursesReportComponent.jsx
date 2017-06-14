@@ -47,72 +47,77 @@ class CoursesReportComponent extends Component {
   }
 
   onSelectionChanged(data) {
-        this.selectedDomains = data;
-    }
+    this.selectedDomains = data;
+  }
 
   sortDataList(e, orderBy, t) {
-        var filter = this.state.filter;
-        filter.sortOrder = filter.sortOrder === 'asc' ? 'desc':'asc';
-        filter.orderBy = filter.sortOrder === 'asc' ? orderBy : '-'+ orderBy;
-        CoursesActions.fetchDataList(filter);
-    }
+    var filter = this.state.filter;
+    filter.sortOrder = filter.sortOrder === 'asc' ? 'desc' : 'asc';
+    filter.orderBy = filter.sortOrder === 'asc' ? orderBy : '-' + orderBy;
+    CoursesActions.fetchDataList(filter);
+  }
 
   filterDataList(model) {
     CoursesActions.fetchDataList(model);
   }
+
+  export() {
+    CoursesActions.exportToCsv(this.selectedDomains);
+  }
+
   render() {
     return (
       <div className="mdl-card mdl-shadow--2dp full-size">
         <div className="mdl-card__supporting-text">
-          <CourseSearchComponent filterCallBack={this.filterDataList}></CourseSearchComponent>
+          <CourseSearchComponent filterCallBack={this.filterDataList} export={this.export.bind(this)}></CourseSearchComponent>
         </div>
         <div className="mdl-card__actions mdl-card--border"></div>
         <div className="big-table">
-          <Table className="full-size"
+          <Table className="full-size date-array-field"
             selectable
             onSelectionChanged={this.onSelectionChanged.bind(this)}
             shadow={0}
-            rowKeyColumn="courseId"
+            rowKeyColumn="id"
             rows={this.state.dataList}>
-            <TableHeader name="courseTitle" tooltip="Course Title" onClick={this.sortDataList.bind(this, 't_t')}>
+            <TableHeader name="title" tooltip="Course Title" onClick={this.sortDataList.bind(this)}>
               Title
           </TableHeader>
-            <TableHeader name="instructor" tooltip="Instructor" onClick={this.sortDataList.bind(this)}>
+            <TableHeader name="instructor" tooltip="Instructor">
               Instructor
           </TableHeader>
-            <TableHeader name="userIdOfInstructor" tooltip="User ID of Instructor" onClick={this.sortDataList.bind(this)}>
+            <TableHeader name="userIdOfInstructor" tooltip="User ID of Instructor" >
               UserID of Instructor
           </TableHeader>
             <TableHeader
-              name="courseId"
+              name="id"
               tooltip="User Id" onClick={this.sortDataList.bind(this)}>
               CourseID
           </TableHeader>
             <TableHeader name="headline" tooltip="Headline" onClick={this.sortDataList.bind(this)}>
               Headline
           </TableHeader>
-            <TableHeader name="duration" tooltip="Duration (in minutes) " onClick={this.sortDataList.bind(this)}>
+            <TableHeader name="duration_sec" tooltip="Duration (in minutes) " onClick={this.sortDataList.bind(this)}>
               Duration
           </TableHeader>
-            <TableHeader name="primaryParentCategory" tooltip="Primary Parent Category" onClick={this.sortDataList.bind(this)}>
+            <TableHeader name="primary_category" tooltip="Primary Parent Category" onClick={this.sortDataList.bind(this)}>
               Prim. Parent Category
           </TableHeader>
-            <TableHeader name="primaryChildCategory" tooltip="Primary Child Category" onClick={this.sortDataList.bind(this)}>
+            <TableHeader name="primary_subcategory" tooltip="Primary Child Category" onClick={this.sortDataList.bind(this)}>
               Prim. Child Category
           </TableHeader>
-            <TableHeader name="secondaryParentCategory" tooltip="Secondary Parent Category" onClick={this.sortDataList.bind(this)}>
+            <TableHeader name="secondary_category" tooltip="Secondary Parent Category" onClick={this.sortDataList.bind(this)}>
               Sec. Parent Category
           </TableHeader>
-            <TableHeader name="secondaryChildCategory" tooltip="Secondary Child Category" onClick={this.sortDataList.bind(this)}>
+            <TableHeader name="secondary_subcategory" tooltip="Secondary Child Category" onClick={this.sortDataList.bind(this)}>
               Sec. Child Category
           </TableHeader>
-            <TableHeader numeric name="courseStatus" tooltip="Course Status" onClick={this.sortDataList.bind(this)}>
+            <TableHeader name="status" tooltip="Course Status" onClick={this.sortDataList.bind(this)}>
               Course Status
           </TableHeader>
-            <TableHeader numeric name="lastUpdatedDate" className="date-array-field" tooltip="Last Updated Date" onClick={this.sortDataList.bind(this)}>
+            <TableHeader name="updated" className="date-array-field" tooltip="Last Updated Date" onClick={this.sortDataList.bind(this)}>
               Last Updated Date
           </TableHeader>
-            <TableHeader numeric name="skills" tooltip="Skills" onClick={this.sortDataList.bind(this)}>
+            <TableHeader style={{whiteSpace:'initial'}} name="skills" tooltip="Skills">
               Skills
           </TableHeader>
           </Table>

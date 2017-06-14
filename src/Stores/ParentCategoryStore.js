@@ -18,8 +18,12 @@ class ParentCategoryStore {
     this.setState({ dataList: [] });
   }
 
-  onfetchCategoryList() {
+  onFetchCategoryList() {
     this.setState({ parentCategoryList: [] });
+  }
+
+  onAddParentCategory() {
+
   }
 
   onUpdateCategoryList(response) {
@@ -28,7 +32,7 @@ class ParentCategoryStore {
         var attributes = item.attributes;
         return {
           id: item.id,
-          name: attributes.name
+          name: attributes.label,
         }
       });
       this.setState({ parentCategoryList: data });
@@ -43,17 +47,16 @@ class ParentCategoryStore {
         return {
           id: item.id,
           title: attributes.label,
-          status: attributes.type,
+          status: attributes.status,
           descriptions: attributes.description,
           coverlink: attributes.category_image_url
         }
       });
 
       var filterModel = this.filter;
-      //TODO
-      if (response.links.last) {
-        filterModel.totalPages = +(response.links.last.substring(response.links.last.indexOf("page%5Bnumber%5D=") + 17, response.links.last.indexOf("&page%5Bsize%5D")));
-      }
+      filterModel.totalResults = response.meta.total;
+      filterModel.totalPages = response.meta.total_pages;
+
       this.setState({ filter: filterModel });
       this.setState({ dataList: data });
     }

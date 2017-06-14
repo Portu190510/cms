@@ -1,31 +1,29 @@
 import alt from '../Alt';
-import CourseSource from '../Sources/CourseSource';
+import Source from '../Sources/TransactionsSource';
 import fileDownload from 'react-file-download';
 
-class CoursesReportActions {
+class TransactionsActions {
   constructor() {
     this.generateActions('updateDataList', 'exportSuccess');
   }
 
   fetchDataList(model) {
     var self = this;
-      CourseSource
-        .fetch(model.getParams())
-        .then((dataList) => {
-          self
-            .actions
-            .updateDataList(dataList);
-        });
-    
-    return model
+
+    Source.fetch(model.getParams())
+      .then((dataList) => {
+        self.actions.updateDataList(dataList);
+      });
+
+    return model;
   }
 
   exportToCsv(idArray) {
     var self = this;
-    CourseSource.exportToCsv(idArray)
+    Source.exportToCsv(idArray)
       .then((csvByteArray) => {
         if (csvByteArray) {
-          fileDownload(csvByteArray, 'courseReport.csv');
+          fileDownload(csvByteArray, 'userReport.csv');
           self.actions.exportSuccess(true);
         } else {
           console.log('csv is empty');
@@ -35,4 +33,4 @@ class CoursesReportActions {
   }
 }
 
-export default alt.createActions(CoursesReportActions);
+export default alt.createActions(TransactionsActions);

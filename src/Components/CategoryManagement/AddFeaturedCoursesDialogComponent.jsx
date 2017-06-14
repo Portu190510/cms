@@ -32,22 +32,25 @@ class AddFeaturedCoursesDialogComponent extends Component {
         super(props);
         this.subcategoryId = this.props.subcategoryId;
         this.state = Store.getState();
+        this.onChange = this.onChange.bind(this);
     }
 
     handleOpenDialog() {
+        this.setState({ dataList: [] });
+        Actions.fetchDataList(this.subcategoryId, '');
         this.setState({
             openDialog: true
         });
     }
 
     handleCloseDialog(isAdd) {
-        if (isAdd && this.state.selectedFetures.length > 0) {
-            Actions.addFeatures(this.state.selectedFetures, this.subcategoryId);
-        }
         this.setState({ dataList: [] });
         this.setState({
             openDialog: false
         });
+        if (isAdd && this.state.selectedFetures.length > 0) {
+            Actions.addFeatures(this.state.selectedFetures);
+        }
     }
 
     onClickCheckbox(id, e) {
@@ -64,13 +67,7 @@ class AddFeaturedCoursesDialogComponent extends Component {
     }
 
     searchFeture(searchFieldValue) {
-        this.setState({
-            dataList: [{ id: 0, name: 'addFeatures' }, { id: 1, name: 'SubcategoryComponent.jsx' }, { id: 2, name: 'componentDidMount' }, { id: 3, name: 'dataList' }, { id: 4, name: 'expandableIcon' }, { id: 5, name: 'subcategoryId' },
-            { id: 45, name: 'addFeatures' }, { id: 534, name: 'SubcategoryComponent.jsx' }, { id: 345, name: 'componentDidMount' }, { id: 43, name: 'dataList' }, { id: 55, name: 'expandableIcon' }, { id: 345, name: 'subcategoryId' }]
-        })
-        if (searchFieldValue.inputRef.value.length > 0) {
-            Actions.fetchDataList(searchFieldValue.inputRef.value);
-        }
+        Actions.fetchDataList(this.subcategoryId, searchFieldValue.inputRef.value);
     }
 
     render() {
@@ -80,7 +77,7 @@ class AddFeaturedCoursesDialogComponent extends Component {
                 <Button onClick={this.handleOpenDialog.bind(this)} ripple>
                     <i className="material-icons">add</i> Add Course
            </Button>
-                <Dialog open={this.state.openDialog} style={{ width: '380px', top: '63.5px' }} onCancel={this.handleCloseDialog.bind(this)}>
+                <Dialog open={this.state.openDialog} style={{ width: '580px', top: '63.5px' }} onCancel={this.handleCloseDialog.bind(this)}>
                     <DialogTitle>Add Featured Course</DialogTitle>
                     <DialogContent>
                         <div>
@@ -88,6 +85,7 @@ class AddFeaturedCoursesDialogComponent extends Component {
                                 ref="searchFieldValue"
                                 label="Text..."
                                 floatingLabel
+                                style={{width: '450px'}}
                                 expandableIcon="search"
                             />
                             <Button style={{ float: 'none', marginTop: '-12px' }} raised onClick={this.searchFeture.bind(this, this.refs.searchFieldValue)}>
@@ -97,7 +95,7 @@ class AddFeaturedCoursesDialogComponent extends Component {
                                 {
                                     this.state.dataList.map(function (item) {
                                         return <ListItem key={item.id}>
-                                            <ListItemContent>{item.name}</ListItemContent>
+                                            <ListItemContent className="featured-course-item">{item.name}</ListItemContent>
                                             <ListItemAction>
                                                 <Checkbox onClick={self.onClickCheckbox.bind(self, item.id)} />
                                             </ListItemAction>

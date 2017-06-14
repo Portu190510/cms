@@ -17,9 +17,17 @@ class AddCategoryDialogComponent extends Component {
   handleCloseDialog(isAdd) {
 
     if (isAdd && this.isValidForm()) {
+
       this.onAddCategory({
-        title: this.refs.title.inputRef.value,
-        description: this.refs.descriptions.inputRef.value
+        data: {
+          attributes: {
+            label: this.refs.title.inputRef.value,
+            level: 1,
+            description: this.refs.descriptions.inputRef.value,
+            pop_score: 0,
+            status: "active"
+          }
+        }
       });
     }
 

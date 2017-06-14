@@ -33,6 +33,7 @@ class CourseSearchComponent extends Component {
 
   render() {
     return (
+      <div>
       <form onSubmit={this.onSearchSubmit}>
         <Textfield floatingLabel ref="courseTitle" label="Course Title" />
         <Textfield floatingLabel ref="instructor" label="Instructor" />
@@ -44,10 +45,12 @@ class CourseSearchComponent extends Component {
         <Textfield floatingLabel ref="skills" label="Skills" />
         <Button ripple className="filter-button">
           <i className="material-icons">search</i>Search</Button>
-        <Button ripple className="filter-button">
-          <i className="material-icons">file_download</i>
-          Export</Button>
       </form>
+      <Button ripple className="filter-button" onClick={this.props.export.bind(this)}>
+        <i className="material-icons">file_download</i>
+        Export</Button>
+        </div>
+      
     );
   }
 }

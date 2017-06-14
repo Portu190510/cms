@@ -1,9 +1,12 @@
 import Config from '../config';
+import ObjectToQuery from '../Utils/ObjectToQueryStringUtil';
 import axios from 'axios';
+
+var lmsConfig = Config.apiUrl.lms;
 
 var ParentCategorySource = {
     fetch: function (model) {
-        return axios.get(`${Config.endpointUrl.parentCategory.apiUrl}${Config.endpointUrl.parentCategory.fetch}?start=${model.start}&limit=${model.limit}&orderBy=${model.orderBy}&sortOrder=${model.sortOrder}`)
+        return axios.get(`${lmsConfig.baseUrl}${lmsConfig.endpointUrl.parentCategory.fetch}?${ObjectToQuery.asQuery(model)}`)
             .then(response => {
                 return response.data;
             }).catch(response => {
@@ -21,7 +24,26 @@ var ParentCategorySource = {
     },
 
     fetchCategoryList: function () {
-        return axios.get(`${Config.apiUrl}${Config.endpointUrl.parentCategory.fetchCategoryList}`)
+        var model = {
+            page: {
+                size: 1000,
+            },
+            filter: {
+                level: {
+                    eq: 1,
+                }
+            }
+        };
+        return axios.get(`${lmsConfig.baseUrl}${lmsConfig.endpointUrl.parentCategory.fetch}?${ObjectToQuery.asQuery(model)}`)
+            .then(response => {
+                return response.data;
+            }).catch(response => {
+                console.log(response);
+            });
+    },
+
+    addCategory: function (model) {
+        return axios.post(`${lmsConfig.baseUrl}${lmsConfig.endpointUrl.parentCategory.create}`, model)
             .then(response => {
                 return response.data;
             }).catch(response => {

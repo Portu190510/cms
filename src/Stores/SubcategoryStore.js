@@ -18,31 +18,38 @@ class SubcategoryStore {
   }
 
   onUpdateDataList(response) {
-    if(response && response.data){
-    var data = response.data.map(function (item) {
-      var attributes = item.attributes;
-   
-      return {
-        id: item.id,
-        title: attributes.title,
-        status: attributes.status,
-        parentCategory: attributes.parentCategory,
-        descriptions: attributes.descriptions,
-        coverlink: attributes.coverlink,
-        featuredCourses : attributes.featuredCourses
-      }
-    });
+    if (response && response.data) {
+      var data = response.data.map(function (item) {
+        var attributes = item.attributes;
+        var parents = attributes.parents.data.map(function (source) {
+          return source.attributes.label;
+        });
+        var featuredCourses = attributes.featured_courses.data.map(function (source) {
+          return {
+            id: source.id,
+            name: source.attributes.title
+          };
+        });
 
-    var filterModel = this.filter;
-    //TODO
-    if(response.links.last)
-    {
-      filterModel.totalPages = +(response.links.last.substring(response.links.last.indexOf("page%5Bnumber%5D=") + 17, response.links.last.indexOf("&page%5Bsize%5D")));
+        return {
+          id: item.id,
+          title: attributes.label,
+          status: attributes.status,
+          parentCategory: _.join(parents, '\n '),
+          descriptions: attributes.description,
+          coverlink: attributes.category_image_url,
+          featuredCourses: featuredCourses
+        }
+      });
+
+      var filterModel = this.filter;
+      filterModel.totalResults = response.meta.total;
+      filterModel.totalPages = response.meta.total_pages;
+
+      this.setState({ filter: filterModel });
+      this.setState({ dataList: data });
     }
-    this.setState({ filter: filterModel });
-    this.setState({ dataList: data });
-  }
-  console.log("NO RESPONSE");
+    console.log("NO RESPONSE");
   }
 }
 

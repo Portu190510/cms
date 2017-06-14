@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, TableHeader, IconButton } from 'react-mdl';
+import { Table, TableHeader, IconButton, Chip, ChipContact } from 'react-mdl';
 import ReactPaginate from 'react-paginate';
 import _ from 'lodash';
 
@@ -59,7 +59,7 @@ class ParentCategoryComponent extends Component {
     }
 
     onAddCategory(model) {
-        Actions.createCategory(model);
+        Actions.addParentCategory(model);
     }
 
     loadCoverImage(id, image) {
@@ -81,22 +81,32 @@ class ParentCategoryComponent extends Component {
                         <TableHeader name="title" tooltip="Title" onClick={this.sortDataList.bind(this)}>
                             Title
                         </TableHeader>
-                        <TableHeader name="status" tooltip="Status" onClick={this.sortDataList.bind(this)}>
+                        <TableHeader name="status" tooltip="Status" onClick={this.sortDataList.bind(this)} >
                             Status
                         </TableHeader>
-                        <TableHeader name="descriptions" tooltip="Descriptions" onClick={this.sortDataList.bind(this)} className="is-enable-column">
+                        <TableHeader name="descriptions" tooltip="Descriptions">
                             Description
                         </TableHeader>
-                        <TableHeader name="coverlink" cellFormatter={(coverlink, id) =>
-                            <FileUpoadComponent ripple className="filter-button"
-                                onLoadStart={this.loadCoverImage.bind(this, id)}
-                                onLoadEnd={(err) => {
-                                    if (err) {
-                                        console.error(err);
-                                    }
-                                }}
-                                label="Upload a picture"
-                            />
+                        <TableHeader name="coverlink" style={{ width: "100px !important" }} cellFormatter={(coverlink, id) =>
+                            <div>
+                                { coverlink ?
+                                    <Chip onClick={e => { window.open(coverlink); }}>
+                                        <ChipContact
+                                            style={{ background: 'url('+coverlink+') 0 0 / cover' }}
+                                        />
+                                        Click to open
+                                    </Chip>
+                                 : ""}
+                                <FileUpoadComponent ripple className="filter-button"
+                                    onLoadStart={id}
+                                    onLoadEnd={(err) => {
+                                        if (err) {
+                                            console.error(err);
+                                        }
+                                    }}
+                                    label="Upload a picture"
+                                />
+                            </div>
                         } tooltip="Cover Image">
                             Cover Image
                          </TableHeader>
@@ -107,7 +117,6 @@ class ParentCategoryComponent extends Component {
                             nextLabel={<IconButton name="keyboard_arrow_right" />}
                             breakLabel={<span className="ellipsis">...</span>}
                             pageNum={this.state.filter.currentPage}
-                            initialPage={1}
                             marginPagesDisplayed={2}
                             pageRangeDisplayed={5}
                             pageLinkClassName="mdl-button mdl-js-button mdl-button--icon"
