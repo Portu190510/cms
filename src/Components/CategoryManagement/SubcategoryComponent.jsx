@@ -91,8 +91,8 @@ class SubcategoryComponent extends Component {
                         <TableHeader name="status" tooltip="Status" onClick={this.sortDataList.bind(this)}>
                             Status
                         </TableHeader>
-                        <TableHeader name="parentCategory" tooltip="Parent Category" onClick={this.sortDataList.bind(this)}>
-                            Status
+                        <TableHeader name="parentCategory" tooltip="Parent Categories" onClick={this.sortDataList.bind(this)}>
+                            Parent Categories
                         </TableHeader>
                         <TableHeader name="descriptions" tooltip="Descriptions" onClick={this.sortDataList.bind(this)}>
                             Descriptions

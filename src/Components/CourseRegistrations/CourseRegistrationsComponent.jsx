@@ -92,6 +92,7 @@ class CourseRegistrationsComponent extends Component {
         var self = this;
         return (
             <div className="mdl-card mdl-shadow--2dp full-size">
+            <h5 style={{ marginLeft: '15px' }}>Course Registrations Report</h5>
                 <div className="mdl-card__supporting-text">
                     <div>
                         <form onSubmit={this.filterDataList.bind(this)}>

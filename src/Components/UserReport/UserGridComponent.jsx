@@ -72,6 +72,7 @@ class UserGridComponent extends Component {
   render() {
     return (
       <div className="mdl-card mdl-shadow--2dp full-size">
+      <h5 style={{ marginLeft: '15px' }}>Users Report</h5>
         <div className="mdl-card__supporting-text">
           <UserSearchComponent filterCallBack={this.filterDataList} onExportCallBack={this.onExportToCsv.bind(this)}></UserSearchComponent>
         </div>
@@ -86,23 +87,23 @@ class UserGridComponent extends Component {
             <TableHeader name="userId" numeric tooltip="User Id" onClick={this.sortDataList.bind(this)}>
               User ID
           </TableHeader>
-            <TableHeader name="firstName" tooltip="FirstName" onClick={this.sortDataList.bind(this)}>
-              FirstName
+            <TableHeader name="firstName" tooltip="First Name" onClick={this.sortDataList.bind(this)}>
+              First Name
           </TableHeader>
-            <TableHeader name="lastName" tooltip="LastName" onClick={this.sortDataList.bind(this)}>
-              LastName
+            <TableHeader name="lastName" tooltip="Last Name" onClick={this.sortDataList.bind(this)}>
+              Last Name
           </TableHeader>
             <TableHeader name="email" tooltip="Email" onClick={this.sortDataList.bind(this)}>
               Email
           </TableHeader>
-            <TableHeader name="signupSource" tooltip="SignupSource" onClick={this.sortDataList.bind(this)}>
-              SignupSource
+            <TableHeader name="signupSource" tooltip="Signup Source" onClick={this.sortDataList.bind(this)}>
+              Signup Source
           </TableHeader>
-            <TableHeader name="lastLoginDate" className="date-array-field" tooltip="LastLoginDate" onClick={this.sortDataList.bind(this)}>
-              LastLoginDate
+            <TableHeader name="lastLoginDate" className="date-array-field" tooltip="Last Login Date" onClick={this.sortDataList.bind(this)}>
+              Last Login Date
           </TableHeader>
-            <TableHeader name="signupDate" className="date-array-field" tooltip="SignupDate" onClick={this.sortDataList.bind(this)}>
-              SignupDate
+            <TableHeader name="signupDate" className="date-array-field" tooltip="Signup Date" onClick={this.sortDataList.bind(this)}>
+              Signup Date
           </TableHeader>
           </Table>
           <div className="pagination-box">

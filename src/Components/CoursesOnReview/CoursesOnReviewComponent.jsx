@@ -66,7 +66,7 @@ class CoursesOnReviewComponent extends Component {
     render() {
         return (
             <div className="mdl-card mdl-shadow--2dp full-size">
-                <h5 style={{marginLeft:'15px'}}>Courses in  "Submited for Review"</h5>
+                <h5 style={{marginLeft:'15px'}}>Courses in  "Submitted for Review"</h5>
                 <div className="mdl-card__supporting-text">
                     <div>
                         <form onSubmit={this.filterDataList.bind(this)}>

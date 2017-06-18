@@ -68,6 +68,7 @@ class CoursesReportComponent extends Component {
   render() {
     return (
       <div className="mdl-card mdl-shadow--2dp full-size">
+      <h5 style={{ marginLeft: '15px' }}>Course Catalog</h5>
         <div className="mdl-card__supporting-text">
           <CourseSearchComponent filterCallBack={this.filterDataList} export={this.export.bind(this)}></CourseSearchComponent>
         </div>
@@ -91,7 +92,7 @@ class CoursesReportComponent extends Component {
             <TableHeader
               name="id"
               tooltip="User Id" onClick={this.sortDataList.bind(this)}>
-              CourseID
+              Course ID
           </TableHeader>
             <TableHeader name="headline" tooltip="Headline" onClick={this.sortDataList.bind(this)}>
               Headline
