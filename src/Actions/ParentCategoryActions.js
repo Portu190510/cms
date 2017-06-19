@@ -24,6 +24,15 @@ class ParentCategoryActions {
 
         return;
     }
+
+    addCategory(model){
+        var self = this;
+        Source.addCategory(model).then((dataList) => {
+            self.actions.fetchDataList(new FilterModel({}));
+        });
+
+        return;
+    }
 }
 
 export default alt.createActions(ParentCategoryActions);

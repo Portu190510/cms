@@ -59,7 +59,7 @@ class ParentCategoryComponent extends Component {
     }
 
     onAddCategory(model) {
-        Actions.addParentCategory(model);
+        Actions.addCategory(model);
     }
 
     loadCoverImage(id, image) {
