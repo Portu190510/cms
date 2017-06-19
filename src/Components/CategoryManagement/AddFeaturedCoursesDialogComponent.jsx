@@ -50,6 +50,7 @@ class AddFeaturedCoursesDialogComponent extends Component {
         });
         if (isAdd && this.state.selectedFetures.length > 0) {
             Actions.addFeatures(this.state.selectedFetures);
+            this.props.reloadGrid();
         }
     }
 
