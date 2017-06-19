@@ -17,7 +17,7 @@ class TransactionsFilterModel extends BaseGridFilterModel {
       page:{
         number: this.currentPage,
         size: this.displayPerPage,
-        orderBy: this.orderBy,
+        orderBy: this.orderBy || 'date',
         sortOrder: this.sortOrder
       },
       filter: {

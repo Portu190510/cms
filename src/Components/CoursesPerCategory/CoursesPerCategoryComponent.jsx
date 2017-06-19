@@ -64,7 +64,6 @@ class CoursesPerCategoryComponent extends Component {
                 <div className="mdl-card__supporting-text">
                     <div className="mdl-selectfield mdl-js-selectfield">
                         <SelectField label={'Status'} value={this.state.filter.status} onChange={this.filterDataList.bind(this)}>
-                            <Option value="">Empty</Option>
                             {
                                 this.state.statuses.map((st) => {
                                     return <Option value={st.name}>{st.name}</Option>
@@ -112,6 +111,7 @@ class CoursesPerCategoryComponent extends Component {
                         }
                     </div>
                     <div className="pagination-box">
+                        <div style={{margin: "auto",display: "flex"}}>
                         <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
                             previousLabel={<IconButton name="keyboard_arrow_left" />}
                             nextLabel={<IconButton name="keyboard_arrow_right" />}
@@ -123,6 +123,7 @@ class CoursesPerCategoryComponent extends Component {
                             perPage={this.state.filter.displayPerPage}
                             onPageChange={this.onPageChange.bind(this)}>
                         </ReactPaginate >
+                        </div>
                     </div>
                 </div>
                 <Snackbar active={this.state.isSnackbarActive} onTimeout={this.handleTimeoutSnackbar.bind(this)}> Some error!

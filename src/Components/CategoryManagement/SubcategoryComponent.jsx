@@ -91,8 +91,8 @@ class SubcategoryComponent extends Component {
                         <TableHeader name="status" tooltip="Status" onClick={this.sortDataList.bind(this)}>
                             Status
                         </TableHeader>
-                        <TableHeader name="parentCategory" tooltip="Parent Category" onClick={this.sortDataList.bind(this)}>
-                            Status
+                        <TableHeader name="parentCategory" tooltip="Parent Categories" onClick={this.sortDataList.bind(this)}>
+                            Parent Categories
                         </TableHeader>
                         <TableHeader name="descriptions" tooltip="Descriptions" onClick={this.sortDataList.bind(this)}>
                             Descriptions
@@ -126,6 +126,7 @@ class SubcategoryComponent extends Component {
                          </TableHeader>
                     </Table>
                     <div className="pagination-box">
+                        <div style={{margin: "auto",display: "flex"}}>
                         <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
                             previousLabel={<IconButton name="keyboard_arrow_left" />}
                             nextLabel={<IconButton name="keyboard_arrow_right" />}
@@ -137,6 +138,7 @@ class SubcategoryComponent extends Component {
                             perPage={this.state.filter.displayPerPage}
                             onPageChange={this.onPageChange.bind(this)}>
                         </ReactPaginate >
+                        </div>
                     </div>
                 </div>
             </div>

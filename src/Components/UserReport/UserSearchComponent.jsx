@@ -42,9 +42,9 @@ class UserSearchComponent extends Component {
     return (
       <div>
         <form onSubmit={this.onSearchSubmit}>
-          <Textfield floatingLabel ref="firstName" label="FirstName" />
-          <Textfield floatingLabel ref="lastName" label="LastName" />
-          <Textfield floatingLabel ref="userId" label="UserId" />
+          <Textfield floatingLabel ref="firstName" label="First Name" />
+          <Textfield floatingLabel ref="lastName" label="Last Name" />
+          <Textfield floatingLabel ref="userId" label="User Id" />
           <Textfield floatingLabel ref="email" label="Email" />
           <Button ripple className="filter-button">
             <i className="material-icons">search</i>Search</Button>

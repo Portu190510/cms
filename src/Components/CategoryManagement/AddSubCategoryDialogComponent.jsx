@@ -92,11 +92,12 @@ class AddSubCategoryDialogComponent extends Component {
           <DialogTitle>Add Category</DialogTitle>
           <DialogContent>
             <form>
-              <Textfield floatingLabel ref="title" required label="Title" />
+              <Textfield floatingLabel ref="title" required label="Title" required/>
               <MDLSelectField
                 label="Parent Category"
                 ref="parentCategory"
                 autocomplete
+                required
                 floatingLabel
                 onChange={() => { console.log(this.refs.parentCategory) }}
                 items={this.state.parentCategoryList || []}

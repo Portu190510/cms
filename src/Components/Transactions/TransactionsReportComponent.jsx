@@ -91,6 +91,7 @@ class TransactionsReportComponent extends Component {
         var t= true;
         return (
             <div className="mdl-card mdl-shadow--2dp full-size">
+            <h5 style={{ marginLeft: '15px' }}>Transactions Report</h5>
                 <div className="mdl-card__supporting-text">
                     <div>
                         <form onSubmit={this.filterDataList.bind(this)}>
@@ -102,9 +103,9 @@ class TransactionsReportComponent extends Component {
                                 showDefaultInputIcon={true}
                                 focusedInput={this.state.focusedInput}
                                 onFocusChange={focusedInput => this.setState({ focusedInput })} />
-                            <Textfield floatingLabel ref="learnerId" label="LearnerId" />
-                            <Textfield floatingLabel ref="courseId" label="CourseId" />
-                            <Textfield floatingLabel ref="instructorId" label="InstructorId" />
+                            <Textfield floatingLabel ref="learnerId" label="Learner Id" />
+                            <Textfield floatingLabel ref="courseId" label="Course Id" />
+                            <Textfield floatingLabel ref="instructorId" label="Instructor Id" />
                             <Button ripple className="filter-button">
                                 <i className="material-icons">search</i>Search</Button>
                         </form>
@@ -127,20 +128,21 @@ class TransactionsReportComponent extends Component {
                             Date
                         </TableHeader>
 
-                        <TableHeader name="learner_id" tooltip="Learner ID" onClick={this.sortDataList.bind(this)}>
-                            Learner ID
+                        <TableHeader name="learner_id" tooltip="Learner (ID)" onClick={this.sortDataList.bind(this)}>
+                            Learner (ID)
                         </TableHeader>
-                        <TableHeader name="course_id" tooltip="Course ID" onClick={this.sortDataList.bind(this)}>
-                            Course ID
+                        <TableHeader name="course_id" tooltip="Course (ID)" onClick={this.sortDataList.bind(this)}>
+                            Course (ID)
                         </TableHeader>
-                        <TableHeader name="instructor_id" tooltip="Instructor ID">
-                            Instructor ID
+                        <TableHeader name="instructor_id" tooltip="Instructor (ID)">
+                            Instructor (ID)
                         </TableHeader>
                         <TableHeader name="price" tooltip="Price" onClick={this.sortDataList.bind(this)}>
                             Price
                         </TableHeader>
                     </Table>
                     <div className="pagination-box">
+                        <div style={{margin: "auto",display: "flex"}}>
                         <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
                             previousLabel={<IconButton name="keyboard_arrow_left" />}
                             nextLabel={<IconButton name="keyboard_arrow_right" />}
@@ -152,6 +154,7 @@ class TransactionsReportComponent extends Component {
                             perPage={this.state.filter.displayPerPage}
                             onPageChange={this.onPageChange.bind(this)}>
                         </ReactPaginate >
+                        </div>
                     </div>
                 </div>
                 <Snackbar active={this.state.isSnackbarActive} onTimeout={this.handleTimeoutSnackbar.bind(this)}> Export error!

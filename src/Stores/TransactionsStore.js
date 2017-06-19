@@ -17,10 +17,10 @@ class TransactionsStore {
     }
 
     onExportSuccess(isSuccess) {
-    if (!isSuccess) {
-      this.isSnackbarActive = true;
+        if (!isSuccess) {
+            this.isSnackbarActive = true;
+        }
     }
-  }
 
     onFetchDataList(filterModel) {
         this.setState({ fromDate: filterModel.fromDate, toDate: filterModel.toDate });
@@ -29,16 +29,16 @@ class TransactionsStore {
     }
 
     onUpdateDataList(response) {
-        var data = response.data.map(function (item) {
+        var data = response.data.map(function(item) {
             var attributes = item.attributes;
             return {
                 date: (new Date(attributes.date)).toLocaleDateString('en-US'),
-                learner_id: attributes.learner_id,
+                learner_id: (attributes.learner_name || '') + ' (' + attributes.learner_id + ')',
                 learner_name: attributes.learner_name,
-                course_id: (attributes.course_title || '') + ' ('+attributes.course_id+ ')',
+                course_id: (attributes.course_title || '') + ' (' + attributes.course_id + ')',
                 course_title: attributes.course_title,
-                instructor_id: (attributes.instructor_name || '') + ' (' + (attributes.instructor_id || 'no instructor id') +')',
-                price: '$'+ (attributes.price / 100)
+                instructor_id: (attributes.instructor_name || '') + ' (' + (attributes.instructor_id || 'no instructor id') + ')',
+                price: attributes.price == 0 ? 'Free' : '$' + (attributes.price / 100)
             }
         });
 

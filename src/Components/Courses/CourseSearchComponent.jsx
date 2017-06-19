@@ -36,7 +36,7 @@ class CourseSearchComponent extends Component {
       <div>
       <form onSubmit={this.onSearchSubmit}>
         <Textfield floatingLabel ref="courseTitle" label="Course Title" />
-        <Textfield floatingLabel ref="instructor" label="Instructor" />
+        <Textfield floatingLabel ref="instructor" label="Instructor Name" />
         <Textfield floatingLabel ref="userIdOfInstructor" label="User Id Of Instructor" />
         <Textfield floatingLabel ref="courseId" label="Course ID" />
         <Textfield floatingLabel ref="parentCategory" label="Parent Category" />

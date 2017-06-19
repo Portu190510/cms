@@ -4,7 +4,7 @@ class BaseGridFilterModel {
     this.currentPage = 1;
     this.displayPerPage = 50;
     this.orderBy = '';
-    this.sortOrder = 'asc';
+    this.sortOrder = 'desc';
     this.start = 0;
     this.limit = 50;
   }

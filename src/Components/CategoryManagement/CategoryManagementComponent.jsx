@@ -26,6 +26,7 @@ class CategoryManagementComponent extends Component {
         var activeTabComponent = this.state.activeTab === 0 ? <ParentCategoryComponent /> : <SubcategoryComponent />;
         return (
             <div className="">
+                <h5 style={{ marginLeft: '15px' }}>Category Management</h5>
                 <Tabs activeTab={this.state.activeTab} onChange={(tabId) => this.setState({ activeTab: tabId })} ripple>
                     <Tab href="#parent-category">Parent Categories</Tab>
                     <Tab href="#subcategory">Subcategories</Tab>

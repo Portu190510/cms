@@ -100,6 +100,7 @@ class DomainManagementComponent extends Component {
     render() {
         return (
             <div className="mdl-card mdl-shadow--2dp full-size">
+            <h5 style={{ marginLeft: '15px' }}>Domain Management</h5>
                 <div className="mdl-card__supporting-text">
                     <form onSubmit={this.onAddDomainSubmit.bind(this)}>
                         <Textfield floatingLabel ref="domain" required label="Domain name (pattern : *.csod.com)" pattern=".*\.csod\.com$" />
@@ -131,7 +132,7 @@ class DomainManagementComponent extends Component {
                             Purpose
                         </TableHeader>
                         <TableHeader name="isEnabled" tooltip="Is Enabled" onClick={this.sortDataList.bind(this)} className="is-enable-column">
-                            IsEnabled
+                            Is Enabled
                         </TableHeader>
                         <TableHeader name="id" cellFormatter={(id) =>
                             <Button ripple onClick={this.onDeleteDomain.bind(this, id)} className="filter-button">
@@ -140,6 +141,7 @@ class DomainManagementComponent extends Component {
                          </TableHeader>
                     </Table>
                     <div className="pagination-box">
+                        <div style={{margin: "auto",display: "flex"}}>
                         <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
                             previousLabel={<IconButton name="keyboard_arrow_left" />}
                             nextLabel={<IconButton name="keyboard_arrow_right" />}
@@ -151,6 +153,7 @@ class DomainManagementComponent extends Component {
                             perPage={this.state.filter.displayPerPage}
                             onPageChange={this.onPageChange.bind(this)}>
                         </ReactPaginate >
+                        </div>
                     </div>
                 </div>
             </div>

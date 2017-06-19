@@ -42,7 +42,8 @@ class CoursesOnReviewStore {
                 primarySubCategoryName: attributes.primary_subcategory ? attributes.primary_subcategory.label : '',
                 secondarySubCategoryName: attributes.secondary_subcategory ? attributes.secondary_subcategory.label : '',
                 secondaryCategoryName: attributes.secondary_category ? attributes.secondary_category.label : '',
-                instructorIds: instructors
+                instructorIds: instructors,
+                slug : attributes.slug
             }
         });
 

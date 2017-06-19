@@ -66,7 +66,7 @@ class CoursesOnReviewComponent extends Component {
     render() {
         return (
             <div className="mdl-card mdl-shadow--2dp full-size">
-                <h5 style={{marginLeft:'15px'}}>Courses in  "Submited for Review"</h5>
+                <h5 style={{marginLeft:'15px'}}>Courses in  "Submitted for Review"</h5>
                 <div className="mdl-card__supporting-text">
                     <div>
                         <form onSubmit={this.filterDataList.bind(this)}>
@@ -89,7 +89,7 @@ class CoursesOnReviewComponent extends Component {
                                 <CardText className="card-text-custom">
                                     <div className="card-body">
                                         <div className="card-left-column">
-                                            <p><a href={"http://todoUrl/"+ item.courseId} target="_blank">{item.courseId}</a></p>
+                                            <p><a href={"https://www.cyberu.com/course/"+ item.slug} target="_blank">{item.courseId}</a></p>
                                             <p>Category: {item.primaryCategoryName}</p>
                                             <p>Subcategory: {item.primarySubCategoryName}</p>
                                             <p>Additional Category: {item.secondaryCategoryName}</p>
@@ -118,6 +118,7 @@ class CoursesOnReviewComponent extends Component {
                         })
                     }
                     <div className="pagination-box">
+                        <div style={{margin: "auto",display: "flex"}}>
                         <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
                             previousLabel={<IconButton name="keyboard_arrow_left" />}
                             nextLabel={<IconButton name="keyboard_arrow_right" />}
@@ -129,6 +130,7 @@ class CoursesOnReviewComponent extends Component {
                             perPage={this.state.filter.displayPerPage}
                             onPageChange={this.onPageChange.bind(this)}>
                         </ReactPaginate >
+                        </div>
                     </div>
                 </div>
                 <Snackbar active={this.state.isSnackbarActive} onTimeout={this.handleTimeoutSnackbar.bind(this)}> Some error!
