@@ -99,7 +99,7 @@ class CoursesOnReviewComponent extends Component {
                                             <p>
                                                 {
                                                     item.instructorIds.map((instructor) => {
-                                                        return (<p style={{textAlign:"right"}}><a href={"mailto:"+instructor.email} target="_blank">{instructor.name}</a></p>)
+                                                        return (<p style={{textAlign:"right"}}><a href={"mailto:"+ instructor.email} target="_blank">{instructor.name}</a></p>)
                                                     })
                                                 }
                                             </p>
