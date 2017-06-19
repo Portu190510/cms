@@ -4,6 +4,7 @@ import InterceptorUtil from '../Utils/InterceptorUtil';
 import Config from '../config';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 
 class AuthStore {
   constructor() {
@@ -36,7 +37,7 @@ class AuthStore {
       }
     }).then(response => {
       this.saveTokens(response.data);
-      var userInfo = JSON.parse(window.atob(response.data.access_token.split('.')[1]));
+      var userInfo = jwt_decode(response.data.access_token);
       return userInfo;
     }).then(userInfo => {
       this.loginSuccess(userInfo);

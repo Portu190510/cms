@@ -94,7 +94,7 @@ class SubcategoryComponent extends Component {
                         <TableHeader name="parentCategory" tooltip="Parent Categories" onClick={this.sortDataList.bind(this)}>
                             Parent Categories
                         </TableHeader>
-                        <TableHeader name="descriptions" tooltip="Descriptions" onClick={this.sortDataList.bind(this)}>
+                        <TableHeader name="descriptions" tooltip="Descriptions">
                             Descriptions
                         </TableHeader>
                         <TableHeader name="coverlink" cellFormatter={(coverlink, id) =>
@@ -119,25 +119,25 @@ class SubcategoryComponent extends Component {
                                         return <Chip style={{ display: "block !important" }} key={item.id} title={item.name} onClose={self.deleteFeature.bind(self, item.id, row.id)}>{item.name}</Chip>
                                     })
                                 }
-                                <AddFeaturedCoursesDialogComponent subcategoryId={row.id}></AddFeaturedCoursesDialogComponent>
+                                <AddFeaturedCoursesDialogComponent subcategoryId={row.id} reloadGrid={Actions.fetchDataList.bind(this, new FilterModel({}))}></AddFeaturedCoursesDialogComponent>
                             </div>
                         } tooltip="Action">
                             Featured Courses
                          </TableHeader>
                     </Table>
                     <div className="pagination-box">
-                        <div style={{margin: "auto",display: "flex"}}>
-                        <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
-                            previousLabel={<IconButton name="keyboard_arrow_left" />}
-                            nextLabel={<IconButton name="keyboard_arrow_right" />}
-                            breakLabel={<span className="ellipsis">...</span>}
-                            pageNum={this.state.filter.currentPage}
-                            marginPagesDisplayed={2}
-                            pageRangeDisplayed={5}
-                            pageLinkClassName="mdl-button mdl-js-button mdl-button--icon"
-                            perPage={this.state.filter.displayPerPage}
-                            onPageChange={this.onPageChange.bind(this)}>
-                        </ReactPaginate >
+                        <div style={{ margin: "auto", display: "flex" }}>
+                            <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
+                                previousLabel={<IconButton name="keyboard_arrow_left" />}
+                                nextLabel={<IconButton name="keyboard_arrow_right" />}
+                                breakLabel={<span className="ellipsis">...</span>}
+                                pageNum={this.state.filter.currentPage}
+                                marginPagesDisplayed={2}
+                                pageRangeDisplayed={5}
+                                pageLinkClassName="mdl-button mdl-js-button mdl-button--icon"
+                                perPage={this.state.filter.displayPerPage}
+                                onPageChange={this.onPageChange.bind(this)}>
+                            </ReactPaginate >
                         </div>
                     </div>
                 </div>
