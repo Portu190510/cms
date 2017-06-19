@@ -73,7 +73,7 @@ class CoursesReportComponent extends Component {
           <CourseSearchComponent filterCallBack={this.filterDataList} export={this.export.bind(this)}></CourseSearchComponent>
         </div>
         <div className="mdl-card__actions mdl-card--border"></div>
-        <div className="big-table">
+        <div className="big-table" style={{height: '630px'}}>
           <Table className="full-size date-array-field"
             selectable
             onSelectionChanged={this.onSelectionChanged.bind(this)}
@@ -123,6 +123,7 @@ class CoursesReportComponent extends Component {
           </TableHeader>
           </Table>
           <div className="pagination-box">
+            <div style={{margin: "auto",display: "flex"}}>
             <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
               previousLabel={<IconButton name="keyboard_arrow_left" />}
               nextLabel={<IconButton name="keyboard_arrow_right" />}
@@ -134,6 +135,7 @@ class CoursesReportComponent extends Component {
               perPage={this.state.filter.displayPerPage}
               onPageChange={this.onPageChange.bind(this)}>
             </ReactPaginate >
+            </div>
           </div>
         </div>
       </div>

@@ -33,7 +33,7 @@ class TransactionsStore {
             var attributes = item.attributes;
             return {
                 date: (new Date(attributes.date)).toLocaleDateString('en-US'),
-                learner_id: attributes.learner_id,
+                learner_id: (attributes.learner_name || '') + ' (' + attributes.learner_id + ')',
                 learner_name: attributes.learner_name,
                 course_id: (attributes.course_title || '') + ' (' + attributes.course_id + ')',
                 course_title: attributes.course_title,

@@ -40,7 +40,7 @@ class AuthStore {
       return userInfo;
     }).then(userInfo => {
       this.loginSuccess(userInfo);
-      credentials.router.push('/');
+      credentials.router.push('/domain-management');
     }).catch(response => {
       this.loginError(response);
     });

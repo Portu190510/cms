@@ -3,7 +3,7 @@ import BaseGridFilterModel from './BaseGridFilterModel';
 class CoursesPerCategoryFilterModel extends BaseGridFilterModel {
   constructor(config) {
     super(config);
-    this.status = '';
+    this.status =  'Published';
   }
 
   getParams() {

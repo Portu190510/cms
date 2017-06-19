@@ -127,6 +127,7 @@ class CourseRegistrationsComponent extends Component {
                         </TableHeader>
                     </Table>
                     <div className="pagination-box">
+                        <div style={{margin: "auto",display: "flex"}}>
                         <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
                             previousLabel={<IconButton name="keyboard_arrow_left" />}
                             nextLabel={<IconButton name="keyboard_arrow_right" />}
@@ -138,6 +139,7 @@ class CourseRegistrationsComponent extends Component {
                             perPage={this.state.filter.displayPerPage}
                             onPageChange={this.onPageChange.bind(this)}>
                         </ReactPaginate >
+                        </div>
                     </div>
                 </div>
                 <Dialog open={this.state.openDialog} style={{ minWidth: "700px" }}>

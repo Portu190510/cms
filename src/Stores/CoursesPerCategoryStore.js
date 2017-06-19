@@ -10,13 +10,13 @@ class CoursesPerCategoryStore {
         // State
         this.isSnackbarActive = false;
         this.statuses = [
+            { id: 10, name: 'Published' },
             { id: 3, name: 'Draft' },
             { id: 4, name: 'Active' },
             { id: 6, name: 'Deleted' },
             { id: 7, name: 'Pending' },
             { id: 8, name: 'Archived' },
             { id: 9, name: 'In_review' },
-            { id: 10, name: 'Published' },
             { id: 11, name: 'Pending_Approval' },
             { id: 12, name: 'Ready_To_Publish' }];
         this.dataList = [];
