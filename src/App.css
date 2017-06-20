@@ -30,6 +30,21 @@
        
 }
 
+.mdl-card__supporting-text{
+    overflow: visible;
+}
+@media (max-height: 800px) {
+  .table-scroll {
+    height: 388px;
+  }
+}
+
+@media (max-height: 2000px) {
+  .table-scroll {
+    height: 630px;
+  }
+}
+
 .pageNotFoundBlock {
     font-size: -webkit-xxx-large;
     opacity: 0.3;
@@ -88,6 +103,7 @@
 ul.pagination {
     margin: auto;
     padding-top: 10px;
+    padding-left: 0px;
 }
 
 ul.pagination li {

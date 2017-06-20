@@ -21,7 +21,7 @@ class CourseFilterModel extends BaseGridFilterModel {
       filter: {
         id: this.courseId,
         title: this.courseTitle,
-        status: this.courseStatus,
+        status: this.courseStatus ? this.courseStatus.toLowerCase():'',
         instructors: {
           id: this.userIdOfInstructor,
           name: this.instructor
