@@ -50,7 +50,11 @@ class AddFeaturedCoursesDialogComponent extends Component {
         });
         if (isAdd && this.state.selectedFetures.length > 0) {
             Actions.addFeatures(this.state.selectedFetures);
-            this.props.reloadGrid();
+            var self = this;
+            setTimeout(() => {
+                self.props.reloadGrid();
+            }, 700);
+
         }
     }
 
@@ -86,7 +90,7 @@ class AddFeaturedCoursesDialogComponent extends Component {
                                 ref="searchFieldValue"
                                 label="Text..."
                                 floatingLabel
-                                style={{width: '450px'}}
+                                style={{ width: '450px' }}
                                 expandableIcon="search"
                             />
                             <Button style={{ float: 'none', marginTop: '-12px' }} raised onClick={this.searchFeture.bind(this, this.refs.searchFieldValue)}>

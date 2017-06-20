@@ -73,7 +73,7 @@ class CoursesReportComponent extends Component {
           <CourseSearchComponent filterCallBack={this.filterDataList} export={this.export.bind(this)}></CourseSearchComponent>
         </div>
         <div className="mdl-card__actions mdl-card--border"></div>
-        <div className="big-table" style={{height: '630px'}}>
+        <div className="big-table table-scroll" style={{height: '630px'}}>
           <Table className="full-size date-array-field"
             selectable
             onSelectionChanged={this.onSelectionChanged.bind(this)}

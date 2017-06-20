@@ -17,9 +17,7 @@ class FeatureActions {
 
     addFeatures(featuresIdArray) {
         var self = this;
-        Source.addFeatures(featuresIdArray).then((response) => {
-            //TODO
-        });
+        Source.addFeatures(featuresIdArray);
 
         return;
     }

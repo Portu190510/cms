@@ -33,7 +33,7 @@ class SubcategoryStore {
 
         return {
           id: item.id,
-          title: attributes.label,
+          label: attributes.label,
           status: attributes.status,
           parentCategory: _.join(parents, '\n '),
           descriptions: attributes.description,

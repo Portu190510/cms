@@ -85,7 +85,7 @@ class SubcategoryComponent extends Component {
                         shadow={0}
                         rowKeyColumn="id"
                         rows={this.state.dataList}>
-                        <TableHeader name="title" tooltip="Title" onClick={this.sortDataList.bind(this)}>
+                        <TableHeader name="label" tooltip="Title" onClick={this.sortDataList.bind(this)}>
                             Title
                         </TableHeader>
                         <TableHeader name="status" tooltip="Status" onClick={this.sortDataList.bind(this)}>
@@ -94,8 +94,8 @@ class SubcategoryComponent extends Component {
                         <TableHeader name="parentCategory" tooltip="Parent Categories" onClick={this.sortDataList.bind(this)}>
                             Parent Categories
                         </TableHeader>
-                        <TableHeader name="descriptions" tooltip="Descriptions">
-                            Descriptions
+                        <TableHeader name="descriptions" tooltip="Description">
+                            Description
                         </TableHeader>
                         <TableHeader name="coverlink" cellFormatter={(coverlink, id) =>
                             <div>
