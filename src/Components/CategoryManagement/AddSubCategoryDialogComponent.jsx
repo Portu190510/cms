@@ -100,7 +100,7 @@ class AddSubCategoryDialogComponent extends Component {
                 required
                 floatingLabel
                 className={this.refs.parentCategory &&  this.refs.parentCategory.state && this.refs.parentCategory.state.value != '' ? '':' is-invalid'}
-                onChange={() => { console.log(this.refs.parentCategory) }}
+                onChange={() => { }}
                 items={this.state.parentCategoryList || []}
                 keyField="id"
                 valueField="name"
@@ -110,7 +110,7 @@ class AddSubCategoryDialogComponent extends Component {
                 ref="secondaryParentCategory"
                 autocomplete
                 floatingLabel
-                onChange={() => { console.log(this.refs.secondaryParentCategory) }}
+                onChange={() => { }}
                 items={this.state.parentCategoryList || []}
                 keyField="id"
                 valueField="name"

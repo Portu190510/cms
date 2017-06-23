@@ -44,7 +44,7 @@
                     "export": "/transaction_report/csv"
                 },
                 "courseRegistration": {
-                    "fetch": "/registrations",
+                    "fetch": "/courses",
                     "courseDetail": "/registrations"
                 },
                 "courseOnReview": {

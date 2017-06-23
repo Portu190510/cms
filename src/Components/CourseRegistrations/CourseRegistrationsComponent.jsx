@@ -59,8 +59,8 @@ class CourseRegistrationsComponent extends Component {
 
     sortDataList(e, orderBy) {
         var filter = this.state.filter;
-        filter.orderBy = orderBy;
         filter.sortOrder = filter.sortOrder === 'asc' ? 'desc' : 'asc';
+        filter.orderBy = filter.sortOrder === 'asc' ? orderBy : '-' + orderBy;
         Actions.fetchDataList(filter);
     }
 
@@ -92,7 +92,7 @@ class CourseRegistrationsComponent extends Component {
         var self = this;
         return (
             <div className="mdl-card mdl-shadow--2dp full-size">
-            <h5 style={{ marginLeft: '15px' }}>Course Registrations Report</h5>
+                <h5 style={{ marginLeft: '15px' }}>Course Registrations Report</h5>
                 <div className="mdl-card__supporting-text">
                     <div>
                         <form onSubmit={this.filterDataList.bind(this)}>
@@ -127,18 +127,18 @@ class CourseRegistrationsComponent extends Component {
                         </TableHeader>
                     </Table>
                     <div className="pagination-box">
-                        <div style={{margin: "auto",display: "flex"}}>
-                        <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
-                            previousLabel={<IconButton name="keyboard_arrow_left" />}
-                            nextLabel={<IconButton name="keyboard_arrow_right" />}
-                            breakLabel={<span className="ellipsis">...</span>}
-                            pageNum={this.state.filter.currentPage}
-                            marginPagesDisplayed={2}
-                            pageRangeDisplayed={5}
-                            pageLinkClassName="mdl-button mdl-js-button mdl-button--icon"
-                            perPage={this.state.filter.displayPerPage}
-                            onPageChange={this.onPageChange.bind(this)}>
-                        </ReactPaginate >
+                        <div style={{ margin: "auto", display: "flex" }}>
+                            <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
+                                previousLabel={<IconButton name="keyboard_arrow_left" />}
+                                nextLabel={<IconButton name="keyboard_arrow_right" />}
+                                breakLabel={<span className="ellipsis">...</span>}
+                                pageNum={this.state.filter.currentPage}
+                                marginPagesDisplayed={2}
+                                pageRangeDisplayed={5}
+                                pageLinkClassName="mdl-button mdl-js-button mdl-button--icon"
+                                perPage={this.state.filter.displayPerPage}
+                                onPageChange={this.onPageChange.bind(this)}>
+                            </ReactPaginate >
                         </div>
                     </div>
                 </div>

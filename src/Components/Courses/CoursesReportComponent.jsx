@@ -100,16 +100,16 @@ class CoursesReportComponent extends Component {
             <TableHeader name="duration_sec" tooltip="Duration (in minutes) " onClick={this.sortDataList.bind(this)}>
               Duration
           </TableHeader>
-            <TableHeader name="primary_category" tooltip="Primary Parent Category" onClick={this.sortDataList.bind(this)}>
+            <TableHeader name="primary_category" tooltip="Primary Parent Category">
               Prim. Parent Category
           </TableHeader>
-            <TableHeader name="primary_subcategory" tooltip="Primary Child Category" onClick={this.sortDataList.bind(this)}>
+            <TableHeader name="primary_subcategory" tooltip="Primary Child Category" >
               Prim. Child Category
           </TableHeader>
-            <TableHeader name="secondary_category" tooltip="Secondary Parent Category" onClick={this.sortDataList.bind(this)}>
+            <TableHeader name="secondary_category" tooltip="Secondary Parent Category" >
               Sec. Parent Category
           </TableHeader>
-            <TableHeader name="secondary_subcategory" tooltip="Secondary Child Category" onClick={this.sortDataList.bind(this)}>
+            <TableHeader name="secondary_subcategory" tooltip="Secondary Child Category">
               Sec. Child Category
           </TableHeader>
             <TableHeader name="status" tooltip="Course Status" onClick={this.sortDataList.bind(this)}>

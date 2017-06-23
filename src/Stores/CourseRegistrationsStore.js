@@ -51,8 +51,8 @@ class CourseRegistrationsStore {
             var attributes = item.attributes;
             return {
                 courseId: item.id,
-                courseTitle: item.type,
-                numberOfRegistrations: attributes.numberOfRegistrations
+                courseTitle: attributes.title,
+                numberOfRegistrations: attributes.registrations_count
             }
         });
 

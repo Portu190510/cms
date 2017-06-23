@@ -278,3 +278,10 @@ ul.pagination li.disabled a {
     overflow: hidden;
     white-space: pre-line;
 }
+.mdl-autocomplete{
+    width: 245px !important;
+}
+
+.mdl-option__list{
+    z-index: 9999;
+}

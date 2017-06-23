@@ -55,8 +55,8 @@ class SubcategoryComponent extends Component {
 
     sortDataList(e, orderBy) {
         var filter = this.state.filter;
-        filter.orderBy = orderBy;
         filter.sortOrder = filter.sortOrder === 'asc' ? 'desc' : 'asc';
+        filter.orderBy = filter.sortOrder === 'asc' ? orderBy : '-' + orderBy;
         Actions.fetchDataList(filter);
     }
 

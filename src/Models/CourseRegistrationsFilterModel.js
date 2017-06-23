@@ -10,17 +10,16 @@ class CourseRegistrationsFilterModel extends BaseGridFilterModel {
 
   getParams() {
     return {
-      page: {
-        size: this.displayPerPage,
-        number: this.currentPage,
-        orderBy: this.orderBy,
-        sortOrder: this.sortOrder
-      },
       filter: {
-        reference_id: this.courseId,
-        course_title: this.courseTitle
+        id: this.courseId,
+        title: this.courseTitle
+      },
+      sort: this.orderBy,
+      page: {
+        size: this.limit,
+        number: this.currentPage
       }
-    };
+    }
   }
 }
 

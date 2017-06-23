@@ -53,8 +53,8 @@ class ParentCategoryComponent extends Component {
 
     sortDataList(e, orderBy) {
         var filter = this.state.filter;
-        filter.orderBy = orderBy;
         filter.sortOrder = filter.sortOrder === 'asc' ? 'desc' : 'asc';
+        filter.orderBy = filter.sortOrder === 'asc' ? orderBy : '-' + orderBy;
         Actions.fetchDataList(filter);
     }
 
@@ -89,14 +89,14 @@ class ParentCategoryComponent extends Component {
                         </TableHeader>
                         <TableHeader name="coverlink" style={{ width: "100px !important" }} cellFormatter={(coverlink, id) =>
                             <div>
-                                { coverlink ?
+                                {coverlink ?
                                     <Chip onClick={e => { window.open(coverlink); }}>
                                         <ChipContact
-                                            style={{ background: 'url('+coverlink+') 0 0 / cover' }}
+                                            style={{ background: 'url(' + coverlink + ') 0 0 / cover' }}
                                         />
                                         Click to open
                                     </Chip>
-                                 : ""}
+                                    : ""}
                                 <FileUpoadComponent ripple className="filter-button"
                                     onLoadStart={id}
                                     onLoadEnd={(err) => {
@@ -112,18 +112,18 @@ class ParentCategoryComponent extends Component {
                          </TableHeader>
                     </Table>
                     <div className="pagination-box">
-                        <div style={{margin: "auto",display: "flex"}}>
-                        <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
-                            previousLabel={<IconButton name="keyboard_arrow_left" />}
-                            nextLabel={<IconButton name="keyboard_arrow_right" />}
-                            breakLabel={<span className="ellipsis">...</span>}
-                            pageNum={this.state.filter.currentPage}
-                            marginPagesDisplayed={2}
-                            pageRangeDisplayed={5}
-                            pageLinkClassName="mdl-button mdl-js-button mdl-button--icon"
-                            perPage={this.state.filter.displayPerPage}
-                            onPageChange={this.onPageChange.bind(this)}>
-                        </ReactPaginate >
+                        <div style={{ margin: "auto", display: "flex" }}>
+                            <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
+                                previousLabel={<IconButton name="keyboard_arrow_left" />}
+                                nextLabel={<IconButton name="keyboard_arrow_right" />}
+                                breakLabel={<span className="ellipsis">...</span>}
+                                pageNum={this.state.filter.currentPage}
+                                marginPagesDisplayed={2}
+                                pageRangeDisplayed={5}
+                                pageLinkClassName="mdl-button mdl-js-button mdl-button--icon"
+                                perPage={this.state.filter.displayPerPage}
+                                onPageChange={this.onPageChange.bind(this)}>
+                            </ReactPaginate >
                         </div>
                     </div>
                 </div>
