@@ -12,7 +12,7 @@ class CourseRegistrationsFilterModel extends BaseGridFilterModel {
     return {
       filter: {
         reference_id: this.courseId,
-        course_title: this.courseTitle
+        title: this.courseTitle
       },
       sort: this.orderBy,
       page: {
