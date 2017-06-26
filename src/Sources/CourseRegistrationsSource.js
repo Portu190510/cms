@@ -35,7 +35,7 @@ var CourseRegistrationsSource = {
     },
 
     getCourseRegistrationDetails: function (courseId) {
-        return axios.get(`${gatewayConfig.baseUrl}${gatewayConfig.endpointUrl.courseRegistration.courseDetail}?courseId=${courseId}`)
+        return axios.get(`${gatewayConfig.baseUrl}${gatewayConfig.endpointUrl.courseRegistration.courseDetail}?filter[reference_id]=${courseId}&page[size]=1000&page[number]=1`)
             .then(response => {
                 return response.data;
             }).catch(response => {

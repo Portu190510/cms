@@ -10,6 +10,7 @@ class CourseRegistrationsFilterModel extends BaseGridFilterModel {
 
   getParams() {
     return {
+      sort: this.orderBy,
       page: {
         size: this.displayPerPage,
         number: this.currentPage,
