@@ -11,8 +11,8 @@ class CourseRegistrationsFilterModel extends BaseGridFilterModel {
   getParams() {
     return {
       filter: {
-        id: this.courseId,
-        title: this.courseTitle
+        reference_id: this.courseId,
+        course_title: this.courseTitle
       },
       sort: this.orderBy,
       page: {
