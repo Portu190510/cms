@@ -3,6 +3,7 @@
     "clientSecret": "cms",
     "grant_type": "password",
     "scope": "auth LMS",
+    "instanceUrl": "https://www.cyberu.com",
     "apiUrl": {
         "auth": {
             "baseUrl": "http://auth.dev.cyberu.io",

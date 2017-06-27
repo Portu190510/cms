@@ -48,6 +48,20 @@ class AddSubCategoryDialogComponent extends Component {
   handleCloseDialog(isAdd) {
     if (isAdd && this.isValidForm()) {
       var self = this;
+      var primCat = _.find(this.refs.parentCategory.state.items, function (item) {
+        return item.name == self.refs.parentCategory.state.value;
+      });
+      var secCat = _.find(this.refs.parentCategory.state.items, function (item) {
+        return item.name == self.refs.secondaryParentCategory.state.value;
+      });
+
+      var parent_ids = [];
+      if (primCat) {
+        parent_ids.push(primCat.id);
+      }
+      if (secCat) {
+        parent_ids.push(secCat.id);
+      }
       this.onAddCategory(
         {
           data: {
@@ -55,14 +69,7 @@ class AddSubCategoryDialogComponent extends Component {
               label: this.refs.title.inputRef.value,
               level: 2,
               description: "",
-              parent_ids: [
-                _.find(this.refs.parentCategory.state.items, function (item) {
-                  return item.name == self.refs.parentCategory.state.value;
-                }).id,
-                _.find(this.refs.parentCategory.state.items, function (item) {
-                  return item.name == self.refs.secondaryParentCategory.state.value;
-                }).id
-              ]
+              parent_ids: parent_ids,
             }
           }
         });
@@ -70,8 +77,8 @@ class AddSubCategoryDialogComponent extends Component {
 
     if ((isAdd && this.isValidForm()) || !isAdd) {
       this.refs.title.inputRef.value = '';
-      this.refs.parentCategory.state.value = '';
-      this.refs.secondaryParentCategory.state.value = '';
+      this.refs.parentCategory.state.value = undefined;
+      this.refs.secondaryParentCategory.state.value = undefined;
       this.setState({
         openDialog: false
       });
@@ -99,7 +106,7 @@ class AddSubCategoryDialogComponent extends Component {
                 autocomplete
                 required
                 floatingLabel
-                className={this.refs.parentCategory &&  this.refs.parentCategory.state && this.refs.parentCategory.state.value != '' ? '':' is-invalid'}
+                className={this.refs.parentCategory && this.refs.parentCategory.state && this.refs.parentCategory.state.value != '' ? '' : ' is-invalid'}
                 onChange={() => { }}
                 items={this.state.parentCategoryList || []}
                 keyField="id"

@@ -85,7 +85,7 @@ class CourseRegistrationsComponent extends Component {
     }
 
     onCourseRegistrationDetails(course) {
-        Actions.getCourseRegistrationDetails(course.courseId);
+        Actions.getCourseRegistrationDetails(course.release_id);
     }
 
     render() {
@@ -144,7 +144,7 @@ class CourseRegistrationsComponent extends Component {
                 </div>
                 <Dialog open={this.state.openDialog} style={{ minWidth: "700px" }}>
                     <DialogTitle>{this.state.registrationDetails.courseName}</DialogTitle>
-                    <DialogContent>
+                    <DialogContent style={{    overflow: 'hidden',maxHeight: '673px',overflowY: 'auto'}}>
                         <Table className="full-size"
                             shadow={0}
                             rowKeyColumn="id"

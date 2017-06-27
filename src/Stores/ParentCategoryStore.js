@@ -46,7 +46,7 @@ class ParentCategoryStore {
 
         return {
           id: item.id,
-          title: attributes.label,
+          label: attributes.label,
           status: attributes.status,
           descriptions: attributes.description,
           coverlink: attributes.category_image_url

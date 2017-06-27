@@ -51,6 +51,7 @@ class CourseRegistrationsStore {
             var attributes = item.attributes;
             return {
                 courseId: item.id,
+                release_id: attributes.release_id,
                 courseTitle: attributes.title,
                 numberOfRegistrations: attributes.registrations_count
             }

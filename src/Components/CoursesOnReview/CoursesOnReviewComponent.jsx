@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { IconButton, Textfield, Button, Card, CardTitle, CardText, CardActions, CardMenu, Snackbar } from 'react-mdl';
 import ReactPaginate from 'react-paginate';
 import _ from 'lodash';
+import Config from '../../config';
 
 import FilterModel from '../../Models/CoursesOnReviewFilterModel';
 import Store from '../../Stores/CoursesOnReviewStore';
@@ -89,7 +90,7 @@ class CoursesOnReviewComponent extends Component {
                                 <CardText className="card-text-custom">
                                     <div className="card-body">
                                         <div className="card-left-column">
-                                            <p><a href={"https://www.cyberu.com/course/"+ item.slug} target="_blank">{item.courseId}</a></p>
+                                            <p><a href={Config.instanceUrl+"/course/"+ item.slug} target="_blank">{item.courseId}</a></p>
                                             <p>Category: {item.primaryCategoryName}</p>
                                             <p>Subcategory: {item.primarySubCategoryName}</p>
                                             <p>Additional Category: {item.secondaryCategoryName}</p>

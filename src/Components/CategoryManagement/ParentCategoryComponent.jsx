@@ -78,7 +78,7 @@ class ParentCategoryComponent extends Component {
                         shadow={0}
                         rowKeyColumn="id"
                         rows={this.state.dataList}>
-                        <TableHeader name="title" tooltip="Title" onClick={this.sortDataList.bind(this)}>
+                        <TableHeader name="label" tooltip="Title" onClick={this.sortDataList.bind(this)}>
                             Title
                         </TableHeader>
                         <TableHeader name="status" tooltip="Status" onClick={this.sortDataList.bind(this)} >
