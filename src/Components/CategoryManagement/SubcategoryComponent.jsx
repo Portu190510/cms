@@ -64,6 +64,10 @@ class SubcategoryComponent extends Component {
         Actions.addCategory(model);
     }
 
+    onUpdateCategory(model, id) {
+        Actions.updateCategory(model, id);
+    }
+
     loadCoverImage(id) {
         //TODO
     }
@@ -77,7 +81,8 @@ class SubcategoryComponent extends Component {
         return (
             <div className="mdl-card mdl-shadow--2dp full-size">
                 <div className="mdl-card__actions mdl-card--border">
-                    <AddSubCategoryDialogComponent onAddCategory={this.onAddCategory.bind(this)}>
+                    <AddSubCategoryDialogComponent onAddCategory={this.onAddCategory.bind(this)} onUpdateCategory={this.onUpdateCategory.bind(this)}
+                        ref={instance => { self.child = instance; }}>
                     </AddSubCategoryDialogComponent>
                 </div>
                 <div className="big-table">
@@ -85,7 +90,11 @@ class SubcategoryComponent extends Component {
                         shadow={0}
                         rowKeyColumn="id"
                         rows={this.state.dataList}>
-                        <TableHeader name="label" tooltip="Title" onClick={this.sortDataList.bind(this)}>
+                        <TableHeader name="label" tooltip="Title" onClick={this.sortDataList.bind(this)}
+                            cellFormatter={(label, item) =>
+                                <div onClick={() => 
+                                    {self.child.handleOpenDialog(item)}}>{label}</div>
+                            }>
                             Title
                         </TableHeader>
                         <TableHeader name="status" tooltip="Status" onClick={this.sortDataList.bind(this)}>

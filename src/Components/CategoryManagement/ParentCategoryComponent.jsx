@@ -61,6 +61,9 @@ class ParentCategoryComponent extends Component {
     onAddCategory(model) {
         Actions.addCategory(model);
     }
+    onUpdateCategory(model, id){
+        Actions.updateCategory(model,);
+    }
 
     loadCoverImage(id, image) {
         console.log(id + ' ' + image);
@@ -70,7 +73,8 @@ class ParentCategoryComponent extends Component {
         return (
             <div className="mdl-card mdl-shadow--2dp full-size">
                 <div className="mdl-card__actions mdl-card--border">
-                    <AddCategoryDialogComponent onAddCategory={this.onAddCategory.bind(this)}>
+                    <AddCategoryDialogComponent onAddCategory={this.onAddCategory.bind(this)} onUpdateCategory={this.onUpdateCategory.bind(this)}
+                     ref={instance => { this.child = instance; }}>
                     </AddCategoryDialogComponent>
                 </div>
                 <div className="big-table">
@@ -78,7 +82,11 @@ class ParentCategoryComponent extends Component {
                         shadow={0}
                         rowKeyColumn="id"
                         rows={this.state.dataList}>
-                        <TableHeader name="label" tooltip="Title" onClick={this.sortDataList.bind(this)}>
+                        <TableHeader name="label" tooltip="Title" onClick={this.sortDataList.bind(this)}
+                            cellFormatter={(label,item) =>
+                                <div onClick={() => { 
+                                    this.child.handleOpenDialog(item); }}>{label}</div>
+                            }>
                             Title
                         </TableHeader>
                         <TableHeader name="status" tooltip="Status" onClick={this.sortDataList.bind(this)} >

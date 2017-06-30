@@ -4,7 +4,7 @@ import FilterModel from '../Models/ParentCategoryFilterModel';
 
 class ParentCategoryActions {
     constructor() {
-        this.generateActions('updateDataList','updateCategoryList');
+        this.generateActions('updateDataList', 'updateCategoryList');
     }
 
     fetchDataList(model) {
@@ -16,7 +16,7 @@ class ParentCategoryActions {
         return model;
     }
 
-    fetchCategoryList(){
+    fetchCategoryList() {
         var self = this;
         Source.fetchCategoryList().then((dataList) => {
             self.actions.updateCategoryList(dataList);
@@ -25,9 +25,18 @@ class ParentCategoryActions {
         return;
     }
 
-    addCategory(model){
+    addCategory(model) {
         var self = this;
         Source.addCategory(model).then((dataList) => {
+            self.actions.fetchDataList(new FilterModel({}));
+        });
+
+        return;
+    }
+
+    updateCategory(model,id) {
+        var self = this;
+        Source.updateCategory(model, id).then((dataList) => {
             self.actions.fetchDataList(new FilterModel({}));
         });
 

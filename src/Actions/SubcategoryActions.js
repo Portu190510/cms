@@ -26,6 +26,15 @@ class SubсategoryActions {
         return;
     }
 
+    updateCategory(model,id) {
+        var self = this;
+        Source.updateCategory(model, id).then((dataList) => {
+            self.actions.fetchDataList(new FilterModel({}));
+        });
+
+        return;
+    }
+
     setToUnFeatured(courseId) {
         var self = this;
         FeaturedSource.setToUnFeatured(courseId).then((response) => {

@@ -26,7 +26,8 @@
                     "fetch": "/categories",
                     "fetchCategoryList":"/todofetchCategoryListUrl",
                     "fetchSubcategory":"/categories/subcategories_with_featured_courses",
-                    "create":"/categories"
+                    "create":"/categories",
+                    "update":"/categories/"
                 },
                 "coursePerCategory": {
                     "fetch": "/categories/with_courses_report"

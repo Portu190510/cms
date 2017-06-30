@@ -49,6 +49,15 @@ var ParentCategorySource = {
             }).catch(response => {
                 console.log(response);
             });
+    },
+
+    updateCategory: function (model, id) {
+        return axios.patch(`${lmsConfig.baseUrl}${lmsConfig.endpointUrl.parentCategory.update}${id}`, model)
+            .then(response => {
+                return response.data;
+            }).catch(response => {
+                console.log(response);
+            });
     }
 };
 
