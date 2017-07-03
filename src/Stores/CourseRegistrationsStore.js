@@ -33,8 +33,8 @@ class CourseRegistrationsStore {
                 firstName: attributes.first_name,
                 lastName: attributes.last_name,
                 userId: attributes.user_id,
-                registrationDate: attributes.created_at,
-                lastActivityDate: attributes.lastActivityDate
+                registrationDate: (new Date(attributes.created_at)).toLocaleDateString('en-US'),
+                lastActivityDate: (new Date(attributes.last_activity_date)).toLocaleDateString('en-US')
             }
         });
         var details = this.registrationDetails;
@@ -50,10 +50,10 @@ class CourseRegistrationsStore {
         var data = response.data.map(function (item) {
             var attributes = item.attributes;
             return {
-                courseId: item.id,
+                id: item.id,
                 release_id: attributes.release_id,
-                courseTitle: attributes.title,
-                numberOfRegistrations: attributes.registrations_count
+                title : attributes.title,
+                registrations_count: attributes.registrations_count
             }
         });
 

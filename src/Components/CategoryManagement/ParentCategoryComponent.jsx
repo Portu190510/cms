@@ -77,7 +77,7 @@ class ParentCategoryComponent extends Component {
                      ref={instance => { this.child = instance; }}>
                     </AddCategoryDialogComponent>
                 </div>
-                <div className="big-table">
+                <div className="big-table  date-array-field">
                     <Table className="full-size"
                         shadow={0}
                         rowKeyColumn="id"

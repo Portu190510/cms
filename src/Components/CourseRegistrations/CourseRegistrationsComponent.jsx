@@ -109,15 +109,15 @@ class CourseRegistrationsComponent extends Component {
                 <div className="big-table">
                     <Table className="full-size"
                         shadow={0}
-                        rowKeyColumn="courseId"
+                        rowKeyColumn="id"
                         rows={this.state.dataList}>
-                        <TableHeader name="courseTitle" tooltip="Course Title" onClick={this.sortDataList.bind(this)}>
+                        <TableHeader name="title" tooltip="Course Title" onClick={this.sortDataList.bind(this)}>
                             Course Title
                         </TableHeader>
-                        <TableHeader name="courseId" tooltip="Course ID" onClick={this.sortDataList.bind(this)}>
+                        <TableHeader name="id" tooltip="Course ID" onClick={this.sortDataList.bind(this)}>
                             Course ID
                         </TableHeader>
-                        <TableHeader name="numberOfRegistrations" tooltip="Number Of Registrations" onClick={this.sortDataList.bind(this)}>
+                        <TableHeader name="registrations_count" tooltip="Number Of Registrations" onClick={this.sortDataList.bind(this)}>
                             Number of Registrations
                         </TableHeader>
                         <TableHeader name="viewRegistrations" tooltip="View Registrations" cellFormatter={(id, course) =>
@@ -142,7 +142,7 @@ class CourseRegistrationsComponent extends Component {
                         </div>
                     </div>
                 </div>
-                <Dialog open={this.state.openDialog} style={{ minWidth: "700px" }}>
+                <Dialog open={this.state.openDialog} style={{ minWidth: "750px" }}>
                     <DialogTitle>{this.state.registrationDetails.courseName}</DialogTitle>
                     <DialogContent style={{    overflow: 'hidden',maxHeight: '673px',overflowY: 'auto'}}>
                         <Table className="full-size"
