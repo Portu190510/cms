@@ -85,8 +85,8 @@ class SubcategoryComponent extends Component {
                         ref={instance => { self.child = instance; }}>
                     </AddSubCategoryDialogComponent>
                 </div>
-                <div className="big-table  date-array-field">
-                    <Table className="full-size"
+                <div className="big-table">
+                    <Table className="full-size date-array-field"
                         shadow={0}
                         rowKeyColumn="id"
                         rows={this.state.dataList}>
