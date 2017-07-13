@@ -58,8 +58,8 @@ class CourseRegistrationsStore {
         });
 
         var filterModel = this.filter;
-        filterModel.totalPages = response.totalPage;
-        filterModel.totalResults = response.totalResults;
+        filterModel.totalPages = response.meta.total_pages;
+        filterModel.totalResults = response.meta.total;
 
         this.setState({ openDialog: false });
         this.setState({ filter: filterModel });

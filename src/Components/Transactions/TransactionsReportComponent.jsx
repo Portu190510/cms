@@ -56,7 +56,13 @@ class TransactionsReportComponent extends Component {
     sortDataList(e, orderBy) {
         var filter = this.state.filter;
         filter.orderBy = orderBy;
-        filter.sortOrder = filter.sortOrder === 'asc' ? 'desc' : 'asc';
+        if (filter.sortOrder === 'asc') {
+            filter.sortOrder = 'desc';
+            e.target.innerHTML = e.target.innerHTML.slice(0, -1) + '  &darr;';
+        } else {
+            filter.sortOrder = 'asc';
+            e.target.innerHTML = e.target.innerHTML.slice(0, -1) + '  &uarr;'
+        }
         Actions.fetchDataList(filter);
     }
 
@@ -87,18 +93,27 @@ class TransactionsReportComponent extends Component {
         Actions.fetchDataList(model);
     }
 
+    clearFilter() {
+         _.forIn(this.refs, function (value, key) {
+            value.inputRef.value = '';
+        });
+
+        this.setState({ filter: new FilterModel({}), fromDate: null, toDate:null });
+        Actions.fetchDataList(new FilterModel({}));
+    }
+
     render() {
-        var t= true;
+        var t = true;
         return (
             <div className="mdl-card mdl-shadow--2dp full-size">
-            <h5 style={{ marginLeft: '15px' }}>Transactions Report</h5>
+                <h5 style={{ marginLeft: '15px' }}>Transactions Report</h5>
                 <div className="mdl-card__supporting-text">
                     <div>
                         <form onSubmit={this.filterDataList.bind(this)}>
                             <DateRangePicker onDatesChange={this.onDateRangeChanged.bind(this)}
                                 startDate={this.state.fromDate}
                                 endDate={this.state.toDate}
-                                isOutsideRange={()=> false}
+                                isOutsideRange={() => false}
                                 numberOfMonths={2}
                                 showDefaultInputIcon={true}
                                 focusedInput={this.state.focusedInput}
@@ -109,13 +124,15 @@ class TransactionsReportComponent extends Component {
                             <Button ripple className="filter-button">
                                 <i className="material-icons">search</i>Search</Button>
                         </form>
+                        <Button ripple onClick={this.clearFilter.bind(this)} className="filter-button">
+                            <i className="material-icons">clear</i>Clear Search</Button>
                         <Button ripple onClick={this.onExportToCsv.bind(this)} className="filter-button">
                             <i className="material-icons">file_download</i>
                             Export</Button>
                     </div>
                 </div>
                 <div className="mdl-card__actions mdl-card--border">
-                    <p style={{marginRight:'10px', marginBottom: "0px", float:"right", opacity:"0.7"}}>Total Registrations:{this.state.filter.totalResults}  Total Revenue:${this.state.filter.totalRevenue}</p>
+                    <p style={{ marginRight: '10px', marginBottom: "0px", float: "right", opacity: "0.7" }}>Total Registrations:{this.state.filter.totalResults}  Total Revenue:${this.state.filter.totalRevenue}</p>
                 </div>
                 <div className="big-table">
                     <Table className="full-size"
@@ -125,35 +142,34 @@ class TransactionsReportComponent extends Component {
                         rowKeyColumn="id"
                         rows={this.state.dataList}>
                         <TableHeader name="date" tooltip="Date" onClick={this.sortDataList.bind(this)}>
-                            Date
+                            Date   &darr;
                         </TableHeader>
-
                         <TableHeader name="learner_id" tooltip="Learner (ID)" onClick={this.sortDataList.bind(this)}>
-                            Learner (ID)
+                            Learner (ID)   &darr;
                         </TableHeader>
                         <TableHeader name="course_id" tooltip="Course (ID)" onClick={this.sortDataList.bind(this)}>
-                            Course (ID)
+                            Course (ID)   &darr;
                         </TableHeader>
                         <TableHeader name="instructor_id" tooltip="Instructor (ID)">
-                            Instructor (ID)
+                            Instructor (ID)   &darr;
                         </TableHeader>
                         <TableHeader name="price" tooltip="Price" onClick={this.sortDataList.bind(this)}>
-                            Price
+                            Price   &darr;
                         </TableHeader>
                     </Table>
                     <div className="pagination-box">
-                        <div style={{margin: "auto",display: "flex"}}>
-                        <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
-                            previousLabel={<IconButton name="keyboard_arrow_left" />}
-                            nextLabel={<IconButton name="keyboard_arrow_right" />}
-                            breakLabel={<span className="ellipsis">...</span>}
-                            pageNum={this.state.filter.currentPage}
-                            marginPagesDisplayed={2}
-                            pageRangeDisplayed={5}
-                            pageLinkClassName="mdl-button mdl-js-button mdl-button--icon"
-                            perPage={this.state.filter.displayPerPage}
-                            onPageChange={this.onPageChange.bind(this)}>
-                        </ReactPaginate >
+                        <div style={{ margin: "auto", display: "flex" }}>
+                            <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
+                                previousLabel={<IconButton name="keyboard_arrow_left" />}
+                                nextLabel={<IconButton name="keyboard_arrow_right" />}
+                                breakLabel={<span className="ellipsis">...</span>}
+                                pageNum={this.state.filter.currentPage}
+                                marginPagesDisplayed={2}
+                                pageRangeDisplayed={5}
+                                pageLinkClassName="mdl-button mdl-js-button mdl-button--icon"
+                                perPage={this.state.filter.displayPerPage}
+                                onPageChange={this.onPageChange.bind(this)}>
+                            </ReactPaginate >
                         </div>
                     </div>
                 </div>

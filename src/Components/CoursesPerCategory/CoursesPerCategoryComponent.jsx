@@ -66,7 +66,7 @@ class CoursesPerCategoryComponent extends Component {
                         <SelectField label={'Status'} value={this.state.filter.status} onChange={this.filterDataList.bind(this)}>
                             {
                                 this.state.statuses.map((st) => {
-                                    return <Option value={st.name}>{st.name}</Option>
+                                    return <Option value={st.name} key={st.name}>{st.name}</Option>
                                 })
                             }
                         </SelectField>
@@ -78,14 +78,14 @@ class CoursesPerCategoryComponent extends Component {
                     <div>
                         {
                             this.state.dataList.map((item) => {
-                                return (<Card shadow={0} className="card-custom-half">
+                                return (<Card shadow={0} className="card-custom-half" key={item.categoryName}>
                                     <CardTitle className="card-title-custom">{item.categoryName}</CardTitle>
                                     <CardText className="card-text-custom">
                                         <div className="card-body">
                                             <div>
                                                 {
                                                     item.subCategories.map((subcat) => {
-                                                        return (<div style={{float:"left",width: "46%",marginRight: "40px"}}>
+                                                        return (<div style={{float:"left",width: "46%",marginRight: "40px"}} key={subcat.subcategoryName}>
                                                             <table>
                                                                 <tbody>
                                                                     <tr>

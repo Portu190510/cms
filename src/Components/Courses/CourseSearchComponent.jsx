@@ -43,9 +43,18 @@ class CourseSearchComponent extends Component {
 
     });
 
-
-
     this.filterCallBack(new CourseFilterModel(model));
+  }
+
+  clearFilter() {
+    _.forIn(this.refs, function (value, key) {
+      if (key == 'courseStatus') {
+        value.state.value = '';
+      } else {
+        value.inputRef.value = '';
+      }
+    });
+    this.props.clearFilter();
   }
 
   render() {
@@ -73,6 +82,8 @@ class CourseSearchComponent extends Component {
           <Button ripple className="filter-button">
             <i className="material-icons">search</i>Search</Button>
         </form>
+        <Button ripple onClick={this.clearFilter.bind(this)} className="filter-button">
+          <i className="material-icons">clear</i>Clear Search</Button>
         <Button ripple className="filter-button" onClick={this.props.export.bind(this)}>
           <i className="material-icons">file_download</i>
           Export</Button>

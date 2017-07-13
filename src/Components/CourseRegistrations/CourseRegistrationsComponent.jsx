@@ -8,6 +8,7 @@ import FilterModel from '../../Models/CourseRegistrationsFilterModel';
 import Store from '../../Stores/CourseRegistrationsStore';
 import Actions from '../../Actions/CourseRegistrationsActions';
 import connectToStores from 'alt/utils/connectToStores';
+import filterUtil from '../../Utils/FilterUtil.js';
 
 class CourseRegistrationsComponent extends Component {
     static getStores() {
@@ -58,16 +59,20 @@ class CourseRegistrationsComponent extends Component {
     }
 
     sortDataList(e, orderBy) {
-        var filter = this.state.filter;
-        filter.sortOrder = filter.sortOrder === 'asc' ? 'desc' : 'asc';
-        filter.orderBy = filter.sortOrder === 'asc' ? orderBy : '-' + orderBy;
+        var filter = filterUtil.setupSortParams(e.target, this.state.filter, orderBy);
         Actions.fetchDataList(filter);
     }
 
     orderByRegistrationsDataList(e, orderBy) {
         var registrationsDataList = this.state.registrationsDataList;
         var filter = this.state.registrationDetails;
-        filter.sortOrder = filter.sortOrder === 'asc' ? 'desc' : 'asc';
+        if (filter.sortOrder === 'asc') {
+            filter.sortOrder = 'desc';
+            e.target.innerHTML = e.target.innerHTML.slice(0, -1) + '  &darr;';
+        } else {
+            filter.sortOrder = 'asc';
+            e.target.innerHTML = e.target.innerHTML.slice(0, -1) + '  &uarr;'
+        }
         registrationsDataList = _.orderBy(registrationsDataList, [orderBy], [filter.sortOrder]);
         this.setState({ registrationsDataList: registrationsDataList });
         this.setState({ registrationDetails: filter });
@@ -82,6 +87,14 @@ class CourseRegistrationsComponent extends Component {
         });
 
         Actions.fetchDataList(model);
+    }
+
+    clearFilter() {
+         _.forIn(this.refs, function (value, key) {
+            value.inputRef.value = '';
+        });
+        this.setState({ filter: new FilterModel({}) });
+        Actions.fetchDataList(new FilterModel({}));
     }
 
     onCourseRegistrationDetails(course) {
@@ -101,6 +114,8 @@ class CourseRegistrationsComponent extends Component {
                             <Button ripple className="filter-button">
                                 <i className="material-icons">search</i>Search</Button>
                         </form>
+                        <Button ripple onClick={this.clearFilter.bind(this)} className="filter-button">
+                            <i className="material-icons">clear</i>Clear Search</Button>
                     </div>
                 </div>
                 <div className="mdl-card__actions mdl-card--border">
@@ -112,13 +127,13 @@ class CourseRegistrationsComponent extends Component {
                         rowKeyColumn="id"
                         rows={this.state.dataList}>
                         <TableHeader name="title" tooltip="Course Title" onClick={this.sortDataList.bind(this)}>
-                            Course Title
+                            Course Title  &darr;
                         </TableHeader>
                         <TableHeader name="id" tooltip="Course ID" onClick={this.sortDataList.bind(this)}>
-                            Course ID
+                            Course ID  &darr;
                         </TableHeader>
                         <TableHeader name="registrations_count" tooltip="Number Of Registrations" onClick={this.sortDataList.bind(this)}>
-                            Number of Registrations
+                            Number of Registrations  &darr;
                         </TableHeader>
                         <TableHeader name="viewRegistrations" tooltip="View Registrations" cellFormatter={(id, course) =>
                             <Button ripple onClick={self.onCourseRegistrationDetails.bind(self, course)}>Details</Button>
@@ -144,25 +159,25 @@ class CourseRegistrationsComponent extends Component {
                 </div>
                 <Dialog open={this.state.openDialog} style={{ minWidth: "750px" }}>
                     <DialogTitle>{this.state.registrationDetails.courseName}</DialogTitle>
-                    <DialogContent style={{    overflow: 'hidden',maxHeight: '673px',overflowY: 'auto'}}>
+                    <DialogContent style={{ overflow: 'hidden', maxHeight: '673px', overflowY: 'auto' }}>
                         <Table className="full-size"
                             shadow={0}
                             rowKeyColumn="id"
                             rows={this.state.registrationsDataList}>
                             <TableHeader name="firstName" tooltip="First Name" onClick={this.orderByRegistrationsDataList.bind(this)}>
-                                First Name
+                                First Name  &darr;
                         </TableHeader>
                             <TableHeader name="lastName" tooltip="Last Name" onClick={this.orderByRegistrationsDataList.bind(this)}>
-                                Last Name
+                                Last Name  &darr;
                         </TableHeader>
                             <TableHeader name="userId" tooltip="User ID" onClick={this.orderByRegistrationsDataList.bind(this)}>
-                                User ID
+                                User ID  &darr;
                         </TableHeader>
                             <TableHeader name="registrationDate" tooltip="Registration Date" onClick={this.orderByRegistrationsDataList.bind(this)}>
-                                Registration Date
+                                Registration Date  &darr;
                         </TableHeader>
                             <TableHeader name="lastActivityDate" tooltip="Last Activity Date" onClick={this.orderByRegistrationsDataList.bind(this)}>
-                                Last Activity Date
+                                Last Activity Date  &darr;
                         </TableHeader>
                         </Table>
                     </DialogContent>

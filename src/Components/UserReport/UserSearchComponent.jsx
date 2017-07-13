@@ -38,6 +38,13 @@ class UserSearchComponent extends Component {
     this.filterCallBack(new UserFilterModel(model));
   }
 
+  clearFilter(){
+     _.forIn(this.refs, function (value, key) {
+      value.inputRef.value = '';
+    });
+    this.props.clearFilter();
+  }
+
   render() {
     return (
       <div>
@@ -49,6 +56,8 @@ class UserSearchComponent extends Component {
           <Button ripple className="filter-button">
             <i className="material-icons">search</i>Search</Button>
         </form>
+        <Button ripple onClick={this.clearFilter.bind(this)} className="filter-button">
+            <i className="material-icons">clear</i>Clear Search</Button>
         <Button ripple onClick={this.props.onExportCallBack} className="filter-button">
           <i className="material-icons">file_download</i>
           Export</Button>

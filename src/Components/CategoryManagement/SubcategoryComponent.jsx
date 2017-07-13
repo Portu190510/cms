@@ -11,6 +11,7 @@ import Store from '../../Stores/SubcategoryStore';
 import Actions from '../../Actions/SubcategoryActions';
 import ParentActions from '../../Actions/ParentCategoryActions.js';
 import connectToStores from 'alt/utils/connectToStores';
+import filterUtil from '../../Utils/FilterUtil.js';
 
 class SubcategoryComponent extends Component {
     static getStores() {
@@ -54,9 +55,7 @@ class SubcategoryComponent extends Component {
     }
 
     sortDataList(e, orderBy) {
-        var filter = this.state.filter;
-        filter.sortOrder = filter.sortOrder === 'asc' ? 'desc' : 'asc';
-        filter.orderBy = filter.sortOrder === 'asc' ? orderBy : '-' + orderBy;
+        var filter = filterUtil.setupSortParams(e.target, this.state.filter, orderBy);
         Actions.fetchDataList(filter);
     }
 
@@ -76,6 +75,11 @@ class SubcategoryComponent extends Component {
         Actions.setToUnFeatured(courseId);
     }
 
+    clearFilter() {
+        this.setState({ filter: new FilterModel({}) });
+        Actions.fetchDataList(new FilterModel({}));
+    }
+
     render() {
         var self = this;
         return (
@@ -92,16 +96,16 @@ class SubcategoryComponent extends Component {
                         rows={this.state.dataList}>
                         <TableHeader name="label" tooltip="Title" onClick={this.sortDataList.bind(this)}
                             cellFormatter={(label, item) =>
-                                <div onClick={() => 
-                                    {self.child.handleOpenDialog(item)}}>{label}</div>
+                                <div onClick={() =>
+                                { self.child.handleOpenDialog(item) }}>{label}</div>
                             }>
-                            Title
+                            Title  &darr;
                         </TableHeader>
                         <TableHeader name="status" tooltip="Status" onClick={this.sortDataList.bind(this)}>
-                            Status
+                            Status  &darr;
                         </TableHeader>
                         <TableHeader name="parentCategory" tooltip="Parent Categories" onClick={this.sortDataList.bind(this)}>
-                            Parent Categories
+                            Parent Categories  &darr;
                         </TableHeader>
                         <TableHeader name="descriptions" tooltip="Description">
                             Description

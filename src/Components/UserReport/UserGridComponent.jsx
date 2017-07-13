@@ -7,6 +7,7 @@ import UserFilterModel from '../../Models/UserFilterModel';
 import UserReportActions from '../../Actions/UserReportActions';
 import UserReportStore from '../../Stores/UserReportStore';
 import connectToStores from 'alt/utils/connectToStores';
+import filterUtil from '../../Utils/FilterUtil.js';
 
 class UserGridComponent extends Component {
   static getStores() {
@@ -45,14 +46,17 @@ class UserGridComponent extends Component {
     UserReportActions.fetchDataList(filter);
   }
 
+  clearFilter() {
+    this.setState({ filter: new UserFilterModel({}) });
+    UserReportActions.fetchDataList(new UserFilterModel({}));
+  }
+
   filterDataList(filter) {
     UserReportActions.fetchDataList(filter);
   }
 
   sortDataList(e, orderBy) {
-    var filter = this.state.filter;
-    filter.orderBy = orderBy;
-    filter.sortOrder = filter.sortOrder === 'asc' ? 'desc' : 'asc';
+    var filter = filterUtil.setupSortParams(e.target, this.state.filter, orderBy);
     UserReportActions.fetchDataList(filter);
   }
 
@@ -72,9 +76,10 @@ class UserGridComponent extends Component {
   render() {
     return (
       <div className="mdl-card mdl-shadow--2dp full-size">
-      <h5 style={{ marginLeft: '15px' }}>Users Report</h5>
+        <h5 style={{ marginLeft: '15px' }}>Users Report</h5>
         <div className="mdl-card__supporting-text">
-          <UserSearchComponent filterCallBack={this.filterDataList} onExportCallBack={this.onExportToCsv.bind(this)}></UserSearchComponent>
+          <UserSearchComponent filterCallBack={this.filterDataList} clearFilter={this.clearFilter.bind(this)}
+            onExportCallBack={this.onExportToCsv.bind(this)}></UserSearchComponent>
         </div>
         <div className="mdl-card__actions mdl-card--border"></div>
         <div className="big-table">
@@ -85,40 +90,40 @@ class UserGridComponent extends Component {
             onSelectionChanged={this.onSelectionChanged.bind(this)}
             rows={this.state.dataList}>
             <TableHeader name="userId" numeric tooltip="User Id" onClick={this.sortDataList.bind(this)}>
-              User ID
+              User ID  &darr;
           </TableHeader>
             <TableHeader name="firstName" tooltip="First Name" onClick={this.sortDataList.bind(this)}>
-              First Name
+              First Name   &darr;
           </TableHeader>
             <TableHeader name="lastName" tooltip="Last Name" onClick={this.sortDataList.bind(this)}>
-              Last Name
+              Last Name   &darr;
           </TableHeader>
             <TableHeader name="email" tooltip="Email" onClick={this.sortDataList.bind(this)}>
-              Email
+              Email   &darr;
           </TableHeader>
             <TableHeader name="signupSource" tooltip="Signup Source" onClick={this.sortDataList.bind(this)}>
-              Signup Source
+              Signup Source   &darr;
           </TableHeader>
             <TableHeader name="lastLoginDate" className="date-array-field" tooltip="Last Login Date" onClick={this.sortDataList.bind(this)}>
-              Last Login Date
+              Last Login Date   &darr;
           </TableHeader>
             <TableHeader name="signupDate" className="date-array-field" tooltip="Signup Date" onClick={this.sortDataList.bind(this)}>
-              Signup Date
+              Signup Date   &darr;
           </TableHeader>
           </Table>
           <div className="pagination-box">
-            <div style={{margin: "auto",display: "flex"}}>
-            <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
-              previousLabel={<IconButton name="keyboard_arrow_left" />}
-              nextLabel={<IconButton name="keyboard_arrow_right" />}
-              breakLabel={<span className="ellipsis">...</span>}
-              pageNum={this.state.filter.currentPage}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={5}
-              pageLinkClassName="mdl-button mdl-js-button mdl-button--icon"
-              perPage={this.state.filter.displayPerPage}
-              onPageChange={this.onPageChange.bind(this)}>
-            </ReactPaginate >
+            <div style={{ margin: "auto", display: "flex" }}>
+              <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
+                previousLabel={<IconButton name="keyboard_arrow_left" />}
+                nextLabel={<IconButton name="keyboard_arrow_right" />}
+                breakLabel={<span className="ellipsis">...</span>}
+                pageNum={this.state.filter.currentPage}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                pageLinkClassName="mdl-button mdl-js-button mdl-button--icon"
+                perPage={this.state.filter.displayPerPage}
+                onPageChange={this.onPageChange.bind(this)}>
+              </ReactPaginate >
             </div>
           </div>
         </div>

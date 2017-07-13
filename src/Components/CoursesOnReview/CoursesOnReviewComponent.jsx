@@ -56,6 +56,15 @@ class CoursesOnReviewComponent extends Component {
         Actions.fetchDataList(model);
     }
 
+    clearFilter() {
+         _.forIn(this.refs, function (value, key) {
+            value.inputRef.value = '';
+        });
+
+        this.setState({ filter: new FilterModel({}), fromDate: null, toDate:null });
+        Actions.fetchDataList(new FilterModel({}));
+    }
+
     onCourseStatus(courseId, status) {
         Actions.changeCourseStatus(courseId, status);
     }
@@ -76,6 +85,8 @@ class CoursesOnReviewComponent extends Component {
                             <Button ripple className="filter-button">
                                 <i className="material-icons">search</i>Search</Button>
                         </form>
+                        <Button ripple onClick={this.clearFilter.bind(this)} className="filter-button">
+                            <i className="material-icons">clear</i>Clear Search</Button>
                     </div>
                 </div>
                 <div className="mdl-card__actions mdl-card--border" style={{borderBottom: "1px solid rgba(128, 128, 128, 0.26)"}}>
@@ -100,7 +111,7 @@ class CoursesOnReviewComponent extends Component {
                                             <p>
                                                 {
                                                     item.instructorIds.map((instructor) => {
-                                                        return (<p style={{textAlign:"right"}}><a href={"mailto:"+ instructor.email} target="_blank">{instructor.name}</a></p>)
+                                                        return (<p style={{textAlign:"right"}}>{instructor.name}</p>)
                                                     })
                                                 }
                                             </p>

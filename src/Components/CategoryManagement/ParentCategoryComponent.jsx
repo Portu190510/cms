@@ -9,6 +9,7 @@ import Actions from '../../Actions/ParentCategoryActions';
 import AddCategoryDialogComponent from './AddCategoryDialogComponent';
 import FileUpoadComponent from '../Common/FileUpoadComponent';
 import connectToStores from 'alt/utils/connectToStores';
+import filterUtil from '../../Utils/FilterUtil.js';
 
 class ParentCategoryComponent extends Component {
     static getStores() {
@@ -52,21 +53,24 @@ class ParentCategoryComponent extends Component {
     }
 
     sortDataList(e, orderBy) {
-        var filter = this.state.filter;
-        filter.sortOrder = filter.sortOrder === 'asc' ? 'desc' : 'asc';
-        filter.orderBy = filter.sortOrder === 'asc' ? orderBy : '-' + orderBy;
+        var filter = filterUtil.setupSortParams(e.target, this.state.filter, orderBy);
         Actions.fetchDataList(filter);
     }
 
     onAddCategory(model) {
         Actions.addCategory(model);
     }
-    onUpdateCategory(model, id){
-        Actions.updateCategory(model,id);
+    onUpdateCategory(model, id) {
+        Actions.updateCategory(model, id);
     }
 
     loadCoverImage(id, image) {
         console.log(id + ' ' + image);
+    }
+    
+    clearFilter() {
+        this.setState({ filter: new FilterModel({}) });
+        Actions.fetchDataList(new FilterModel({}));
     }
 
     render() {
@@ -74,7 +78,7 @@ class ParentCategoryComponent extends Component {
             <div className="mdl-card mdl-shadow--2dp full-size">
                 <div className="mdl-card__actions mdl-card--border">
                     <AddCategoryDialogComponent onAddCategory={this.onAddCategory.bind(this)} onUpdateCategory={this.onUpdateCategory.bind(this)}
-                     ref={instance => { this.child = instance; }}>
+                        ref={instance => { this.child = instance; }}>
                     </AddCategoryDialogComponent>
                 </div>
                 <div className="big-table">
@@ -83,14 +87,15 @@ class ParentCategoryComponent extends Component {
                         rowKeyColumn="id"
                         rows={this.state.dataList}>
                         <TableHeader name="label" tooltip="Title" onClick={this.sortDataList.bind(this)}
-                            cellFormatter={(label,item) =>
-                                <div onClick={() => { 
-                                    this.child.handleOpenDialog(item); }}>{label}</div>
+                            cellFormatter={(label, item) =>
+                                <div onClick={() => {
+                                    this.child.handleOpenDialog(item);
+                                }}>{label}</div>
                             }>
-                            Title
+                            Title  &darr;
                         </TableHeader>
                         <TableHeader name="status" tooltip="Status" onClick={this.sortDataList.bind(this)} >
-                            Status
+                            Status  &darr;
                         </TableHeader>
                         <TableHeader name="descriptions" tooltip="Descriptions">
                             Description

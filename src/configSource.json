@@ -4,6 +4,7 @@
     "grant_type": "password",
     "scope": "auth LMS",
     "instanceUrl": "https://www.cyberu.com",
+    "environmentName": "DEV",
     "apiUrl": {
         "auth": {
             "baseUrl": "http://auth.dev.cyberu.io",

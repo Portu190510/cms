@@ -7,6 +7,7 @@ import CoursesStore from '../../Stores/CoursesStore';
 import CoursesActions from '../../Actions/CoursesActions';
 import connectToStores from 'alt/utils/connectToStores';
 import ReactPaginate from 'react-paginate';
+import filterUtil from '../../Utils/FilterUtil.js';
 
 class CoursesReportComponent extends Component {
   static getStores() {
@@ -51,14 +52,18 @@ class CoursesReportComponent extends Component {
   }
 
   sortDataList(e, orderBy, t) {
-    var filter = this.state.filter;
-    filter.sortOrder = filter.sortOrder === 'asc' ? 'desc' : 'asc';
-    filter.orderBy = filter.sortOrder === 'asc' ? orderBy : '-' + orderBy;
+    var filter = filterUtil.setupSortParams(e.target, this.state.filter, orderBy);
+    this.setState({ filter: filter });
     CoursesActions.fetchDataList(filter);
   }
 
   filterDataList(model) {
     CoursesActions.fetchDataList(model);
+  }
+
+  clearFilter() {
+    this.setState({ filter: new CourseFilterModel({}) });
+    CoursesActions.fetchDataList(new CourseFilterModel({}));
   }
 
   export() {
@@ -68,12 +73,14 @@ class CoursesReportComponent extends Component {
   render() {
     return (
       <div className="mdl-card mdl-shadow--2dp full-size">
-      <h5 style={{ marginLeft: '15px' }}>Course Catalog</h5>
+        <h5 style={{ marginLeft: '15px' }}>Course Catalog</h5>
         <div className="mdl-card__supporting-text">
-          <CourseSearchComponent filterCallBack={this.filterDataList} export={this.export.bind(this)}></CourseSearchComponent>
+          <CourseSearchComponent filterCallBack={this.filterDataList} clearFilter={this.clearFilter.bind(this)} export={this.export.bind(this)}></CourseSearchComponent>
         </div>
-        <div className="mdl-card__actions mdl-card--border"></div>
-        <div className="big-table table-scroll" style={{height: '630px'}}>
+        <div className="mdl-card__actions mdl-card--border" style={{ borderBottom: "1px solid rgba(128, 128, 128, 0.26)" }}>
+          <p style={{ marginLeft: '15px', marginBottom: "0px" }}>Results: {this.state.filter.totalResults}</p>
+        </div>
+        <div className="big-table table-scroll" style={{ height: '630px' }}>
           <Table className="full-size date-array-field"
             selectable
             onSelectionChanged={this.onSelectionChanged.bind(this)}
@@ -81,24 +88,24 @@ class CoursesReportComponent extends Component {
             rowKeyColumn="id"
             rows={this.state.dataList}>
             <TableHeader name="title" tooltip="Course Title" onClick={this.sortDataList.bind(this)}>
-              Title
+              Title  &darr;
           </TableHeader>
             <TableHeader name="instructor" tooltip="Instructor">
-              Instructor
+              Instructor  &darr;
           </TableHeader>
             <TableHeader name="userIdOfInstructor" tooltip="User ID of Instructor" >
-              UserID of Instructor
+              UserID of Instructor  &darr;
           </TableHeader>
             <TableHeader
               name="id"
               tooltip="User Id" onClick={this.sortDataList.bind(this)}>
-              Course ID
+              Course ID  &darr;
           </TableHeader>
             <TableHeader name="headline" tooltip="Headline" onClick={this.sortDataList.bind(this)}>
-              Headline
+              Headline  &darr;
           </TableHeader>
             <TableHeader name="duration_sec" tooltip="Duration (in minutes) " onClick={this.sortDataList.bind(this)}>
-              Duration
+              Duration  &darr;
           </TableHeader>
             <TableHeader name="primary_category" tooltip="Primary Parent Category">
               Prim. Parent Category
@@ -113,28 +120,28 @@ class CoursesReportComponent extends Component {
               Sec. Child Category
           </TableHeader>
             <TableHeader name="status" tooltip="Course Status" onClick={this.sortDataList.bind(this)}>
-              Course Status
+              Course Status  &darr;
           </TableHeader>
             <TableHeader name="updated" className="date-array-field" tooltip="Last Updated Date" onClick={this.sortDataList.bind(this)}>
-              Last Updated Date
+              Last Updated Date  &darr;
           </TableHeader>
-            <TableHeader style={{whiteSpace:'initial'}} name="skills" tooltip="Skills">
+            <TableHeader style={{ whiteSpace: 'initial' }} name="skills" tooltip="Skills">
               Skills
           </TableHeader>
           </Table>
           <div className="pagination-box">
-            <div style={{margin: "auto",display: "flex"}}>
-            <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
-              previousLabel={<IconButton name="keyboard_arrow_left" />}
-              nextLabel={<IconButton name="keyboard_arrow_right" />}
-              breakLabel={<span className="ellipsis">...</span>}
-              pageNum={this.state.filter.currentPage}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={5}
-              pageLinkClassName="mdl-button mdl-js-button mdl-button--icon"
-              perPage={this.state.filter.displayPerPage}
-              onPageChange={this.onPageChange.bind(this)}>
-            </ReactPaginate >
+            <div style={{ margin: "auto", display: "flex" }}>
+              <ReactPaginate containerClassName="pagination" pageCount={this.state.filter.totalPages}
+                previousLabel={<IconButton name="keyboard_arrow_left" />}
+                nextLabel={<IconButton name="keyboard_arrow_right" />}
+                breakLabel={<span className="ellipsis">...</span>}
+                pageNum={this.state.filter.currentPage}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                pageLinkClassName="mdl-button mdl-js-button mdl-button--icon"
+                perPage={this.state.filter.displayPerPage}
+                onPageChange={this.onPageChange.bind(this)}>
+              </ReactPaginate >
             </div>
           </div>
         </div>

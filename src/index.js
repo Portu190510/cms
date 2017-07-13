@@ -20,8 +20,10 @@ import NotFoundComponent from "./Components/Common/NotFoundComponent";
 import axios from 'axios';
 import AuthActions from './Actions/AuthActions';
 import AuthStore from './Stores/AuthStore';
+import Config from './config';
 
 AuthActions.localLogin();
+document.title = Config.environmentName + ' CMS';
 
 function requireAuth(nextState, replaceState) {
   if (AuthStore.getState().accessToken === null) {

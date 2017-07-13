@@ -117,6 +117,10 @@ class AddSubCategoryDialogComponent extends Component {
     return this.state.title.length > 0 && this.refs.parentCategory.state.value.length > 0;
   }
 
+  validateField(item){
+    return item && item.state && item.state.value != '' ? '' : 'is-invalid'
+  }
+
   render() {
     return (
       <div>
@@ -146,8 +150,11 @@ class AddSubCategoryDialogComponent extends Component {
                 autocomplete
                 required
                 floatingLabel
-                className={this.refs.parentCategory && this.refs.parentCategory.state && this.refs.parentCategory.state.value != '' ? '' : ' is-invalid'}
-                onChange={() => { }}
+                className={this.validateField(this.refs.parentCategory)}
+                onChange={(val) => {
+                  debugger;
+                  this.className = this.validateField(val)
+                 }}
                 items={this.state.parentCategoryList || []}
                 keyField="id"
                 valueField="name"
@@ -157,7 +164,9 @@ class AddSubCategoryDialogComponent extends Component {
                 ref="secondaryParentCategory"
                 autocomplete
                 floatingLabel
-                onChange={() => { }}
+                onChange={() => {
+                  
+                 }}
                 items={this.state.parentCategoryList || []}
                 keyField="id"
                 valueField="name"
